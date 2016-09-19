@@ -1,0 +1,51 @@
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
+import { PerDiemService } from '../../services/per-diem';
+
+@Component({
+  templateUrl: 'build/pages/per-diem/per-diem.html',
+  providers: [PerDiemService]
+})
+export class PerDiemPage {
+  private city = '';
+  private cities = [];
+  private timeoutId;
+
+  constructor(
+    public perDiemService : PerDiemService,
+    public navCtrl        : NavController
+  ) {}
+
+  ionViewWillEnter() {
+    return this.search();
+  }
+
+  update(event) {
+    clearTimeout(this.timeoutId);
+
+    this.city = event.target.value;
+
+
+    this.timeoutId = setTimeout(() => this.search(), 300);
+  }
+  
+  reset() {
+    this.city = '';
+    this.search();
+  }
+
+  search() {
+    return this.perDiemService.search(this.city).then(res => this.cities = res);
+  }
+
+  toggleSaved(city) {
+
+    if (city.Saved) {
+      this.perDiemService.unsave(city.ID);
+    } else {
+      this.perDiemService.save(city.ID);
+    }
+    city.Saved = !city.Saved;
+  }
+}

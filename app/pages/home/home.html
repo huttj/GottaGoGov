@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>GottaFlyFed</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="home">
+
+  <ion-card>
+    <ion-card-header>Per Diem Rates</ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let city of cities">
+        <h2>{{city.City}}, {{city.State}}</h2>
+        <p>Meals: {{city.MIE}}</p>
+        <p>Lodging: {{city.Lodge}}</p>
+        <ion-icon bright name="close" item-right (click)="unsaveCity(city)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>Flights</ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let flight of flights">
+        <h2>{{flight.originCity}} ({{flight.originAirport}}) to {{flight.destinationCity}} ({{flight.originAirport}})</h2>
+        <p>YCA Fare: {{flight.ycaFare}}</p>
+        <p>XCA Fare: {{flight.xcaFare}}</p>
+        <ion-icon bright name="close" item-right (click)="unsaveFlight(flight)"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

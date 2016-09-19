@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Per Diem</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="per-diem">
+  <ion-list inset>
+
+    <ion-item>
+      <ion-icon style="z-index: 9001;" name="close" (click)="reset()" item-right></ion-icon>
+      <ion-input type="text" [value]="city" placeholder="City name" (input)="update($event)"></ion-input>
+    </ion-item>
+
+    <ion-item *ngFor="let city of cities">
+      <ion-icon [name]="city.Saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved(city)"></ion-icon>
+      <h2>{{city.City}}, {{city.State}}</h2>
+      <p>Meals: {{city.MIE}}</p>
+      <p>Lodging: {{city.Lodge}}</p>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
