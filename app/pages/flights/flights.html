@@ -21,8 +21,8 @@
       <ion-input type="text" [value]="destinationSearch" placeholder="Destination" (input)="updateDestination($event)"></ion-input>
     </ion-item>
 
-    <ion-item *ngFor="let flight of results">
-      <ion-icon bright [name]="flight.saved ? 'star' : 'star-outline'" item-left (click)="toggleSaved(flight)"></ion-icon>
+    <ion-item *ngFor="let flight of results" (click)="selectFlight(flight)">
+      <ion-icon bright [name]="flight.saved ? 'star' : 'star-outline'" item-left (click)="toggleSaved($event, flight)"></ion-icon>
       <h2>{{flight.originCity}} ({{flight.originAirport}}) to {{flight.destinationCity}} ({{flight.originAirport}})</h2>
       <p>YCA Fare: {{flight.ycaFare}}</p>
       <p>XCA Fare: {{flight.xcaFare}}</p>

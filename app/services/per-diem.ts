@@ -61,6 +61,12 @@ export class PerDiemService {
       .catch(toss);
   }
 
+  getById(id: number) {
+    return this.data.executeSql("SELECT * FROM PerDiemRates WHERE ID = ?", [id])
+      .then(rows => rows.map(this.mapCity)[0])
+      .catch(toss);
+  }
+
 }
 
 function toss(err) {

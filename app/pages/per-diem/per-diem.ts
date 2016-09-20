@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { PerDiemService } from '../../services/per-diem';
+import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 
 @Component({
   templateUrl: 'build/pages/per-diem/per-diem.html',
@@ -29,7 +30,7 @@ export class PerDiemPage {
 
     this.timeoutId = setTimeout(() => this.search(), 300);
   }
-  
+
   reset() {
     this.city = '';
     this.search();
@@ -39,8 +40,8 @@ export class PerDiemPage {
     return this.perDiemService.search(this.city).then(res => this.cities = res);
   }
 
-  toggleSaved(city) {
-
+  toggleSaved(event, city) {
+    event.stopPropagation();
     if (city.Saved) {
       this.perDiemService.unsave(city.ID);
     } else {
@@ -48,4 +49,9 @@ export class PerDiemPage {
     }
     city.Saved = !city.Saved;
   }
+
+  selectCity({ ID }) {
+    this.navCtrl.push(PerDiemDetailPage, { id: ID });
+  }
+
 }

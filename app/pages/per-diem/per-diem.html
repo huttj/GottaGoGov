@@ -12,8 +12,8 @@
       <ion-input type="text" [value]="city" placeholder="City name" (input)="update($event)"></ion-input>
     </ion-item>
 
-    <ion-item *ngFor="let city of cities">
-      <ion-icon [name]="city.Saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved(city)"></ion-icon>
+    <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
+      <ion-icon [name]="city.Saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>
       <h2>{{city.City}}, {{city.State}}</h2>
       <p>Meals: {{city.MIE}}</p>
       <p>Lodging: {{city.Lodge}}</p>

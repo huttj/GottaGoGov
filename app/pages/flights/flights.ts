@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { FlightsService } from '../../services/flights';
+import { FlightDetailPage } from '../flight-detail/flight-detail';
+import { FlightsService }   from '../../services/flights';
 
 @Component({
   templateUrl: 'build/pages/flights/flights.html',
@@ -19,6 +20,10 @@ export class FlightsPage {
     public navCtrl: NavController,
     public flightsService: FlightsService
   ) {}
+
+  ionViewWillEnter() {
+    return this.search();
+  }
 
   search() {
     clearTimeout(this.searchTimeout);
@@ -52,13 +57,18 @@ export class FlightsPage {
     this.search();
   }
 
-  toggleSaved(flight) {
+  toggleSaved(event, flight) {
+    event.stopPropagation();
     if (flight.saved) {
       this.flightsService.unsave(flight.id);
     } else {
       this.flightsService.save(flight.id);
     }
     this.search();
+  }
+
+  selectFlight({ id }) {
+    this.navCtrl.push(FlightDetailPage, { id });
   }
 
 }
