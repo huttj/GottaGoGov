@@ -9,7 +9,8 @@ import { PerDiemService } from '../../services/per-diem';
 })
 export class PerDiemDetailPage {
 
-  private city = {};
+  private city   = {};
+  private nearby = [];
 
   constructor(
     public navParams: NavParams,
@@ -20,16 +21,18 @@ export class PerDiemDetailPage {
     return this.loadCity();
   }
 
-  loadCity() {
-    const id = this.navParams.get('id');
-    return this.perDiemService.getById(id).then(res => this.city = JSON.stringify(res));
+  async loadCity() {
+    const id  = this.navParams.get('id');
+    const res = await this.perDiemService.getByIdWithNearby(id);
+
+    [this.city, ...this.nearby] = res;
   }
 
-  toggleSaved(flight) {
-    if (flight.saved) {
-      this.perDiemService.unsave(flight.id);
+  toggleSaved(city) {
+    if (city.saved) {
+      this.perDiemService.unsave(city.cityId);
     } else {
-      this.perDiemService.save(flight.id);
+      this.perDiemService.save(city.cityId);
     }
   }
 

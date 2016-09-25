@@ -13,10 +13,10 @@
     </ion-item>
 
     <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
-      <ion-icon [name]="city.Saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>
-      <h2>{{city.City}}, {{city.State}}</h2>
-      <p>Meals: {{city.MIE}}</p>
-      <p>Lodging: {{city.Lodge}}</p>
+      <ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>
+      <h2>{{city.city}}, {{city.state}}</h2>
+      <p>Meals: {{city.mie}}</p>
+      <p>Lodging: {{city.lodgingRate}}</p>
     </ion-item>
 
   </ion-list>

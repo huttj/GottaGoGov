@@ -43,15 +43,16 @@ export class PerDiemPage {
   toggleSaved(event, city) {
     event.stopPropagation();
     if (city.Saved) {
-      this.perDiemService.unsave(city.ID);
+      this.perDiemService.unsave(city.id);
     } else {
-      this.perDiemService.save(city.ID);
+      this.perDiemService.save(city.id);
     }
     city.Saved = !city.Saved;
   }
 
-  selectCity({ ID }) {
-    this.navCtrl.push(PerDiemDetailPage, { id: ID });
+  selectCity(city) {
+    console.log('Selected', JSON.stringify(city, null, 2));
+    this.navCtrl.push(PerDiemDetailPage, { id: city.id });
   }
 
 }

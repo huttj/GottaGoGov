@@ -8,6 +8,22 @@
 
 <ion-content>
 
-  {{city}}
+  <h1>{{city.city}}, {{city.abbr}}</h1>
+  <h2>Lodging: {{city.lodging}}</h2>
+  <h2>Meals: {{city.mie}}</h2>
+  <p>Lat: {{city.latitude}}</p>
+  <p>Long: {{city.longitude}}</p>
+  <p>Distance: {{city.distance}}</p>
+
+  <ion-list inset>
+
+    <ion-item *ngFor="let other of nearby">
+      <h2>{{other.city}}, {{other.state}}</h2>
+      <p>Meals: {{other.mie}}</p>
+      <p>Lodging: {{other.lodgingRate}}</p>
+      <p>Distance: {{other.distance}}</p>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
