@@ -1,0 +1,21 @@
+<ion-header class="bar-positive">
+  <ion-navbar>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="settings">
+
+  <ion-list>
+
+
+    <ion-item>
+      <ion-label>Theme</ion-label>
+      <ion-select [(ngModel)]="selectedTheme" (ionChange)="update(selectedTheme)">
+        <ion-option *ngFor="let theme of themes" [value]="theme.value">{{theme.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

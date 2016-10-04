@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { FlightDetailPage } from '../flight-detail/flight-detail';
 import { FlightsService }   from '../../services/flights';
+
+import Flight from '../../models/flight';
+
 
 @Component({
   templateUrl: 'build/pages/flights/flights.html',
@@ -14,12 +17,16 @@ export class FlightsPage {
   private originSearch = '';
   private destinationSearch = '';
 
-  private results = [];
+  private results : Flight[] = [];
 
   constructor(
+    public navParams: NavParams,
     public navCtrl: NavController,
     public flightsService: FlightsService
-  ) {}
+  ) {
+    this.originSearch      = navParams.get('origin') || '';
+    this.destinationSearch = navParams.get('destination') || '';
+  }
 
   ionViewWillEnter() {
     return this.search();

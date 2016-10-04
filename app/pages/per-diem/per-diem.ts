@@ -4,13 +4,16 @@ import { NavController } from 'ionic-angular';
 import { PerDiemService } from '../../services/per-diem';
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 
+import PerDiem from '../../models/per-diem';
+
+
 @Component({
   templateUrl: 'build/pages/per-diem/per-diem.html',
   providers: [PerDiemService]
 })
 export class PerDiemPage {
   private city = '';
-  private cities = [];
+  private cities : PerDiem[] = [];
   private timeoutId;
 
   constructor(
@@ -23,35 +26,35 @@ export class PerDiemPage {
   }
 
   update(event) {
+    window['perDiem'] = this;
+
     clearTimeout(this.timeoutId);
 
     this.city = event.target.value;
-
 
     this.timeoutId = setTimeout(() => this.search(), 300);
   }
 
   reset() {
     this.city = '';
-    this.search();
+    this.search('');
   }
 
-  search() {
-    return this.perDiemService.search(this.city).then(res => this.cities = res);
+  search(q='') {
+    return this.perDiemService.search(this.city || q).then(res => this.cities = res);
   }
 
   toggleSaved(event, city) {
     event.stopPropagation();
-    if (city.Saved) {
-      this.perDiemService.unsave(city.id);
+    if (city.saved) {
+      this.perDiemService.unsave(city.cityId);
     } else {
-      this.perDiemService.save(city.id);
+      this.perDiemService.save(city.cityId);
     }
-    city.Saved = !city.Saved;
+    city.saved = !city.saved;
   }
 
   selectCity(city) {
-    console.log('Selected', JSON.stringify(city, null, 2));
     this.navCtrl.push(PerDiemDetailPage, { id: city.id });
   }
 

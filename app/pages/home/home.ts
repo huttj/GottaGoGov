@@ -21,15 +21,13 @@ export class HomePage {
   ) {}
 
   ionViewWillEnter() {
-    return Promise.all([
-      this.perDiemService.getSaved().then(rows => this.cities  = rows),
-      this.flightsService.getSaved().then(rows => this.flights = rows)
-    ]);
+    this.perDiemService.getSaved().then(rows => this.cities  = rows);
+    this.flightsService.getSaved().then(rows => this.flights = rows);
   }
 
   unsaveCity(event, city) {
     event.stopPropagation();
-    this.perDiemService.unsave(city.ID);
+    this.perDiemService.unsave(city.cityId);
     this.perDiemService.getSaved().then(rows => this.cities = rows);
   }
 
@@ -39,8 +37,8 @@ export class HomePage {
     this.flightsService.getSaved().then(rows => this.flights = rows);
   }
 
-  selectCity({ID}) {
-    this.navCtrl.push(PerDiemDetailPage, {id: ID});
+  selectCity({id}) {
+    this.navCtrl.push(PerDiemDetailPage, {id});
   }
 
   selectFlight({id}) {

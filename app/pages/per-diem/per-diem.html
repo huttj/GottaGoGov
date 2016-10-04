@@ -2,15 +2,24 @@
   <ion-navbar>
     <ion-title>Per Diem</ion-title>
   </ion-navbar>
+
+  <ion-searchbar
+    [(ngModel)]="city"
+    [showCancelButton]="!!city"
+    (ionInput)="update($event)"
+    (ionCancel)="reset($event)">
+  </ion-searchbar>
+
 </ion-header>
 
-<ion-content padding class="per-diem">
-  <ion-list inset>
+<!--<ion-item>-->
+  <!--<ion-icon style="z-index: 9001;" name="close" (click)="reset()" item-right></ion-icon>-->
+  <!--<ion-input type="text" [value]="city" placeholder="City name" (input)="update($event)"></ion-input>-->
+<!--</ion-item>-->
 
-    <ion-item>
-      <ion-icon style="z-index: 9001;" name="close" (click)="reset()" item-right></ion-icon>
-      <ion-input type="text" [value]="city" placeholder="City name" (input)="update($event)"></ion-input>
-    </ion-item>
+<ion-content padding class="per-diem">
+
+  <ion-list inset>
 
     <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
       <ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>

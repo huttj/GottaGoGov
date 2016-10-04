@@ -12,3 +12,70 @@
 @import "../pages/flights/flights";
 
 @import "../pages/home/home";
+
+@import "../pages/per-diem-detail/per-diem-detail";
+
+@import "../components/map/map";
+
+
+@import "../../node_modules/leaflet/dist/leaflet.css";
+
+.delta {
+
+  .toolbar * {
+    color: white !important;
+  }
+
+  .toolbar-background,
+  ion-searchbar {
+    background-color: #003366;
+  }
+
+  .toolbar-title {
+    color: white;
+  }
+
+  ion-card ion-card-header {
+    background-color: #c01933;
+    color: white;
+  }
+
+  ion-searchbar {
+    top: -1px;
+  }
+
+  ion-content {
+    background-color: #e5e5e5;
+  }
+
+}
+
+.southwest {
+
+  .toolbar * {
+    color: white !important;
+  }
+
+  .toolbar-background,
+  ion-searchbar {
+    background-color: #304db5;
+  }
+ß
+  .toolbar-title {
+    color: white;
+  }
+
+  ion-card ion-card-header {
+    background-color: #f9a818;
+    color: white;
+  }
+
+  ion-searchbar {
+    top: -1px;
+  }
+
+  ion-content {
+    background-color: #e5e5e5;
+  }
+
+}

@@ -13,11 +13,18 @@ export class FlightsService {
     return this.data.executeSql(
       `   SELECT *
             FROM flights
-           WHERE originCityName LIKE ?
-             AND destinationCityName LIKE ?
+           WHERE (
+                originCityName LIKE ?
+                OR flights.originAirportAbbrev LIKE ?
+           )
+             AND (
+                destinationCityName LIKE ?
+                OR flights.destinationAirportAbbrev LIKE ?
+             )
+             
         ORDER BY saved DESC, originCityName ASC, destinationCityName ASC
            LIMIT 50`,
-      [originCity+'%', destinationCity+'%']
+      [originCity+'%', originCity+'%', destinationCity+'%', destinationCity+'%']
     )
       .catch(toss);
   }
