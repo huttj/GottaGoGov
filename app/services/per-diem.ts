@@ -9,12 +9,13 @@ export class PerDiemService {
   private props = `
      p.id
     ,p.cityId
-    ,p.lodgingRate
+    ,p.lodging
     ,p.mie
     ,c.latitude
     ,c.longitude
     ,c.name AS city
     ,c.state
+    ,c.country
     ,c.saved
     ,p.seasonBegin
     ,p.seasonEnd

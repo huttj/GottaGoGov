@@ -4,15 +4,18 @@ export default class City {
   latitude  : number;
   longitude : number;
   state     : string;
+  country   : string;
   abbr      : string;
   saved     : boolean;
 
   constructor(obj) {
+    if (!obj) obj = {};
     this.id        = obj.id;
     this.name      = obj.name;
     this.latitude  = obj.latitude;
     this.longitude = obj.longitude;
     this.state     = obj.state;
+    this.country   = obj.country;
     this.abbr      = obj.abbr;
     this.saved     = !!obj.saved;
   }

@@ -10,7 +10,7 @@
 
   <ion-item>
     <h1>{{perDiem.city}}, {{perDiem.abbr}}</h1>
-    <h2>Lodging: <strong>${{perDiem.lodgingRate}}</strong></h2>
+    <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
     <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
 
     <h3><em>{{betterDealMessage()}}</em></h3>
@@ -40,7 +40,7 @@
     <ion-item *ngFor="let other of nearby" (click)="selectCity(other)">
       <h2 [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
       <h3>Meals: ${{other.mie}} <span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></h3>
-      <h3>Lodging: ${{other.lodgingRate}} <span [style.color]="other.difference.lodgingRate.color">{{other.difference.lodgingRate.value}}</span></h3>
+      <h3>Lodging: ${{other.lodging}} <span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></h3>
       <h3>Distance: {{toFixed(other.distance)}} mi</h3>
     </ion-item>
 

@@ -1,6 +1,6 @@
-import { Component }      from '@angular/core';
-import { NavParams }      from 'ionic-angular';
-import { NavController }  from 'ionic-angular';
+import { Component }                from '@angular/core';
+import { NavParams, NavController } from 'ionic-angular';
+
 import { PerDiemService } from '../../services/per-diem';
 import { MapComponent }   from '../../components/map/map';
 
@@ -42,11 +42,11 @@ export class PerDiemDetailPage {
         this.perDiemService.getNearby(perDiem.latitude, perDiem.longitude)
           .then(res => {
 
-            const thisTotal = this.perDiem.mie + this.perDiem.lodgingRate;
+            const thisTotal = this.perDiem.mie + this.perDiem.lodging;
 
             res.forEach((n:PerDiem) => {
               n.difference = this.difference(this.perDiem, n);
-              const total = n.mie + n.lodgingRate;
+              const total = n.mie + n.lodging;
               if (total > thisTotal) {
                 this.betterDeals++;
                 n['betterDeal'] = true;
@@ -77,12 +77,12 @@ export class PerDiemDetailPage {
 
     if (!n1 || !n2) return {
       mie: {},
-      lodgingRate: {}
+      lodging: {}
     };
 
     return {
       mie: diff(n1.mie, n2.mie),
-      lodgingRate: diff(n1.lodgingRate, n2.lodgingRate)
+      lodging: diff(n1.lodging, n2.lodging)
     };
 
     function diff(n1, n2) {
@@ -103,11 +103,11 @@ export class PerDiemDetailPage {
   sortBy() {
     switch(this.sort) {
       case 'total':
-        return this.nearby.sort((a,b) => (b.mie + b.lodgingRate) - (a.mie + a.lodgingRate));
+        return this.nearby.sort((a,b) => (b.mie + b.lodging) - (a.mie + a.lodging));
       case 'meals':
         return this.nearby.sort((a,b) => b.mie - a.mie);
       case 'lodging':
-        return this.nearby.sort((a,b) => b.lodgingRate - a.lodgingRate);
+        return this.nearby.sort((a,b) => b.lodging - a.lodging);
     }
   }
 

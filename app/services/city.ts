@@ -1,7 +1,6 @@
 import { Injectable }  from '@angular/core';
 import { DataService } from './data';
-import calcDistance    from '../util/calcDistance';
-
+import City            from '../models/city';
 
 @Injectable()
 export class CityService {
@@ -9,26 +8,25 @@ export class CityService {
   private props = `
      c.id
     ,c.name
-    ,c.lodgingRate
-    ,c.mie
     ,c.latitude
     ,c.longitude
     ,c.state
+    ,c.country
     ,c.abbr
     ,c.saved
   `;
 
   private mapCity(city) {
-    console.log(`City ${city.City} ${city.Saved ? 'IS' : ' is NOT'} saved: ${city.Saved}`);
-    city.Saved = !!city.Saved;
-    return city;
+    return new City(city);
   }
 
   constructor(private data: DataService) {}
 
   getById(id: number) {
     return this.data.executeSql(`
-      SELECT * FROM cities WHERE id = ?
+      SELECT ${this.props}
+        FROM cities
+       WHERE id = ?
     `, [id])
       .then(rows => rows.map(this.mapCity)[0])
       .catch(toss);
@@ -36,11 +34,11 @@ export class CityService {
 
   search(str: string) {
     return this.data.executeSql(`
-          SELECT *
+          SELECT ${this.props}
             FROM cities c
-           WHERE c.name LIKE ?
+           WHERE c.name  LIKE ?
               OR c.state LIKE ?
-              OR c.ABBR LIKE ?
+              OR c.abbr  LIKE ?
            LIMIT 100
     `, [str+'%',str+'%',str+'%'])
       .then(rows => rows.map(this.mapCity))

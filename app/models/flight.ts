@@ -1,49 +1,49 @@
 export default class Flight {
-  id: number;
-  awardYear: number;
+  id                         : number;
+  awardYear                  : number;
 
-  originCityId: number;
-  originAirportAbbrev: string;
-  originCityName: string;
-  originState: string;
-  originCountry: string;
-  originAirportLocation: string;
+  originCityId               : number;
+  originCity                 : string;
+  originState                : string;
+  originCountry              : string;
+  originAirportAbbrev        : string;
+  originAirportLocation      : string;
 
-  destinationCityId: number;
-  destinationCityName: string;
-  destinationState: string;
-  destinationAirportAbbrev: string;
-  destinationCountry: string;
-  destinationAirportLocation: string;
+  destinationCityId          : number;
+  destinationCity            : string;
+  destinationState           : string;
+  destinationCountry         : string;
+  destinationAirportAbbrev   : string;
+  destinationAirportLocation : string;
 
-  airlineAbbrev: string;
-  awardedServ: string;
-  paxCount: string;
-  ycaFare: string;
-  xcaFare: string;
-  businessFare: number;
-  effectiveDate: number;
-  expirationDate: number;
-  saved: boolean;
+  airlineAbbrev              : string;
+  awardedServ                : string;
+  paxCount                   : string;
+  ycaFare                    : string;
+  xcaFare                    : string;
+  businessFare               : number;
+  effectiveDate              : number;
+  expirationDate             : number;
+  saved                      : boolean;
 
-  constructor(obj) {
+  constructor(obj?) {
     if (!obj) obj = {};
 
     this.id                         = obj.id;
     this.awardYear                  = obj.awardYear;
 
     this.originCityId               = obj.originCityId;
-    this.originAirportAbbrev        = obj.originAirportAbbrev;
-    this.originCityName             = obj.originCityName;
+    this.originCity                 = obj.originCity;
     this.originState                = obj.originState;
     this.originCountry              = obj.originCountry;
+    this.originAirportAbbrev        = obj.originAirportAbbrev;
     this.originAirportLocation      = obj.originAirportLocation;
 
     this.destinationCityId          = obj.destinationCityId;
-    this.destinationCityName        = obj.destinationCityName;
+    this.destinationCity            = obj.destinationCity;
     this.destinationState           = obj.destinationState;
-    this.destinationAirportAbbrev   = obj.destinationAirportAbbrev;
     this.destinationCountry         = obj.destinationCountry;
+    this.destinationAirportAbbrev   = obj.destinationAirportAbbrev;
     this.destinationAirportLocation = obj.destinationAirportLocation;
 
     this.airlineAbbrev              = obj.airlineAbbrev;

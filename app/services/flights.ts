@@ -2,27 +2,31 @@ import { Injectable }  from '@angular/core';
 import { DataService } from './data';
 import calcDistance    from '../util/calcDistance';
 
+import Flight from '../models/flight';
+
 
 @Injectable()
 export class FlightsService {
 
   constructor(public data: DataService) {}
 
-  search(originCity: string, destinationCity: string) {
+  search(
+    originCity: string,
+    destinationCity: string
+  ):Promise<Flight[]> {
 
     return this.data.executeSql(
-      `   SELECT *
-            FROM flights
+      `    SELECT *
+           FROM flights
            WHERE (
-                originCityName LIKE ?
+                originCity LIKE ?
                 OR flights.originAirportAbbrev LIKE ?
            )
              AND (
-                destinationCityName LIKE ?
+                destinationCity LIKE ?
                 OR flights.destinationAirportAbbrev LIKE ?
              )
-             
-        ORDER BY saved DESC, originCityName ASC, destinationCityName ASC
+        ORDER BY saved DESC, originCity ASC, destinationCity ASC
            LIMIT 50`,
       [originCity+'%', originCity+'%', destinationCity+'%', destinationCity+'%']
     )
@@ -34,19 +38,27 @@ export class FlightsService {
       ` SELECT *
           FROM flights
          WHERE saved = 1
-      ORDER BY saved DESC, originCityName ASC, destinationCityName ASC`,
+      ORDER BY saved DESC, originCity ASC, destinationCity ASC`,
       []
     )
       .catch(toss);
   }
 
-  getById(id) {
+  getById(id):Promise<Flight> {
     return this.data.executeSql(
-      `SELECT *
-       FROM flights
-       WHERE id = ?`,
-      [id]
-    )
+      `SELECT
+                  f.*
+                 ,oc.latitude  AS originLatitude
+                 ,oc.longitude AS originLongitude
+                 ,dc.latitude  AS destinationLatitude
+                 ,dc.longitude AS destinationLongitude
+            FROM flights f
+       LEFT JOIN cities oc
+              ON oc.id = f.originCityId
+       LEFT JOIN cities dc
+              ON dc.id = f.destinationCityId
+           WHERE f.id = ?
+     `, [id])
       .then(rows => rows[0])
       .catch(toss);
   }
@@ -69,46 +81,6 @@ export class FlightsService {
       [id]
     )
       .catch(toss);
-  }
-
-  getPerDiems(destinationCityId, miles=50) {
-
-    const miPerDeg = 27.0271614;
-    // const miPerDeg = 69.1710411;
-    const degrees = miles / miPerDeg;
-
-    return this.data.executeSql(`
-      SELECT
-         f.*
-        ,oc.*
-        ,fc.latitude  AS flightLatitude
-        ,fc.longitude AS flightLongitude
-      
-      FROM flights f
-      
-      INNER JOIN cities fc
-        ON fc.id = f.destinationCityId
-      
-      LEFT JOIN cities oc
-        ON  oc.latitude  IS NOT NULL
-        AND oc.longitude IS NOT NULL
-        AND fc.latitude  IS NOT NULL
-        AND fc.longitude IS NOT NULL
-      
-        AND fc.latitude  > oc.latitude  - ?
-        AND fc.latitude  < oc.latitude  + ?
-        AND fc.longitude > oc.longitude - ?
-        AND fc.longitude < oc.longitude + ?
-      
-      WHERE f.id = ?
-    `, [
-      degrees,
-      degrees,
-      degrees,
-      degrees,
-      destinationCityId
-    ]).then((rows:any[]) => rows.filter(n => calcDistance(n.flightLatitude, n.flightLongitude, n.latitude, n.longitude) < miles));
-
   }
 
 }

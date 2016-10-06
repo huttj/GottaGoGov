@@ -12,16 +12,21 @@ export class MapComponent {
   @Input() long:number;
 
   private id : string;
+  private L : any;
 
   constructor() {
+    this.L = window['L'];
     this.id = 'map-' + idCounter;
     idCounter++;
   }
 
   initMap() {
     const coords = [this.lat, this.long];
-    const mymap = window['L'].map(this.id).setView(coords, 12);
-    window['L'].tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+
+    const mymap = this.L.map(this.id).setView(coords, 12);
+    this.L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+    this.L.marker(coords).addTo(mymap)
+
     setTimeout(()=> mymap.invalidateSize());
   }
 

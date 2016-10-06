@@ -14,7 +14,7 @@
       </ion-item>
       <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
         <h2>{{city.city}}, {{city.state}}</h2>
-        <p>Lodging: {{city.lodgingRate}}</p>
+        <p>Lodging: {{city.lodging}}</p>
         <p>Meals: {{city.mie}}</p>
         <ion-icon bright name="close" item-right (click)="unsaveCity($event, city)"></ion-icon>
       </ion-item>
@@ -28,7 +28,7 @@
         You don't have any saved flights.
       </ion-item>
       <ion-item *ngFor="let flight of flights" (click)="selectFlight(flight)">
-        <h2>{{flight.originCityName}} ({{flight.originAirportLocation}}) to {{flight.destinationCityName}} ({{flight.destinationAirportLocation}})</h2>
+        <h2>{{flight.originCity}} ({{ flight.originState || flight.originCountry }}) to {{flight.destinationCity}} ({{ flight.destinationState || flight.destinationCountry }})</h2>
         <p>YCA Fare: {{flight.ycaFare}}</p>
         <p>XCA Fare: {{flight.xcaFare}}</p>
         <ion-icon bright name="close" item-right (click)="unsaveFlight($event, flight)"></ion-icon>
