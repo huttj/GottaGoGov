@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite }     from 'ionic-native';
+import { Http }       from '@angular/http';
+
 import stringify      from '../util/stringify';
 
 @Injectable()
@@ -9,9 +11,10 @@ export class DataService {
   private db   = new SQLite();
   private lock = Promise.resolve({});
 
-  constructor() {
+  constructor(private http: Http) {
     this.onUnlock(() => this.onFirstRun());
     this.onUnlock(() => this.connect());
+    window['db'] = this.db;
   }
 
   connect() {
@@ -36,15 +39,29 @@ export class DataService {
 
   executeSql(sql: string, params: any[] = []) {
 
-    return this.lock.then(() => this.db.executeSql(sql, params))
+    if (window['sqlitePlugin']) {
 
-      .then((res:any) => {
-        const results = [];
-        for (let i = 0, len = res.rows.length; i < len; i++) {
-          results.push(res.rows.item(i));
-        }
-        return results;
-      });
+      return this.lock.then(() => this.db.executeSql(sql, params))
+
+        .then((res:any) => {
+          const results = [];
+          for (let i = 0, len = res.rows.length; i < len; i++) {
+            results.push(res.rows.item(i));
+          }
+          return results;
+        });
+
+    } else {
+
+      return this.http.post('http://localhost:3000', { sql, params }).toPromise()
+        .then(res => res.json())
+        .catch(e => {
+          console.log(e);
+          throw e;
+        });
+
+    }
+
   }
 
 }

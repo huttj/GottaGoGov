@@ -3,6 +3,11 @@
     <ion-title>
       Flight Detail
     </ion-title>
+
+    <ion-buttons end>
+      <settings-popover></settings-popover>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
   <ion-item>
     <h1>From: {{flight.originCity}}, {{flight.originState || flight.originCountry}}</h1>
     <h1>To: {{flight.destinationCity}}, {{flight.destinationState || flight.destinationCountry}}</h1>
-    <h2>Airline: {{flight.airlinrAbbrev}}</h2>
+    <h2>Airline: {{flight.airlineAbbrev}}</h2>
     <h2>YCA Fare: <strong>${{flight.ycaFare}}</strong></h2>
     <h2>XCA Fare: <strong>${{flight.xcaFare}}</strong></h2>
 
@@ -28,6 +33,13 @@
     <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedPerDiem($event, perDiem)"></ion-icon>
   </ion-item>
 
+  <ion-item *ngIf="perDiem && perDiem.city">
+    <h3>
+      <ion-icon danger name="alert"></ion-icon>
+      <em>{{betterDealMessage()}}</em>
+    </h3>
+  </ion-item>
+
   <ion-item *ngIf="!perDiem || !perDiem.city">
     <h2>There is no per-diem for this city.</h2>
   </ion-item>
@@ -40,15 +52,16 @@
       </ion-list-header>
       <ion-segment [(ngModel)]="sort" (ionChange)="sortBy(sort)">
         <ion-segment-button value="total">Total</ion-segment-button>
-        <ion-segment-button value="meals">Meals</ion-segment-button>
         <ion-segment-button value="lodging">Lodging</ion-segment-button>
+        <ion-segment-button value="meals">Meals</ion-segment-button>
+        <ion-segment-button value="distance">Distance</ion-segment-button>
       </ion-segment>
     </ion-item>
 
     <ion-item *ngFor="let other of nearbyPerDiems" (click)="selectCity(other)">
       <h2 [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
+      <h3>Lodging: ${{other.lodging}} <span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></h3>
       <h3>Meals: ${{other.mie}} <span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></h3>
-      <h3>Lodging: ${{other.lodging}} <span [style.color]="other.difference.lodgingRate.color">{{other.difference.lodging.value}}</span></h3>
       <h3>Distance: {{toFixed(other.distance)}} mi</h3>
     </ion-item>
 

@@ -1,7 +1,8 @@
-import { Injectable }  from '@angular/core';
-import { DataService } from './data';
-import calcDistance    from '../util/calcDistance';
-import PerDiem         from '../models/per-diem';
+import { Injectable }      from '@angular/core';
+import { DataService }     from './data';
+import { SettingsService } from './settings';
+import calcDistance        from '../util/calcDistance';
+import PerDiem             from '../models/per-diem';
 
 @Injectable()
 export class PerDiemService {
@@ -26,31 +27,44 @@ export class PerDiemService {
     return new PerDiem(data);
   }
 
-  constructor(private data: DataService) {}
+  constructor(
+    private data: DataService,
+    private settings: SettingsService
+  ) {}
 
   search(str: string) {
-    const time = Date.now();
+    const time = this.settings.time;
+
+    const fuzzy = str+'%';
+    const [ city, state] = str.split(',').map(n => n.trim());
+
+    console.log(city, state);
+
     return this.data.executeSql(`
           SELECT ${this.props}
             FROM perDiemRates p
       INNER JOIN cities c
               ON c.id = p.cityId
              AND (
-                       c.name  LIKE ?
+                    c.abbr = ?
                     OR c.state LIKE ?
-                    OR c.abbr  LIKE ?
+                    OR c.name LIKE ?
+                    OR (
+                      c.name = ?
+                      AND c.state LIKE ?
+                    )
                  )
            WHERE p.seasonBegin IS NULL
               OR (p.seasonBegin <= ? AND p.seasonEnd >= ?)
         ORDER BY c.name ASC
            LIMIT 100
-    `, [str+'%', str+'%', str+'%', time, time])
+    `, [str, fuzzy, fuzzy, city, state+'%', time, time])
       .then(rows => rows.map(this.newPerDiem))
       .catch(toss);
   }
 
   getSaved() {
-    const time = Date.now();
+    const time = this.settings.time;
     return this.data.executeSql(
       `    SELECT ${this.props}
              FROM perDiemRates p
@@ -77,13 +91,18 @@ export class PerDiemService {
   }
 
   getByCityId(cityId: number): Promise<PerDiem> {
+    const time = this.settings.time;
     return this.data.executeSql(`
             SELECT ${this.props}
               FROM perDiemRates p
         INNER JOIN cities c 
                 ON p.cityId = c.id
              WHERE p.cityId = ?
-      `, [cityId])
+               AND (
+                     p.seasonBegin IS NULL
+                     OR (p.seasonBegin <= ? AND p.seasonEnd >= ?)
+                   )
+      `, [cityId, time, time])
       .then(rows => rows.map(this.newPerDiem)[0])
       .catch(toss);
   }
@@ -100,9 +119,11 @@ export class PerDiemService {
       .catch(toss);
   }
 
-  getNearby(lat:number, long:number, miles:number=50): Promise<PerDiem[]> {
+  async getNearby(lat:number, long:number): Promise<PerDiem[]> {
 
-    const time = Date.now();
+    const miles = this.settings.range;
+    const time = this.settings.time;
+
     const miPerDeg = 27.0271614;
     // const miPerDeg = 69.1710411;
     const degrees = miles / miPerDeg;
@@ -133,25 +154,18 @@ export class PerDiemService {
 
     const params = [latLower, latUpper, longLower, longUpper, time, time];
 
+    const rows     = await this.data.executeSql(sql, params);
+    const perDiems = rows.map(this.newPerDiem);
 
-    return this.data.executeSql(sql, params)
-      .then(res => res.map(this.newPerDiem))
-      .then((rows:PerDiem[]) => {
+    perDiems.forEach(n => n.distance = calcDistance(lat, long, n.latitude, n.longitude));
 
-        console.log('rows', JSON.stringify(rows, null, 2));
-
-        rows.forEach(n => n.distance = calcDistance(lat, long, n.latitude, n.longitude));
-
-        return rows.filter(n => n.distance < miles).sort((a,b) => a.distance - b.distance)
-
-      })
-      .catch(toss);
+    return perDiems.filter(n => n.distance < miles).sort((a,b) => a.distance - b.distance)
 
   }
 
 }
 
 function toss(err) {
-  console.log(err.message, err.stack, JSON.stringify(err, null, 2));
+  console.log('tossed error', err.message, err.stack, JSON.stringify(err, null, 2));
   throw err;
 }

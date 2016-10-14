@@ -17,6 +17,7 @@ export default class Flight {
   destinationAirportLocation : string;
 
   airlineAbbrev              : string;
+  airlineName                : string;
   awardedServ                : string;
   paxCount                   : string;
   ycaFare                    : string;
@@ -47,6 +48,7 @@ export default class Flight {
     this.destinationAirportLocation = obj.destinationAirportLocation;
 
     this.airlineAbbrev              = obj.airlineAbbrev;
+    this.airlineName                = obj.airlineName;
     this.awardedServ                = obj.awardedServ;
     this.paxCount                   = obj.paxCount;
     this.ycaFare                    = obj.ycaFare;
@@ -54,7 +56,6 @@ export default class Flight {
     this.businessFare               = obj.businessFare;
     this.effectiveDate              = obj.effectiveDate;
     this.expirationDate             = obj.expirationDate;
-    this.saved                      = obj.saved;
 
     this.saved                      = !!obj.saved;
   }

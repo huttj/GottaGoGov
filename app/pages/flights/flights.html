@@ -21,10 +21,15 @@
 
   <ion-list inset>
 
+    <ion-item *ngIf="!results || !results.length">
+      <h2>No results match your search.</h2>
+    </ion-item>
+
     <ion-item *ngFor="let flight of results" (click)="selectFlight(flight)">
       <ion-icon bright [name]="flight.saved ? 'star' : 'star-outline'" item-left (click)="toggleSaved($event, flight)"></ion-icon>
       <h2>From: {{flight.originCity}}, {{ flight.originState || flight.originCountry }}</h2>
       <h2>To: {{flight.destinationCity}}, {{ flight.destinationState || flight.destinationCountry }}</h2>
+      <p>Airline: {{flight.airlineAbbrev}}</p>
       <p>YCA Fare: ${{flight.ycaFare}}</p>
       <p>XCA Fare: ${{flight.xcaFare}}</p>
     </ion-item>

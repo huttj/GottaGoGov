@@ -3,6 +3,11 @@
     <ion-title>
       Per Diem Detail
     </ion-title>
+
+    <ion-buttons end>
+      <settings-popover></settings-popover>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
@@ -12,10 +17,14 @@
     <h1>{{perDiem.city}}, {{perDiem.abbr}}</h1>
     <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
     <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
-
-    <h3><em>{{betterDealMessage()}}</em></h3>
-
     <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(perDiem)"></ion-icon>
+  </ion-item>
+
+  <ion-item>
+    <h3>
+      <ion-icon danger name="alert"></ion-icon>
+      <em>{{betterDealMessage()}}</em>
+    </h3>
   </ion-item>
 
   <map [hidden]="!perDiem.latitude || !perDiem.longitude" [lat]="perDiem.latitude" [long]="perDiem.longitude"></map>
@@ -32,15 +41,16 @@
       </ion-list-header>
       <ion-segment [(ngModel)]="sort" (ionChange)="sortBy(sort)">
         <ion-segment-button value="total">Total</ion-segment-button>
-        <ion-segment-button value="meals">Meals</ion-segment-button>
         <ion-segment-button value="lodging">Lodging</ion-segment-button>
+        <ion-segment-button value="meals">Meals</ion-segment-button>
+        <ion-segment-button value="distance">Distance</ion-segment-button>
       </ion-segment>
     </ion-item>
 
     <ion-item *ngFor="let other of nearby" (click)="selectCity(other)">
       <h2 [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
-      <h3>Meals: ${{other.mie}} <span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></h3>
       <h3>Lodging: ${{other.lodging}} <span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></h3>
+      <h3>Meals: ${{other.mie}} <span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></h3>
       <h3>Distance: {{toFixed(other.distance)}} mi</h3>
     </ion-item>
 

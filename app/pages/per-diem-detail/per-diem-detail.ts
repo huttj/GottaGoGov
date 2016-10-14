@@ -1,8 +1,12 @@
 import { Component }                from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 
-import { PerDiemService } from '../../services/per-diem';
-import { MapComponent }   from '../../components/map/map';
+import { PerDiemService }  from '../../services/per-diem';
+import { FlightsService }  from '../../services/flights';
+import { SettingsService } from '../../services/settings';
+import { MapComponent }    from '../../components/map/map';
+import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
+
 
 import { FlightsPage } from '../flights/flights';
 
@@ -10,54 +14,76 @@ import PerDiem from '../../models/per-diem';
 
 @Component({
   templateUrl: 'build/pages/per-diem-detail/per-diem-detail.html',
-  providers: [PerDiemService],
-  directives: [MapComponent]
+  providers: [PerDiemService, FlightsService],
+  directives: [MapComponent, SettingsPopoverComponent]
 })
 export class PerDiemDetailPage {
 
-  private perDiem     : PerDiem   = new PerDiem();
-  private nearby      : PerDiem[] = [];
-  private sort        : string    = 'total';
-  private betterDeals : number    = 0;
+  private perDiem               : PerDiem   = new PerDiem();
+  private nearby                : PerDiem[] = [];
+  private sort                  : string    = 'total';
+  private betterDeals           : number    = 0;
+  private flightDestinationCity : Promise<any>;
 
   constructor(
-    public navParams      : NavParams,
-    public perDiemService : PerDiemService,
-    public navCtrl        : NavController
+    public navParams       : NavParams,
+    public perDiemService  : PerDiemService,
+    public flightsService  : FlightsService,
+    public settingsService : SettingsService,
+    public navCtrl         : NavController
 
-  ) {}
+  ) {
+    window['PerDiemDetailPage'] = this;
+    this.settingsService.range$.subscribe(()=>this.loadCity(this.perDiem.cityId));
+    this.settingsService.time$.subscribe(()=>this.loadCity(this.perDiem.cityId));
+  }
 
   ionViewWillEnter() {
     return this.loadCity();
   }
 
-  loadCity() {
+  async loadCity(cityId?) {
     const id  = this.navParams.get('id');
 
-    this.perDiemService.getById(id)
-      .then(perDiem => {
+    if (cityId) {
 
-        this.perDiem = perDiem;
+      this.perDiem = await this.perDiemService.getByCityId(cityId);
 
-        this.perDiemService.getNearby(perDiem.latitude, perDiem.longitude)
-          .then(res => {
+      console.log('got perDiem by cityID', JSON.stringify(this.perDiem, null, 2));
+      console.log('seasonBegin', new Date(this.perDiem.seasonBegin));
+      console.log('seasonEnd', new Date(this.perDiem.seasonEnd));
 
-            const thisTotal = this.perDiem.mie + this.perDiem.lodging;
+      if (!this.perDiem) {
+        this.perDiem = await this.perDiemService.getById(id);
+      }
 
-            res.forEach((n:PerDiem) => {
-              n.difference = this.difference(this.perDiem, n);
-              const total = n.mie + n.lodging;
-              if (total > thisTotal) {
-                this.betterDeals++;
-                n['betterDeal'] = true;
-              }
-            });
+    } else {
+      this.perDiem = await this.perDiemService.getById(id);
+    }
 
-            this.nearby = res.slice(1);
-            this.sortBy();
-          });
+    this.flightDestinationCity = this.flightsService.getNearestCityWithFlights(
+      this.perDiem.latitude,
+      this.perDiem.longitude
+    );
 
-      });
+    const res = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
+
+    const thisTotal = this.perDiem.mie + this.perDiem.lodging;
+
+    this.betterDeals = 0;
+
+    res.forEach((n:PerDiem) => {
+      n.difference = this.difference(this.perDiem, n);
+      const total = n.mie + n.lodging;
+      if (total > thisTotal) {
+        this.betterDeals++;
+        n['betterDeal'] = true;
+      }
+    });
+
+    this.nearby = res.slice(1);
+    this.sortBy();
+
   }
 
   selectCity(city) {
@@ -108,6 +134,8 @@ export class PerDiemDetailPage {
         return this.nearby.sort((a,b) => b.mie - a.mie);
       case 'lodging':
         return this.nearby.sort((a,b) => b.lodging - a.lodging);
+      case 'distance':
+        return this.nearby.sort((a,b) => a.distance - b.distance);
     }
   }
 
@@ -134,7 +162,13 @@ export class PerDiemDetailPage {
     return `There ${verb} ${count} better deal${plural} nearby.`;
   }
 
-  searchFlights(props) {
+  async searchFlights(props) {
+    const city = await this.flightDestinationCity;
+    if (city) {
+      props = {
+        destination: city.name
+      };
+    }
     this.navCtrl.push(FlightsPage, props);
   }
 

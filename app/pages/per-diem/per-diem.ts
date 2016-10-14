@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { PerDiemService } from '../../services/per-diem';
+import { SettingsService } from '../../services/settings';
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
+import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
 import PerDiem from '../../models/per-diem';
 
-
 @Component({
   templateUrl: 'build/pages/per-diem/per-diem.html',
-  providers: [PerDiemService]
+  providers: [PerDiemService, SettingsService],
+  directives: [SettingsPopoverComponent]
 })
 export class PerDiemPage {
   private city = '';
@@ -17,9 +19,13 @@ export class PerDiemPage {
   private timeoutId;
 
   constructor(
-    public perDiemService : PerDiemService,
-    public navCtrl        : NavController
-  ) {}
+    public perDiemService  : PerDiemService,
+    public navCtrl         : NavController,
+    public settingsService : SettingsService
+  ) {
+    this.settingsService.range$.subscribe(()=>this.search());
+    this.settingsService.time$.subscribe(()=>this.search());
+  }
 
   ionViewWillEnter() {
     return this.search();

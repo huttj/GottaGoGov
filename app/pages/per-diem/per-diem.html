@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Per Diem</ion-title>
+
+    <ion-buttons end>
+      <settings-popover></settings-popover>
+    </ion-buttons>
+
   </ion-navbar>
 
   <ion-searchbar
@@ -21,11 +26,15 @@
 
   <ion-list inset>
 
+    <ion-item *ngIf="!cities || !cities.length">
+      <h2>No results match your search.</h2>
+    </ion-item>
+
     <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
       <ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>
       <h2>{{city.city}}, {{city.state}}</h2>
-      <p>Meals: {{city.mie}}</p>
-      <p>Lodging: {{city.lodging}}</p>
+      <p>Lodging: ${{city.lodging}}</p>
+      <p>Meals: ${{city.mie}}</p>
     </ion-item>
 
   </ion-list>

@@ -25,8 +25,8 @@ export class CityService {
   getById(id: number) {
     return this.data.executeSql(`
       SELECT ${this.props}
-        FROM cities
-       WHERE id = ?
+        FROM cities c
+       WHERE c.id = ?
     `, [id])
       .then(rows => rows.map(this.mapCity)[0])
       .catch(toss);
@@ -48,6 +48,6 @@ export class CityService {
 }
 
 function toss(err) {
-  console.log(err.message, err.stack, err);
+  console.log('tossed error', err.message, err.stack, err);
   throw err;
 }

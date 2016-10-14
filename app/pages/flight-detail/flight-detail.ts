@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController  } from 'ionic-angular';
 
-import { MapComponent }   from '../../components/map/map';
-import { FlightsService } from '../../services/flights';
-import { PerDiemService } from '../../services/per-diem';
-import { CityService }    from '../../services/city';
+import { MapComponent }    from '../../components/map/map';
+import { FlightsService }  from '../../services/flights';
+import { PerDiemService }  from '../../services/per-diem';
+import { SettingsService } from '../../services/settings';
+import { CityService }     from '../../services/city';
 
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
+import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
 import Flight  from '../../models/flight';
 import PerDiem from '../../models/per-diem';
@@ -14,8 +16,8 @@ import PerDiem from '../../models/per-diem';
 
 @Component({
   templateUrl: 'build/pages/flight-detail/flight-detail.html',
-  providers: [FlightsService, PerDiemService, CityService],
-  directives: [MapComponent]
+  providers: [FlightsService, PerDiemService, CityService, SettingsService],
+  directives: [MapComponent, SettingsPopoverComponent]
 })
 export class FlightDetailPage {
 
@@ -30,63 +32,69 @@ export class FlightDetailPage {
     public navParams      : NavParams,
     public flightsService : FlightsService,
     public perDiemService : PerDiemService,
+    public settings       : SettingsService,
     public cityService    : CityService
-  ) {}
+  ) {
+  }
 
   ionViewWillEnter() {
     return this.loadFlight();
   }
 
-  loadFlight() {
+  async loadFlight() {
     const id = this.navParams.get('id');
-    return this.flightsService.getById(id)
-      .then(res => {
-        console.log('flight', JSON.stringify(res, null, 2));
-        this.flight = res;
-        return this.perDiemService.getByCityId(res.destinationCityId)
-      })
-      .then(perDiem => {
-        console.log('perDiem', JSON.stringify(perDiem, null, 2));
+    this.flight = await this.flightsService.getById(id);
 
-        if (perDiem || perDiem.city) {
-          this.perDiem = perDiem;
-          return this.perDiemService.getNearby(perDiem.latitude, perDiem.longitude);
+    console.log('flight', JSON.stringify(this.flight, null, 2));
 
-        } else {
-          this.perDiem = null;
-          return this.cityService.getById(this.flight.destinationCityId)
-            .then(city => {
-              return this.perDiemService.getNearby(city.latitude, city.longitude);
-            });
-        }
-
-      })
-      .then(res => {
-        console.log('nearbyPerDiems', JSON.stringify(res, null, 2));
-        this.nearbyPerDiems = res;
-
-        const thisTotal = this.perDiem.mie + this.perDiem.lodging;
-
-        res.forEach((n:PerDiem) => {
-
-          const thisPerDiem = this.perDiem || n;
-          n.difference = this.difference(this.perDiem, thisPerDiem);
-
-          const total = n.mie + n.lodging;
-          if (total > thisTotal) {
-            this.betterDeals++;
-            n['betterDeal'] = true;
-          }
-        });
-
-        if (this.perDiem) {
-          this.nearbyPerDiems = res.slice(1);
-        }
+    this.perDiem = await this.perDiemService.getByCityId(this.flight.destinationCityId);
 
 
-        this.sortBy();
+    let nearbyPerDiems;
 
-      });
+    if (this.perDiem && this.perDiem.city) {
+      console.log('perDiem', JSON.stringify(this.perDiem, null, 2));
+      nearbyPerDiems = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
+
+    } else {
+      this.perDiem = null;
+
+      const city = await this.cityService.getById(this.flight.destinationCityId);
+
+      console.log('city', JSON.stringify(city, null, 2));
+
+      nearbyPerDiems = await this.perDiemService.getNearby(city.latitude, city.longitude);
+
+    }
+
+    const thisTotal = this.perDiem ? this.perDiem.mie + this.perDiem.lodging : null;
+
+    this.betterDeals = 0;
+
+    nearbyPerDiems.forEach((n:PerDiem) => {
+
+      const thisPerDiem = this.perDiem || n;
+      n.difference = this.difference(thisPerDiem, n);
+
+      const total = n.mie + n.lodging;
+
+      if (thisTotal !== null && total > thisTotal) {
+        this.betterDeals++;
+        n['betterDeal'] = true;
+      }
+
+    });
+
+    console.log('nearbyPerDiems', JSON.stringify(nearbyPerDiems, null, 2));
+
+    if (this.perDiem) {
+      this.nearbyPerDiems = nearbyPerDiems.slice(1);
+    } else {
+      this.nearbyPerDiems = nearbyPerDiems;
+    }
+
+    this.sortBy();
+
   }
 
   toggleSavedFlight(event, flight) {
@@ -108,7 +116,8 @@ export class FlightDetailPage {
     perDiem.saved = !perDiem.saved;
   }
 
-  sortBy() {
+  sortBy(value?) {
+    if (value) this.sort = value;
     switch(this.sort) {
       case 'total':
         return this.nearbyPerDiems.sort((a,b) => (b.mie + b.lodging) - (a.mie + a.lodging));
@@ -116,6 +125,8 @@ export class FlightDetailPage {
         return this.nearbyPerDiems.sort((a,b) => b.mie - a.mie);
       case 'lodging':
         return this.nearbyPerDiems.sort((a,b) => b.lodging - a.lodging);
+      case 'distance':
+        return this.nearbyPerDiems.sort((a,b) => a.distance - b.distance);
     }
   }
 
@@ -123,12 +134,12 @@ export class FlightDetailPage {
 
     if (!n1 || !n2) return {
       mie: {},
-      lodgingRate: {}
+      lodging: {}
     };
 
     return {
       mie: diff(n1.mie, n2.mie),
-      lodgingRate: diff(n1.lodgingRate, n2.lodgingRate)
+      lodging: diff(n1.lodging, n2.lodging)
     };
 
     function diff(n1, n2) {
@@ -140,6 +151,29 @@ export class FlightDetailPage {
         color
       }
     }
+  }
+
+  betterDealMessage() {
+    if (!this.betterDeals) return 'This is the best deal in the area.';
+
+    var numbers = {
+      '1': 'a',
+      '2': 'two',
+      '3': 'three',
+      '4': 'four',
+      '5': 'five',
+      '6': 'six',
+      '7': 'seven',
+      '8': 'eight',
+      '9': 'nine',
+      '10': 'ten'
+    };
+
+    const verb = this.betterDeals > 1 ? 'are' : 'is';
+    const count = numbers[this.betterDeals];
+    const plural = this.betterDeals > 1 ? 's' : '';
+
+    return `There ${verb} ${count} better deal${plural} nearby.`;
   }
 
   selectCity(city) {
