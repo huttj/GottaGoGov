@@ -23,8 +23,8 @@ export default class Flight {
   ycaFare                    : string;
   xcaFare                    : string;
   businessFare               : number;
-  effectiveDate              : number;
-  expirationDate             : number;
+  effectiveDate              : any;
+  expirationDate             : any;
   saved                      : boolean;
 
   constructor(obj?) {
@@ -54,8 +54,8 @@ export default class Flight {
     this.ycaFare                    = obj.ycaFare;
     this.xcaFare                    = obj.xcaFare;
     this.businessFare               = obj.businessFare;
-    this.effectiveDate              = obj.effectiveDate;
-    this.expirationDate             = obj.expirationDate;
+    this.effectiveDate              = new Date(obj.effectiveDate);
+    this.expirationDate             = new Date(obj.expirationDate);
 
     this.saved                      = !!obj.saved;
   }

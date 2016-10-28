@@ -17,8 +17,8 @@ export class TabsPage {
   constructor() {
     // this tells the tabs component which Pages
     // should be each tab's root Page
-    this.tab1Root = PerDiemPage;
-    this.tab2Root = FlightsPage;
+    this.tab1Root = FlightsPage;
+    this.tab2Root = PerDiemPage;
     this.tab3Root = HomePage;
     // this.tab4Root = SettingsPage;
   }

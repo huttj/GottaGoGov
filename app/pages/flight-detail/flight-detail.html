@@ -14,21 +14,41 @@
 <ion-content>
 
   <ion-item>
-    <h1>From: {{flight.originCity}}, {{flight.originState || flight.originCountry}}</h1>
-    <h1>To: {{flight.destinationCity}}, {{flight.destinationState || flight.destinationCountry}}</h1>
-    <h2>Airline: {{flight.airlineAbbrev}}</h2>
-    <h2>YCA Fare: <strong>${{flight.ycaFare}}</strong></h2>
-    <h2>XCA Fare: <strong>${{flight.xcaFare}}</strong></h2>
+    <!--<h1>From: {{flight.originCity}}, {{flight.originState || flight.originCountry}}</h1>-->
+    <!--<h1>To: {{flight.destinationCity}}, {{flight.destinationState || flight.destinationCountry}}</h1>-->
+
+    <h1>City Pair</h1>
+
+    <h3 class="subtitle">Origin</h3>
+    <h2>{{flight.originCity}}, {{ flight.originState || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
+
+    <h3 class="subtitle">Destination</h3>
+    <h2>{{flight.destinationCity}}, {{ flight.destinationState || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
+
+    <h3 class="subtitle">Fares</h3>
+    <h2>YCA: <strong>${{flight.ycaFare}}</strong></h2>
+    <h2>XCA: <strong>${{flight.xcaFare}}</strong></h2>
+
+    <h3 class="subtitle">Airline</h3>
+    <h2>{{flight.airlineName}} Airlines</h2>
+
+
 
     <ion-icon [name]="flight.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedFlight($event, flight)"></ion-icon>
+
   </ion-item>
 
-  <map [hidden]="!flight.destinationLatitude || !flight.destinationLongitude" [lat]="flight.destinationLatitude" [long]="flight.destinationLongitude"></map>
+  <!--<map [hidden]="!flight.destinationLatitude || !flight.destinationLongitude" [lat]="flight.destinationLatitude" [long]="flight.destinationLongitude"></map>-->
 
   <ion-item *ngIf="perDiem && perDiem.city">
-    <h1>{{perDiem.city}}, {{perDiem.abbr}}</h1>
+    <h1>Per Diem</h1>
+    <h3 class="subtitle">City</h3>
+    <h2>{{perDiem.city}}, {{perDiem.abbr}}</h2>
+    <h3 class="subtitle">Rates</h3>
+
     <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
     <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
+    <h2>Total: <strong>${{perDiem.mie+perDiem.lodging}}</strong></h2>
 
     <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedPerDiem($event, perDiem)"></ion-icon>
   </ion-item>
@@ -41,7 +61,7 @@
   </ion-item>
 
   <ion-item *ngIf="!perDiem || !perDiem.city">
-    <h2>There is no per-diem for this city.</h2>
+    <h2><em>There is no per-diem rate for this city.</em></h2>
   </ion-item>
 
   <ion-list inset *ngIf="nearbyPerDiems && nearbyPerDiems.length">
@@ -59,10 +79,41 @@
     </ion-item>
 
     <ion-item *ngFor="let other of nearbyPerDiems" (click)="selectCity(other)">
-      <h2 [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
-      <h3>Lodging: ${{other.lodging}} <span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></h3>
-      <h3>Meals: ${{other.mie}} <span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></h3>
-      <h3>Distance: {{toFixed(other.distance)}} mi</h3>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Lodging:</ion-col>
+          <ion-col>${{other.lodging}}</ion-col>
+          <ion-col><span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Meals: </ion-col>
+          <ion-col>${{other.mie}} </ion-col>
+          <ion-col><span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Total:</ion-col>
+          <ion-col>${{other.mie+other.lodging}}</ion-col>
+          <ion-col><span [style.color]="other.difference.total.color">{{other.difference.total.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Distance:</ion-col>
+          <ion-col>{{toFixed(other.distance)}} mi</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
     </ion-item>
 
   </ion-list>

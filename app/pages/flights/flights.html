@@ -1,18 +1,18 @@
 <ion-header class="bar-positive">
   <ion-navbar>
     <ion-title>
-      Flights
+      City Pairs
     </ion-title>
   </ion-navbar>
 
   <ion-item>
     <ion-icon style="z-index: 9001;" name="close" (click)="resetOrigin()" item-right></ion-icon>
-    <ion-input type="text" [value]="originSearch" placeholder="Origin / ICAO" (input)="updateOrigin($event)"></ion-input>
+    <ion-input type="text" [value]="originSearch" placeholder="Origin or ICAO" (input)="updateOrigin($event)"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-icon style="z-index: 9001;" name="close" (click)="resetDestination()" item-right></ion-icon>
-    <ion-input type="text" [value]="destinationSearch" placeholder="Destination / ICAO" (input)="updateDestination($event)"></ion-input>
+    <ion-input type="text" [value]="destinationSearch" placeholder="Destination or ICAO" (input)="updateDestination($event)"></ion-input>
   </ion-item>
 
 </ion-header>
@@ -27,9 +27,9 @@
 
     <ion-item *ngFor="let flight of results" (click)="selectFlight(flight)">
       <ion-icon bright [name]="flight.saved ? 'star' : 'star-outline'" item-left (click)="toggleSaved($event, flight)"></ion-icon>
-      <h2>From: {{flight.originCity}}, {{ flight.originState || flight.originCountry }}</h2>
-      <h2>To: {{flight.destinationCity}}, {{ flight.destinationState || flight.destinationCountry }}</h2>
-      <p>Airline: {{flight.airlineAbbrev}}</p>
+      <h2>From: {{flight.originCity}}, {{ flight.originState || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
+      <h2>To: {{flight.destinationCity}}, {{ flight.destinationState || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
+      <p>Airline: {{flight.airlineName}}</p>
       <p>YCA Fare: ${{flight.ycaFare}}</p>
       <p>XCA Fare: ${{flight.xcaFare}}</p>
     </ion-item>

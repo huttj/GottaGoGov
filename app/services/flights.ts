@@ -30,6 +30,8 @@ export class FlightsService {
     ,f.ycaFare
     ,f.xcaFare
     ,f.businessFare
+    ,f.effectiveDate
+    ,f.expirationDate
     ,f.saved
   `;
 
@@ -54,6 +56,8 @@ export class FlightsService {
     ,f.ycaFare
     ,f.xcaFare
     ,f.businessFare
+    ,f.effectiveDate
+    ,f.expirationDate
     ,f.saved
     
   `;
@@ -103,7 +107,7 @@ export class FlightsService {
       LIMIT 50
     `;
 
-    const params = [originCity, originCity+'%', destinationCity, destinationCity+'%'];
+    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%'];
 
     const [a,b] = await Promise.all([
       this.data.executeSql(sql, params),

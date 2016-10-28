@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.gottaflyfed900857" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.gottaflyfed900857" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>GottaFlyFed</name>
   <description>A tool to help federal travelers keep track of where they're going and how they get there.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Joshua Hutt</author>

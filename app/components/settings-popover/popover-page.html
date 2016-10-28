@@ -1,15 +1,24 @@
 <ion-list>
-  <ion-list-header>Settings</ion-list-header>
+  <ion-list-header style="height: 46px; padding-top: 6px;">
+    <span style="position: relative; top: 4px;">
+      Settings
+    </span>
+    <button ion-button outline color="light" (click)="reset()" style="float: right; top: -4px;">Reset</button>
+  </ion-list-header>
 
   <ion-item>Travel Date</ion-item>
 
-  <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="time" (ionChange)="updateTime(time)" (click)="close()" [min]="min" [max]="max"></ion-datetime>
+  <ion-item>
+    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="time" (ionChange)="updateTime(time)" (click)="close()" [min]="min" [max]="max"></ion-datetime>
+  </ion-item>
 
-  <ion-item>Nearby Threshold (mi)</ion-item>
+  <ion-item>Show Results Within (mi)</ion-item>
 
-  <ion-range min="0" max="100" step="10" [(ngModel)]="range" (ionChange)="updateRange(range)">
-    <ion-label range-left>0</ion-label>
-    <ion-label range-right>100</ion-label>
-  </ion-range>
+  <ion-item>
+    <ion-range min="0" max="100" step="1" [(ngModel)]="range" (ionChange)="updateRange(range)" pin="true">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>100</ion-label>
+    </ion-range>
+  </ion-item>
 
 </ion-list>

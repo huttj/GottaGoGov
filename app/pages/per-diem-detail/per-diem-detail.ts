@@ -103,12 +103,14 @@ export class PerDiemDetailPage {
 
     if (!n1 || !n2) return {
       mie: {},
-      lodging: {}
+      lodging: {},
+      total: {}
     };
 
     return {
       mie: diff(n1.mie, n2.mie),
-      lodging: diff(n1.lodging, n2.lodging)
+      lodging: diff(n1.lodging, n2.lodging),
+      total: diff(n1.lodging+n1.mie, n2.lodging+n2.mie)
     };
 
     function diff(n1, n2) {

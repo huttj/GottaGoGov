@@ -28,13 +28,16 @@ export class FlightDetailPage {
   private betterDeals    : number    = 0;
 
   constructor(
-    public navCtrl        : NavController,
-    public navParams      : NavParams,
-    public flightsService : FlightsService,
-    public perDiemService : PerDiemService,
-    public settings       : SettingsService,
-    public cityService    : CityService
+    public navCtrl         : NavController,
+    public navParams       : NavParams,
+    public flightsService  : FlightsService,
+    public perDiemService  : PerDiemService,
+    public settingsService : SettingsService,
+    public cityService     : CityService
   ) {
+    window['FlightDetailPage'] = this;
+    this.settingsService.range$.subscribe(()=>this.loadFlight());
+    this.settingsService.time$.subscribe(()=>this.loadFlight());
   }
 
   ionViewWillEnter() {
@@ -134,12 +137,14 @@ export class FlightDetailPage {
 
     if (!n1 || !n2) return {
       mie: {},
-      lodging: {}
+      lodging: {},
+      total: {}
     };
 
     return {
       mie: diff(n1.mie, n2.mie),
-      lodging: diff(n1.lodging, n2.lodging)
+      lodging: diff(n1.lodging, n2.lodging),
+      total: diff(n1.lodging+n1.mie, n2.lodging+n2.mie)
     };
 
     function diff(n1, n2) {
