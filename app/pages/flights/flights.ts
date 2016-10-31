@@ -71,7 +71,7 @@ export class FlightsPage {
     } else {
       this.flightsService.save(flight.id);
     }
-    this.search();
+    flight.saved = !flight.saved;
   }
 
   selectFlight({ id }) {

@@ -32,7 +32,7 @@
 
     <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
       <ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-left (click)="toggleSaved($event, city)"></ion-icon>
-      <h2>{{city.city}}, {{city.state}}</h2>
+      <h2>{{city.city}}, {{city.abbr}}</h2>
       <p>Lodging: ${{city.lodging}}</p>
       <p>Meals: ${{city.mie}}</p>
     </ion-item>

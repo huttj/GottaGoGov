@@ -24,8 +24,9 @@ class PopoverPage {
   }
 
   reset() {
-    this.time = new Date().toISOString();
-    this.range = 50;
+    this.time  = new Date().toISOString();
+    this.settings.time = +new Date(this.time);
+    this.settings.range = this.range = 50;
   }
 
   updateRange(range) {

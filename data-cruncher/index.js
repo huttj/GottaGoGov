@@ -27,6 +27,13 @@ for (let city of perDiem) {
     throw e;
   }
 }
+perDiem.push({
+  id: -1,
+  cityId: -1,
+  lodging: 91,
+  mie: 51
+});
+
 
 // City Pairs
 const rawFlights = fs.readFileSync('./data/award2017.csv', 'utf8');

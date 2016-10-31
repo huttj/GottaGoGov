@@ -8,7 +8,7 @@ module.exports = function parseCsv(raw) {
     if (n.seasonBegin || n.fy17MIe) {
 
       n.seasonBegin = mapDate(n.seasonBegin);
-      n.seasonEnd   = mapDate(n.seasonEnd);
+      n.seasonEnd   = mapDate(n.seasonEnd, true);
       n.lodgingRate = +(n.fy17LodgingRate).slice(1);
       n.mie         = +(n.fy17MIe).slice(1);
 
@@ -44,7 +44,7 @@ function shortDate(short) {
   return +new Date(2000 + +year, +month-1, +day);
 }
 
-function mapDate(source) {
+function mapDate(source, end) {
   const months = {
     'January': 0,
     'February': 1,
@@ -65,7 +65,7 @@ function mapDate(source) {
   const monthNum = months[month];
   // This one starts in October
   const year = monthNum < 9 ? 2017 : 2016;
-  return +new Date(year, monthNum, +date);
+  return +new Date(year, monthNum, +date + (end ? 1 : 0)) - (end ? 1 : 0);
 }
 
 

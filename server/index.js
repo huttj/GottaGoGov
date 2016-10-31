@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3');
 const http    = require('http');
 
-const db = new sqlite3.Database(__dirname + '/../www/GottaFlyFed.sqlite');
+const db = new sqlite3.Database(__dirname + '/../app/GottaFlyFed.sqlite');
 
 http.createServer((req, res) => {
 
@@ -37,7 +37,15 @@ http.createServer((req, res) => {
 
         db.all(sql, params, (err, rows) => {
 
-          res.end(JSON.stringify(rows));
+          if (err) {
+            console.error(err);
+            res.statusCode = 400;
+            res.end(err.stack || err.message || err);
+
+          } else {
+            console.log(rows);
+            res.end(JSON.stringify(rows));
+          }
 
         });
 

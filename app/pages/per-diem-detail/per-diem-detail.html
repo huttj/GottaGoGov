@@ -31,6 +31,12 @@
     <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
     <h2>Total: <strong>${{perDiem.mie + perDiem.lodging}}</strong></h2>
 
+    <h3 class="subtitle">Season</h3>
+    <h2 *ngIf="perDiem.seasonBegin">Season Begin: <strong>{{perDiem.seasonBegin | date: 'dd/MM/yyyy' }}</strong></h2>
+    <h2 *ngIf="perDiem.seasonBegin">Season End: <strong>{{perDiem.seasonEnd | date: 'dd/MM/yyyy' }}</strong></h2>
+    <h2 *ngIf="!perDiem.seasonBegin"><em>This is a year-long rate.</em></h2>
+
+
     <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(perDiem)"></ion-icon>
   </ion-item>
 
@@ -65,7 +71,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
+            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.abbr}}</h2>
           </ion-col>
         </ion-row>
 

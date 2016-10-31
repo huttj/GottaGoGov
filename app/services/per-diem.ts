@@ -36,9 +36,12 @@ export class PerDiemService {
     const time = this.settings.time;
 
     const fuzzy = str+'%';
-    const [ city, state] = str.split(',').map(n => n.trim());
+    const [ city='', state='' ] = str.split(',').map(n => n.trim());
 
     console.log(city, state);
+
+    const params = [str, fuzzy, fuzzy, city, state+'%', time, time];
+    console.log(params);
 
     return this.data.executeSql(`
           SELECT ${this.props}
@@ -56,9 +59,9 @@ export class PerDiemService {
                  )
            WHERE p.seasonBegin IS NULL
               OR (p.seasonBegin <= ? AND p.seasonEnd >= ?)
-        ORDER BY c.name ASC
+        ORDER BY c.saved DESC, c.name ASC
            LIMIT 100
-    `, [str, fuzzy, fuzzy, city, state+'%', time, time])
+    `, params)
       .then(rows => rows.map(this.newPerDiem))
       .catch(toss);
   }
@@ -94,10 +97,10 @@ export class PerDiemService {
     const time = this.settings.time;
     return this.data.executeSql(`
             SELECT ${this.props}
-              FROM perDiemRates p
-        INNER JOIN cities c 
-                ON p.cityId = c.id
-             WHERE p.cityId = ?
+              FROM cities c
+        INNER JOIN perDiemRates p 
+                ON (p.cityId = c.id OR p.cityId = -1)
+             WHERE c.id = ?
                AND (
                      p.seasonBegin IS NULL
                      OR (p.seasonBegin <= ? AND p.seasonEnd >= ?)
@@ -114,6 +117,7 @@ export class PerDiemService {
       INNER JOIN cities c
               ON c.id = p.cityId
            WHERE p.id = ?
+              OR p.id = -1
     `, [id])
       .then(rows => rows.map(this.newPerDiem)[0])
       .catch(toss);

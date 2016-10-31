@@ -20,10 +20,10 @@
     <h1>City Pair</h1>
 
     <h3 class="subtitle">Origin</h3>
-    <h2>{{flight.originCity}}, {{ flight.originState || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
+    <h2>{{flight.originCity}}, {{ flight.originStateAbbrev || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
 
     <h3 class="subtitle">Destination</h3>
-    <h2>{{flight.destinationCity}}, {{ flight.destinationState || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
+    <h2>{{flight.destinationCity}}, {{ flight.destinationStateAbbrev || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
 
     <h3 class="subtitle">Fares</h3>
     <h2>YCA: <strong>${{flight.ycaFare}}</strong></h2>
@@ -49,6 +49,11 @@
     <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
     <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
     <h2>Total: <strong>${{perDiem.mie+perDiem.lodging}}</strong></h2>
+
+    <h3 class="subtitle">Season</h3>
+    <h2 *ngIf="perDiem.seasonBegin">Season Begin: <strong>{{perDiem.seasonBegin | date: 'MM/dd/yyyy' }}</strong></h2>
+    <h2 *ngIf="perDiem.seasonBegin">Season End: <strong>{{perDiem.seasonEnd | date: 'MM/dd/yyyy' }}</strong></h2>
+    <h2 *ngIf="!perDiem.seasonBegin"><em>This is a year-long rate.</em></h2>
 
     <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedPerDiem($event, perDiem)"></ion-icon>
   </ion-item>
@@ -83,7 +88,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.state}}</h2>
+            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.abbr}}</h2>
           </ion-col>
         </ion-row>
 

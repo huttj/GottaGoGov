@@ -142,9 +142,9 @@ export class FlightDetailPage {
     };
 
     return {
-      mie: diff(n1.mie, n2.mie),
-      lodging: diff(n1.lodging, n2.lodging),
-      total: diff(n1.lodging+n1.mie, n2.lodging+n2.mie)
+      mie     : diff(n1.mie, n2.mie),
+      lodging : diff(n1.lodging, n2.lodging),
+      total   : diff(n1.lodging+n1.mie, n2.lodging+n2.mie)
     };
 
     function diff(n1, n2) {
@@ -174,15 +174,15 @@ export class FlightDetailPage {
       '10': 'ten'
     };
 
-    const verb = this.betterDeals > 1 ? 'are' : 'is';
-    const count = numbers[this.betterDeals];
+    const verb   = this.betterDeals > 1 ? 'are' : 'is';
+    const count  = numbers[this.betterDeals];
     const plural = this.betterDeals > 1 ? 's' : '';
 
     return `There ${verb} ${count} better deal${plural} nearby.`;
   }
 
-  selectCity(city) {
-    this.navCtrl.push(PerDiemDetailPage, { id: city.id });
+  selectCity({ id }) {
+    this.navCtrl.push(PerDiemDetailPage, { id });
   }
 
   toFixed(n) {

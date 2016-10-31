@@ -22,7 +22,10 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.perDiemService.getSaved().then(rows => this.cities  = rows);
-    this.flightsService.getSaved().then(rows => this.flights = rows);
+    this.flightsService.getSaved().then(rows => {
+      this.flights = rows;
+      console.log(rows);
+    });
   }
 
   unsaveCity(event, city) {
