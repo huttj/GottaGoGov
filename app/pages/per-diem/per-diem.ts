@@ -17,6 +17,10 @@ export class PerDiemPage {
   private city = '';
   private cities : PerDiem[] = [];
   private timeoutId;
+  private loading = true;
+  private page = 0;
+  private infiniteScroll;
+  private hasMore;
 
   constructor(
     public perDiemService  : PerDiemService,
@@ -46,8 +50,28 @@ export class PerDiemPage {
     this.search('');
   }
 
-  search(q='') {
-    return this.perDiemService.search(this.city || q).then(res => this.cities = res);
+  async search(q='') {
+    this.loading = true;
+    this.page = 0;
+    this.cities = [];
+    this.cities = await this.perDiemService.search(this.city || q);
+    this.loading = false;
+    // if (this.infiniteScroll) this.infiniteScroll.enable(true);
+    this.hasMore = true;
+  }
+
+  async doInfinite(infiniteScroll) {
+    console.log('doInfinite called!');
+    this.page++;
+    const newCities = await this.perDiemService.search(this.city, this.page);
+
+    this.cities = this.cities.concat(newCities);
+
+    if (newCities.length < this.perDiemService.pageSize) {
+      this.hasMore = false;
+    }
+
+    infiniteScroll.complete();
   }
 
   toggleSaved(event, city) {
@@ -61,7 +85,8 @@ export class PerDiemPage {
   }
 
   selectCity(city) {
-    this.navCtrl.push(PerDiemDetailPage, { id: city.id });
+    console.log('Selecting city', city);
+    this.navCtrl.push(PerDiemDetailPage, city);
   }
 
 }

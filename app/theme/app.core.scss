@@ -62,7 +62,7 @@
   ion-searchbar {
     background-color: #304db5;
   }
-ß
+
   .toolbar-title {
     color: white;
   }
@@ -80,4 +80,22 @@
     background-color: #e5e5e5;
   }
 
+}
+
+ion-list, scroll-content {
+  .item {
+    padding-right: 16px;
+
+    &:last-of-type .item-inner {
+      border-bottom: none;
+    }
+
+    .item-inner {
+      border-bottom: none;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #dedede;
+    }
+  }
 }

@@ -49,26 +49,65 @@
 
   <!--<map [hidden]="!perDiem.latitude || !perDiem.longitude" [lat]="perDiem.latitude" [long]="perDiem.longitude"></map>-->
 
-  <div style="text-align: center; margin-top: 1em;">
-    <button (click)="searchFlights({ destination: perDiem.city })">Flights to {{perDiem.city}}</button>
-  </div>
+  <!--<div style="text-align: center; margin-top: 1em;">-->
+    <!--<button (click)="searchFlights({ destination: perDiem.city })">Flights to {{perDiem.city}}</button>-->
+  <!--</div>-->
 
   <ion-list inset>
 
-    <ion-item>
-      <ion-list-header>
-        Nearby Cities
-      </ion-list-header>
-      <ion-segment [(ngModel)]="sort" (ionChange)="sortBy(sort)">
-        <ion-segment-button value="total">Total</ion-segment-button>
-        <ion-segment-button value="lodging">Lodging</ion-segment-button>
-        <ion-segment-button value="meals">Meals</ion-segment-button>
-        <ion-segment-button value="distance">Distance</ion-segment-button>
-      </ion-segment>
+    <ion-list-header>
+      Flights
+    </ion-list-header>
+
+    <ion-item *ngIf="!flights || !flights.length">
+      <p>No flights within {{settingsService.range}} miles</p>
+    </ion-item>
+
+    <ion-item *ngFor="let flight of flights" (click)="searchFlights(flight)">
+
+      <ion-icon name="arrow-dropright" secondary item-right></ion-icon>
+
+      <!--<ion-grid>-->
+
+        <ion-row>
+          <ion-col>
+            <h2>{{flight.name}}, {{flight.abbr || flight.country}}</h2>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <p *ngIf="flight.distance < .1">here</p>
+            <p *ngIf="flight.distance > .1">{{toFixed(flight.distance)}} mi</p>
+          </ion-col>
+          <ion-col>
+            <p>{{flight.flights}} flight{{flight.flights === 1 ? '' : 's'}}</p>
+          </ion-col>
+        </ion-row>
+
+      <!--</ion-grid>-->
+
+    </ion-item>
+  </ion-list>
+
+  <span></span>
+
+  <ion-list inset>
+
+    <ion-list-header>
+      Nearby Cities
+    </ion-list-header>
+
+    <ion-item *ngIf="!nearby || !nearby.length">
+      <p>No other per diem rates within {{settingsService.range}} miles</p>
     </ion-item>
 
     <ion-item *ngFor="let other of nearby" (click)="selectCity(other)">
-      <ion-grid>
+
+      <ion-icon name="arrow-dropright" secondary item-right></ion-icon>
+
+      <!--<ion-grid>-->
+
         <ion-row>
           <ion-col>
             <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.abbr}}</h2>
@@ -76,30 +115,30 @@
         </ion-row>
 
         <ion-row>
-          <ion-col>Lodging:</ion-col>
-          <ion-col>${{other.lodging}}</ion-col>
-          <ion-col><span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></ion-col>
+          <ion-col><p>Lodging:</p></ion-col>
+          <ion-col><p>${{other.lodging}}</p></ion-col>
+          <ion-col><p><span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></p></ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col>Meals: </ion-col>
-          <ion-col>${{other.mie}} </ion-col>
-          <ion-col><span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></ion-col>
+          <ion-col><p>Meals: </p></ion-col>
+          <ion-col><p>${{other.mie}} </p></ion-col>
+          <ion-col><p><span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></p></ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col>Total:</ion-col>
-          <ion-col>${{other.mie+other.lodging}}</ion-col>
-          <ion-col><span [style.color]="other.difference.total.color">{{other.difference.total.value}}</span></ion-col>
+          <ion-col><p>Total:</p></ion-col>
+          <ion-col><p>${{other.mie+other.lodging}}</p></ion-col>
+          <ion-col><p><span [style.color]="other.difference.total.color">{{other.difference.total.value}}</span></p></ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col>Distance:</ion-col>
-          <ion-col>{{toFixed(other.distance)}} mi</ion-col>
-          <ion-col></ion-col>
+          <ion-col><p>Distance:</p></ion-col>
+          <ion-col><p>{{toFixed(other.distance)}} mi</p></ion-col>
+          <ion-col><p></p></ion-col>
         </ion-row>
 
-      </ion-grid>
+      <!--</ion-grid>-->
     </ion-item>
 
   </ion-list>

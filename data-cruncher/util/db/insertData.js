@@ -27,16 +27,17 @@ module.exports = co.wrap(function* insertData({
   function insertCities(city) {
     return co(function* (){
 
-      if (!city.latitude || !city.longitude) {
+      if (!city.latitude || !city.longitude || !city.county) {
         const term = [];
         if (city.city) term.push(city.city);
         if (city.state) term.push(city.state);
         if (city.country) term.push(city.country);
 
-        const { lat, long } = yield geocode(term.join(', '));
+        const { lat, long, county } = yield geocode(term.join(', '));
 
         city.latitude  = lat;
         city.longitude = long;
+        city.county    = county;
 
       }
 
@@ -47,14 +48,16 @@ module.exports = co.wrap(function* insertData({
         ,latitude
         ,longitude
         ,state
+        ,county
         ,country
         ,abbr
-      ) VALUES (?,?,?,?,?,?,?)`, [
+      ) VALUES (?,?,?,?,?,?,?,?)`, [
           city.id,
           city.city,
           city.latitude,
           city.longitude,
           city.state,
+          city.county,
           city.state ? 'USA' : city.country,
           city.abbr
         ]);

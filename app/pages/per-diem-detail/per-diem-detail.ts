@@ -24,6 +24,7 @@ export class PerDiemDetailPage {
   private sort                  : string    = 'total';
   private betterDeals           : number    = 0;
   private flightDestinationCity : Promise<any>;
+  private flights               : any[] = [];
 
   constructor(
     public navParams       : NavParams,
@@ -43,9 +44,13 @@ export class PerDiemDetailPage {
   }
 
   async loadCity(cityId?) {
-    const id  = this.navParams.get('id');
+    const id = this.navParams.get('id');
+    if ((!id || id === -1) && !cityId) {
+      cityId = this.navParams.get('cityId');
+    }
+    console.log('loadCity', { id, cityId });
 
-    if (cityId) {
+    if (cityId !== undefined) {
 
       this.perDiem = await this.perDiemService.getByCityId(cityId);
 
@@ -61,28 +66,41 @@ export class PerDiemDetailPage {
       this.perDiem = await this.perDiemService.getById(id);
     }
 
-    this.flightDestinationCity = this.flightsService.getNearestCityWithFlights(
+    // this.flightDestinationCity = this.flightsService.getNearestCityWithFlights(
+    //   this.perDiem.latitude,
+    //   this.perDiem.longitude
+    // );
+    this.flights = await this.flightsService.getNearestCitiesWithFlights(
       this.perDiem.latitude,
       this.perDiem.longitude
     );
 
-    const res = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
+    console.log('nearestFights', this.flights);
 
-    const thisTotal = this.perDiem.mie + this.perDiem.lodging;
+    try {
+      const res = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
 
-    this.betterDeals = 0;
+      const thisTotal = this.perDiem.mie + this.perDiem.lodging;
 
-    res.forEach((n:PerDiem) => {
-      n.difference = this.difference(this.perDiem, n);
-      const total = n.mie + n.lodging;
-      if (total > thisTotal) {
-        this.betterDeals++;
-        n['betterDeal'] = true;
-      }
-    });
+      this.betterDeals = 0;
 
-    this.nearby = res.slice(1);
-    this.sortBy();
+      res.forEach((n:PerDiem) => {
+        n.difference = this.difference(this.perDiem, n);
+        const total = n.mie + n.lodging;
+        if (total > thisTotal) {
+          this.betterDeals++;
+          n['betterDeal'] = true;
+        }
+      });
+
+      console.log('nearbys', res);
+
+      this.nearby = res.slice(1);
+      this.sortBy();
+
+    } catch (e) {
+      console.error(e);
+    }
 
   }
 
@@ -125,7 +143,7 @@ export class PerDiemDetailPage {
   }
 
   toFixed(n) {
-    return (n || 0).toFixed(2);
+    return (n || 0).toFixed(0);
   }
 
   sortBy() {
@@ -164,14 +182,19 @@ export class PerDiemDetailPage {
     return `There ${verb} ${count} better deal${plural} nearby.`;
   }
 
-  async searchFlights(props) {
-    const city = await this.flightDestinationCity;
-    if (city) {
-      props = {
-        destination: city.name
-      };
-    }
-    this.navCtrl.push(FlightsPage, props);
+  // async searchFlights(props) {
+  //   const city = await this.flightDestinationCity;
+  //   console.log(city);
+  //   if (city) {
+  //     props = {
+  //       destination: city.name
+  //     };
+  //   }
+  //   this.navCtrl.push(FlightsPage, props);
+  // }
+
+  async searchFlights(city) {
+    this.navCtrl.push(FlightsPage, { destination: city.name });
   }
 
 }

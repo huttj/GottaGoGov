@@ -1,0 +1,127 @@
+<ion-header class="bar-positive">
+  <ion-navbar>
+    <ion-title>
+      Flight Detail
+    </ion-title>
+
+    <ion-buttons end>
+      <settings-popover></settings-popover>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <!--<h1>From: {{flight.originCity}}, {{flight.originState || flight.originCountry}}</h1>-->
+    <!--<h1>To: {{flight.destinationCity}}, {{flight.destinationState || flight.destinationCountry}}</h1>-->
+
+    <h1>City Pair</h1>
+
+    <h3 class="subtitle">Origin</h3>
+    <h2>{{flight.originCity}}, {{ flight.originStateAbbrev || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
+
+    <h3 class="subtitle">Destination</h3>
+    <h2>{{flight.destinationCity}}, {{ flight.destinationStateAbbrev || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
+
+    <h3 class="subtitle">Fares</h3>
+    <h2>YCA: <strong>${{flight.ycaFare}}</strong></h2>
+    <h2>XCA: <strong>${{flight.xcaFare}}</strong></h2>
+
+    <h3 class="subtitle">Airline</h3>
+    <h2>{{flight.airlineName}} Airlines</h2>
+
+
+
+    <ion-icon [name]="flight.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedFlight($event, flight)"></ion-icon>
+
+  </ion-item>
+
+  <!--<map [hidden]="!flight.destinationLatitude || !flight.destinationLongitude" [lat]="flight.destinationLatitude" [long]="flight.destinationLongitude"></map>-->
+
+  <ion-item *ngIf="perDiem && perDiem.city">
+    <h1>Per Diem</h1>
+    <h3 class="subtitle">City</h3>
+    <h2>{{perDiem.city}}, {{perDiem.abbr}}</h2>
+    <h3 class="subtitle">Rates</h3>
+
+    <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
+    <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
+    <h2>Total: <strong>${{perDiem.mie+perDiem.lodging}}</strong></h2>
+
+    <h3 class="subtitle">Season</h3>
+    <h2 *ngIf="perDiem.seasonBegin">Season Begin: <strong>{{perDiem.seasonBegin | date: 'MM/dd/yyyy' }}</strong></h2>
+    <h2 *ngIf="perDiem.seasonBegin">Season End: <strong>{{perDiem.seasonEnd | date: 'MM/dd/yyyy' }}</strong></h2>
+    <h2 *ngIf="!perDiem.seasonBegin"><em>This is a year-long rate.</em></h2>
+
+    <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSavedPerDiem($event, perDiem)"></ion-icon>
+  </ion-item>
+
+  <ion-item *ngIf="perDiem && perDiem.city">
+    <h3>
+      <ion-icon danger name="alert"></ion-icon>
+      <em>{{betterDealMessage()}}</em>
+    </h3>
+  </ion-item>
+
+  <ion-item *ngIf="!perDiem || !perDiem.city">
+    <h2><em>There is no per-diem rate for this city.</em></h2>
+  </ion-item>
+
+  <ion-list inset *ngIf="nearbyPerDiems && nearbyPerDiems.length">
+
+    <ion-item>
+      <ion-list-header>
+        Nearby Cities
+      </ion-list-header>
+      <ion-segment [(ngModel)]="sort" (ionChange)="sortBy(sort)">
+        <ion-segment-button value="total">Total</ion-segment-button>
+        <ion-segment-button value="lodging">Lodging</ion-segment-button>
+        <ion-segment-button value="meals">Meals</ion-segment-button>
+        <ion-segment-button value="distance">Distance</ion-segment-button>
+      </ion-segment>
+    </ion-item>
+
+    <ion-item *ngFor="let other of nearbyPerDiems" (click)="selectCity(other)">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2 style="font-size: 1.8rem;" [style.fontWeight]="other.betterDeal ? 'bolder' : 'normal'">{{other.city}}, {{other.abbr}}</h2>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Lodging:</ion-col>
+          <ion-col>${{other.lodging}}</ion-col>
+          <ion-col><span [style.color]="other.difference.lodging.color">{{other.difference.lodging.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Meals: </ion-col>
+          <ion-col>${{other.mie}} </ion-col>
+          <ion-col><span [style.color]="other.difference.mie.color">{{other.difference.mie.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Total:</ion-col>
+          <ion-col>${{other.mie+other.lodging}}</ion-col>
+          <ion-col><span [style.color]="other.difference.total.color">{{other.difference.total.value}}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Distance:</ion-col>
+          <ion-col>{{toFixed(other.distance)}} mi</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>

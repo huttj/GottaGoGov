@@ -9,6 +9,8 @@ import Flight from '../models/flight';
 @Injectable()
 export class FlightsService {
 
+  public pageSize = 10;
+
   private props = `
      f.id AS id
     ,f.originCity
@@ -73,7 +75,8 @@ export class FlightsService {
 
   async search(
     originCity: string,
-    destinationCity: string
+    destinationCity: string,
+    page: number = 0
   ):Promise<Flight[]> {
 
     const sql = `
@@ -95,7 +98,8 @@ export class FlightsService {
       )
              
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
-      LIMIT 50
+      LIMIT ?
+      OFFSET ?
     `;
 
     const reverseSql = `
@@ -116,15 +120,18 @@ export class FlightsService {
         OR f.originCity LIKE ?
       )
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
-      LIMIT 50
+      LIMIT ?
+      OFFSET ?
     `;
 
-    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%'];
+    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%', this.pageSize, this.pageSize * page];
 
-    const [a,b] = await Promise.all([
+    const res:any = await Promise.all([
       this.data.executeSql(sql, params),
       this.data.executeSql(reverseSql, params),
     ]);
+
+    const [a,b] = res;
 
     const results = a.concat(b);
 
@@ -213,6 +220,10 @@ export class FlightsService {
   }
 
   async getNearestCityWithFlights(lat:number, long:number, miles?:number) {
+    return (await this.getNearestCitiesWithFlights(lat, long, miles))[0];
+  }
+
+  async getNearestCitiesWithFlights(lat:number, long:number, miles?:number) {
 
     if (!miles) miles = this.settings.range;
 
@@ -230,12 +241,16 @@ export class FlightsService {
          c.id
         ,c.name
         ,c.state
+        ,c.country
+        ,c.county
+        ,c.abbr
         ,c.latitude
         ,c.longitude
         ,COUNT(1) AS flights
       FROM cities c
       INNER JOIN flights f
-      ON f.destinationCityId = c.id
+        ON f.destinationCityId = c.id
+        OR f.originCityId = c.id
       WHERE (
             c.latitude  > ?
         AND c.latitude  < ?
@@ -256,9 +271,11 @@ export class FlightsService {
     try {
       const rows = await this.data.executeSql(sql, params);
 
+      console.log('got nearestCitiesWithFlights', rows);
+
       rows.forEach(n => n.distance = calcDistance(lat, long, n.latitude, n.longitude));
 
-      return rows.sort((a, b) => a.distance - b.distance)[0];
+      return rows.sort((a, b) => a.distance - b.distance).filter(n => n.distance <= miles);
 
     } catch (e) {
 

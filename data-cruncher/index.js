@@ -3,9 +3,10 @@ const parseCsv         = require('./util/parse-csv');
 const groupByCity      = require('./util/groupByCity');
 const insertData       = require('./util/db/insertData');
 const cities           = require('./util/cities');
-
+const log              = require('./util/log');
 
 // Airlines
+log.info('Loading Airlines');
 const rawAirlines = fs.readFileSync('./data/airlines.csv', 'utf8');
 const airlines    = parseCsv(rawAirlines);
 
@@ -13,6 +14,7 @@ airlines.forEach((n, i) => n.id = i+1);
 
 
 // PerDiems
+log.info('Loading PerDiems');
 const rawPerDiem    = fs.readFileSync('./data/per-diem.csv', 'utf8');
 const parsedPerDiem = parseCsv(rawPerDiem);
 const perDiem       = groupByCity(parsedPerDiem);
@@ -30,12 +32,13 @@ for (let city of perDiem) {
 perDiem.push({
   id: -1,
   cityId: -1,
-  lodging: 91,
+  lodgingRate: 91,
   mie: 51
 });
 
 
 // City Pairs
+log.info('Loading City Pairs');
 const rawFlights = fs.readFileSync('./data/award2017.csv', 'utf8');
 const flights    = parseCsv(rawFlights);
 
@@ -50,6 +53,7 @@ for (let flight of flights) {
   flight.destinationCityId = cities.getCityId(flight.destinationState, flight.destinationCityName, flight.destinationCountry);
 }
 
+log.info('Inserting Data');
 insertData({
   perDiem,
   flights,

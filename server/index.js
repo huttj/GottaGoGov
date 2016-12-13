@@ -1,7 +1,8 @@
 const sqlite3 = require('sqlite3');
 const http    = require('http');
 
-const db = new sqlite3.Database(__dirname + '/../app/GottaFlyFed.sqlite');
+// const db = new sqlite3.Database(__dirname + '/../app/GottaFlyFed.sqlite');
+const db = new sqlite3.Database(__dirname + '/GottaFlyFed.sqlite');
 
 http.createServer((req, res) => {
 
@@ -13,7 +14,8 @@ http.createServer((req, res) => {
 
   if (req.method === 'OPTIONS') {
     res.statusCode = 200;
-    res.setHeader('Allow', 'GET, POST, PUT, PATCH, HEAD, OPTIONS');
+    // res.setHeader('Allow', 'GET, POST, PUT, PATCH, HEAD, OPTIONS');
+    res.setHeader('Allow', 'POST, OPTIONS');
     return res.end('');
   }
 
@@ -43,7 +45,7 @@ http.createServer((req, res) => {
             res.end(err.stack || err.message || err);
 
           } else {
-            console.log(rows);
+            // console.log(rows);
             res.end(JSON.stringify(rows));
           }
 

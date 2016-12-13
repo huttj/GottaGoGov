@@ -19,6 +19,10 @@ export class FlightsPage {
 
   private results : Flight[] = [];
 
+  private loading = true;
+  private page = 0;
+  private hasMore = false;
+
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
@@ -29,17 +33,22 @@ export class FlightsPage {
   }
 
   ionViewWillEnter() {
-    return this.search();
+    this.search();
   }
 
   search() {
     clearTimeout(this.searchTimeout);
 
-    this.searchTimeout = setTimeout(() => {
+    this.searchTimeout = setTimeout(async () => {
 
-      this.flightsService.search(this.originSearch, this.destinationSearch)
-        .then(rows => this.results = rows)
-        .catch(err => console.log(err));
+      this.page = 0;
+      this.loading = true;
+
+      this.results = await this.flightsService.search(this.originSearch, this.destinationSearch);
+
+      this.hasMore = this.results.length >= this.flightsService.pageSize;
+
+      this.loading = false;
 
     }, 200);
   }
@@ -76,6 +85,20 @@ export class FlightsPage {
 
   selectFlight({ id }) {
     this.navCtrl.push(FlightDetailPage, { id });
+  }
+
+  async doInfinite(infiniteScroll) {
+    console.log('doInfinite called!');
+    this.page++;
+    const flights = await this.flightsService.search(this.originSearch, this.destinationSearch, this.page);
+
+    this.results = this.results.concat(flights);
+
+    if (flights.length < this.flightsService.pageSize) {
+      this.hasMore = false;
+    }
+
+    infiniteScroll.complete();
   }
 
 }

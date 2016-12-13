@@ -1,0 +1,62 @@
+<ion-header class="bar-positive">
+  <ion-navbar>
+    <ion-title>
+      Search
+    </ion-title>
+
+    <ion-buttons end>
+      <settings-popover></settings-popover>
+    </ion-buttons>
+
+  </ion-navbar>
+
+  <ion-item>
+    <ion-icon style="z-index: 9001;" name="close" (click)="resetSearch()" item-right></ion-icon>
+    <ion-input type="text" [value]="citySearch" placeholder="Where are you going?" (input)="updateSearch($event)"></ion-input>
+  </ion-item>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list inset>
+
+    <ion-item *ngIf="!results || !results.length">
+      <h2 *ngIf="searching">Searching the web...</h2>
+      <h2 *ngIf="!searching">No results match your search.</h2>
+    </ion-item>
+
+    <ion-item *ngFor="let city of results" text-wrap>
+      <ion-row>
+
+        <ion-col width-90>
+
+          <h2>{{city.name}}, {{city.abbr || city.country}}</h2>
+          <div *ngIf="city.perDiem">
+            <p>MIE: ${{city.perDiem.mie}}</p>
+            <p>Lodging: ${{city.perDiem.lodging}}</p>
+          </div>
+          <p *ngIf="city.perDiem === null">
+            <em>Loading per diem information...</em>
+          </p>
+          <p *ngIf="city.flight !== null">{{flightMessage(city)}}</p>
+          <p *ngIf="city.flight === null"><em>Loading flight information...</em></p>
+        </ion-col>
+        <ion-col width-10 style="position: relative;">
+
+          <ion-icon *ngIf="city.perDiem" style="font-size: 26px; position: absolute; top: 0; right: 0;" name="wine" (click)="selectCity(city, $event)"></ion-icon>
+
+          <ion-icon *ngIf="city.flight" style="font-size: 26px; position: absolute; bottom: 0; right: 0;" name="plane" (click)="selectFlights(city.flight, $event)"></ion-icon>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-item>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="hasMore">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </ion-list>
+
+</ion-content>

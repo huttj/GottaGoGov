@@ -21,18 +21,23 @@
 
   <ion-list inset>
 
-    <ion-item *ngIf="!results || !results.length">
-      <h2>No results match your search.</h2>
+    <ion-item *ngIf="loading || !results || !results.length">
+      <h2 *ngIf="loading">Loading...</h2>
+      <h2 *ngIf="!loading">No results match your search.</h2>
     </ion-item>
 
     <ion-item *ngFor="let flight of results" (click)="selectFlight(flight)">
       <ion-icon bright [name]="flight.saved ? 'star' : 'star-outline'" item-left (click)="toggleSaved($event, flight)"></ion-icon>
       <h2>From: {{flight.originCity}}, {{ flight.originStateAbbrev || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
       <h2>To: {{flight.destinationCity}}, {{ flight.destinationStateAbbrev || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
-      <p>Airline: {{flight.airlineName}}</p>
+      <p>{{flight.airlineName}} Airlines</p>
       <p>YCA Fare: ${{flight.ycaFare}}</p>
       <p>XCA Fare: ${{flight.xcaFare}}</p>
     </ion-item>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="hasMore">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
   </ion-list>
 

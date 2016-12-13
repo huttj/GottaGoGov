@@ -28,6 +28,7 @@ function cities(db) {
        ,latitude  REAL
        ,longitude REAL
        ,state     TEXT
+       ,county    TEXT
        ,country   TEXT
        ,abbr      TEXT
        ,saved     INTEGER NON NULL DEFAULT 0

@@ -80,6 +80,9 @@ function camelCase(n) {
 
 function csvToObject(csv, formatHead) {
   const lines = csv.split(/\r?\n/);
+
+  if (!lines[lines.length-1]) lines.pop();
+
   const head = lines[0].match(/("[^"]+"|[^,]*),/g).map(n => n.slice(0,-1)).map(n => (formatHead ? camelCase(n) : n));
 
   const rows = lines.slice(1).map(n => n.match(/("[^"]+"|[^,]*),/g).map(n => n.slice(0,-1)));

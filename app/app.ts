@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { Platform, ionicBootstrap } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TabsPage } from './pages/tabs/tabs';
-
+import { enableProdMode } from '@angular/core';
 
 import { DataService } from './services/data';
 import { SettingsService } from './services/settings';
+
+if (window.hasOwnProperty('cordova')) {
+  enableProdMode();
+}
 
 @Component({
   template: '<ion-nav [root]="rootPage" [class]="theme.name"></ion-nav>',
