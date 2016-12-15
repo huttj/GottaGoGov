@@ -1,14 +1,14 @@
 import { Component }     from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { PerDiemService }    from '../../services/per-diem';
+import { CityService }       from '../../services/city';
 import { FlightsService }    from '../../services/flights';
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 import { FlightDetailPage }  from '../flight-detail/flight-detail';
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  providers: [PerDiemService, FlightsService]
+  providers: [CityService, FlightsService]
 })
 export class HomePage {
   private cities  = [];
@@ -16,7 +16,7 @@ export class HomePage {
 
   constructor(
     public navCtrl        : NavController,
-    public perDiemService : PerDiemService,
+    public perDiemService : CityService,
     public flightsService : FlightsService
   ) {}
 
@@ -30,7 +30,7 @@ export class HomePage {
 
   unsaveCity(event, city) {
     event.stopPropagation();
-    this.perDiemService.unsave(city.cityId);
+    this.perDiemService.unsave(city.id);
     this.perDiemService.getSaved().then(rows => this.cities = rows);
   }
 

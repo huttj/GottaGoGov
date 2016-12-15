@@ -18,7 +18,7 @@ export class FlightsService {
     ,f.originCountry
     ,f.originAirportAbbrev
     ,f.originState
-    ,oc.abbr AS originStateAbbrev
+    ,f.originStateAbbrev
     ,f.originAirportLocation
     
     ,f.destinationCity
@@ -26,7 +26,7 @@ export class FlightsService {
     ,f.destinationCountry
     ,f.destinationAirportAbbrev
     ,f.destinationState
-    ,dc.abbr as destinationStateAbbrev
+    ,f.destinationStateAbbrev
     ,f.destinationAirportLocation
     
     ,f.airlineAbbrev
@@ -46,7 +46,7 @@ export class FlightsService {
     ,f.destinationCountry         AS originCountry
     ,f.destinationAirportAbbrev   AS originAirportAbbrev
     ,f.destinationState           AS originState
-    ,dc.abbr                      AS originStateAbbrev
+    ,f.destinationStateAbbrev     AS originStateAbbrev
     ,f.destinationAirportLocation AS originAirportLocation
     
     ,f.originCity            AS destinationCity
@@ -54,7 +54,7 @@ export class FlightsService {
     ,f.originCountry         AS destinationCountry
     ,f.originAirportAbbrev   AS destinationAirportAbbrev
     ,f.originState           AS destinationState
-    ,oc.abbr                 AS destinationStateAbbrev
+    ,f.originStateAbbrev     AS destinationStateAbbrev
     ,f.originAirportLocation AS destinationAirportLocation
     
     ,f.airlineAbbrev
@@ -84,10 +84,6 @@ export class FlightsService {
       FROM flights f
       LEFT JOIN airlines a
       ON f.airlineAbbrev = a.code
-      LEFT JOIN cities oc
-      ON oc.id = f.originCityId
-      LEFT JOIN cities dc
-      ON dc.id = f.destinationCityId
       WHERE (
         f.originAirportAbbrev = ?
         OR f.originCity LIKE ?
@@ -107,10 +103,6 @@ export class FlightsService {
       FROM flights f
       LEFT JOIN airlines a
       ON f.airlineAbbrev = a.code
-      INNER JOIN cities oc
-      ON oc.id = f.originCityId
-      INNER JOIN cities dc
-      ON dc.id = f.destinationCityId
       WHERE (
         f.destinationAirportAbbrev = ?
         OR f.destinationCity LIKE ?
@@ -145,10 +137,6 @@ export class FlightsService {
     return this.data.executeSql(
       ` SELECT ${this.props}
           FROM flights f
-    INNER JOIN cities oc
-            ON oc.id = f.originCityId
-    INNER JOIN cities dc
-            ON dc.id = f.destinationCityId
      LEFT JOIN airlines a
             ON f.airlineAbbrev = a.code
          WHERE f.saved = 1
@@ -165,34 +153,16 @@ export class FlightsService {
     if (id < 0) {
       id = -id;
       props = this.reverseProps;
-      coords = `
-        ,oc.latitude  AS destinationLatitude
-        ,oc.longitude AS destinationLongitude
-        ,dc.latitude  AS originLatitude
-        ,dc.longitude AS originLongitude
-      `;
-
     } else {
       props = this.props;
-      coords = `
-        ,oc.latitude  AS originLatitude
-        ,oc.longitude AS originLongitude
-        ,dc.latitude  AS destinationLatitude
-        ,dc.longitude AS destinationLongitude
-      `;
     }
 
     return this.data.executeSql(
       `SELECT
                  ${props}
-                 ${coords}
             FROM flights f
        LEFT JOIN airlines a
               ON f.airlineAbbrev = a.code
-       LEFT JOIN cities oc
-              ON oc.id = f.originCityId
-       LEFT JOIN cities dc
-              ON dc.id = f.destinationCityId
            WHERE f.id = ?
      `, [id])
       .then(rows => rows[0])

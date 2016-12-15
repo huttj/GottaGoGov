@@ -1,9 +1,12 @@
 const fs               = require('fs');
+const co               = require('co');
+
 const parseCsv         = require('./util/parse-csv');
 const groupByCity      = require('./util/groupByCity');
 const insertData       = require('./util/db/insertData');
 const cities           = require('./util/cities');
 const log              = require('./util/log');
+const geocode          = require('./util/geocode');
 
 // Airlines
 log.info('Loading Airlines');
@@ -17,24 +20,34 @@ airlines.forEach((n, i) => n.id = i+1);
 log.info('Loading PerDiems');
 const rawPerDiem    = fs.readFileSync('./data/per-diem.csv', 'utf8');
 const parsedPerDiem = parseCsv(rawPerDiem);
-const perDiem       = groupByCity(parsedPerDiem);
+const perDiems      = groupByCity(parsedPerDiem);
 
-let i = 0;
-for (let city of perDiem) {
+
+for (let perDiem of perDiems) {
   try {
-    city.id = i++;
-    city.cityId = cities.getCityId(city.state, city.destination);
+
+    const city = cities.getById(cities.getCityId(perDiem.state, perDiem.destination));
+
+    if (!city.rate) city.rate = [];
+
+    city.rate.push({
+      lodging     : perDiem.lodgingRate,
+      mie         : perDiem.mie,
+      seasonBegin : perDiem.seasonBegin,
+      seasonEnd   : perDiem.seasonEnd
+    });
+
   } catch (e) {
-    console.error('Failed to getCityId for', city);
+    console.error('Failed to getCityId for', perDiem);
     throw e;
   }
 }
-perDiem.push({
-  id: -1,
-  cityId: -1,
-  lodgingRate: 91,
-  mie: 51
-});
+// cities.all().push({
+//   id: -1,
+//   cityId: -1,
+//   lodgingRate: 91,
+//   mie: 51
+// });
 
 
 // City Pairs
@@ -53,16 +66,119 @@ for (let flight of flights) {
   flight.destinationCityId = cities.getCityId(flight.destinationState, flight.destinationCityName, flight.destinationCountry);
 }
 
-log.info('Inserting Data');
-insertData({
-  perDiem,
-  flights,
-  cities: cities.all(),
-  airlines
-})
-  .then(()=>console.log('Inserted data!'))
-  .catch(err => console.error('Failed to insert data:', err));
 
-// fs.writeFileSync('perDiem.json', JSON.stringify(perDiem, null, 2));
-// fs.writeFileSync('flights.json', JSON.stringify(flights, null, 2));
-// fs.writeFileSync('cities.json', JSON.stringify(cities.all(), null, 2));
+
+
+co(function*(){
+
+  const counties = {};
+  const allCities = cities.all();
+
+  log.info('Loading County Data');
+
+  const total = allCities.length;
+  let i = 1;
+  for (const city of allCities) {
+
+    log.info(`${i++}/${total}`, 'Loading county data for:', `${city.city}, ${city.state || city.country}`);
+    const { lat, long, county } = yield geocode(`${city.city}, ${city.state || city.country}`);
+
+    city.latitude  = lat;
+    city.longitude = long;
+    city.county    = county;
+
+    if (county) {
+      const key = `${county}:${city.state}`;
+
+      const countyData = counties[key];
+
+      if (!countyData || !countyData.rate || !city.rate || countyData.rate.lodging > city.rate.lodging) {
+        counties[key] = {
+          name        : county,
+          state       : city.state,
+          rate        : city.rate
+        };
+
+      } else if (countyData && !city.rate) {
+        city.rate = countyData.rate;
+      }
+
+    }
+
+  }
+
+  for (const city of allCities) {
+
+    if ((!city.rate)) {
+
+      if (city.county) {
+        const key = `${city.county}:${city.state}`;
+        const county = counties[key];
+
+        county.rate = city.rate = county.rate || [{
+          mie     : 51,
+          lodging : 91
+        }];
+
+
+      } else {
+        city.rate = [{
+          mie: 51,
+          lodging: 91
+        }];
+      }
+    }
+
+  }
+
+  for (const flight of flights) {
+    const origin           = cities.getById(flight.originCityId);
+    const destination      = cities.getById(flight.destinationCityId);
+
+    try {
+
+      flight.destinationLat       = destination.lat;
+      flight.destinationLong      = destination.long;
+      flight.destinationStateAbbr = destination.abbr;
+
+      flight.originLat            = origin.lat;
+      flight.originLong           = origin.long;
+      flight.originStateAbbr      = origin.abbr;
+
+    } catch (e) {
+      console.log("Couldn't find flight:", flight);
+    }
+  }
+
+  const allCounties = Object.keys(counties).map(n => counties[n]);
+
+
+  log.info('Saving JSON');
+
+  saveJson({
+    flights,
+    cities: cities.all(),
+    counties: allCounties,
+    airlines,
+    geocodes: geocode.getMapping()
+  });
+
+  log.info('Inserting Data');
+
+  yield insertData({
+    flights,
+    cities: cities.all(),
+    counties: allCounties,
+    airlines
+  });
+
+  console.log('Inserted data!');
+
+}).catch(console.log);
+
+
+function saveJson(obj) {
+  for (const key in obj) {
+    fs.writeFileSync(`./cache/${key}.json`, JSON.stringify(obj[key]));
+  }
+}

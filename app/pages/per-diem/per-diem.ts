@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { PerDiemService } from '../../services/per-diem';
+import { CityService } from '../../services/city';
 import { SettingsService } from '../../services/settings';
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
-import PerDiem from '../../models/per-diem';
+import City from '../../models/city';
 
 @Component({
   templateUrl: 'build/pages/per-diem/per-diem.html',
-  providers: [PerDiemService, SettingsService],
+  providers: [CityService, SettingsService],
   directives: [SettingsPopoverComponent]
 })
 export class PerDiemPage {
   private city = '';
-  private cities : PerDiem[] = [];
+  private cities : City[] = [];
   private timeoutId;
   private loading = true;
   private page = 0;
@@ -23,7 +23,7 @@ export class PerDiemPage {
   private hasMore;
 
   constructor(
-    public perDiemService  : PerDiemService,
+    public cityService     : CityService,
     public navCtrl         : NavController,
     public settingsService : SettingsService
   ) {
@@ -54,7 +54,7 @@ export class PerDiemPage {
     this.loading = true;
     this.page = 0;
     this.cities = [];
-    this.cities = await this.perDiemService.search(this.city || q);
+    this.cities = await this.cityService.search(this.city || q);
     this.loading = false;
     // if (this.infiniteScroll) this.infiniteScroll.enable(true);
     this.hasMore = true;
@@ -63,11 +63,11 @@ export class PerDiemPage {
   async doInfinite(infiniteScroll) {
     console.log('doInfinite called!');
     this.page++;
-    const newCities = await this.perDiemService.search(this.city, this.page);
+    const newCities = await this.cityService.search(this.city, this.page);
 
     this.cities = this.cities.concat(newCities);
 
-    if (newCities.length < this.perDiemService.pageSize) {
+    if (newCities.length < this.cityService.pageSize) {
       this.hasMore = false;
     }
 
@@ -77,9 +77,9 @@ export class PerDiemPage {
   toggleSaved(event, city) {
     event.stopPropagation();
     if (city.saved) {
-      this.perDiemService.unsave(city.cityId);
+      this.cityService.unsave(city.id);
     } else {
-      this.perDiemService.save(city.cityId);
+      this.cityService.save(city.id);
     }
     city.saved = !city.saved;
   }

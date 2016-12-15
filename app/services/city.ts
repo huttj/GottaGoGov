@@ -1,8 +1,9 @@
-import { Injectable }  from '@angular/core';
-import { Http }        from '@angular/http';
-import { DataService } from './data';
-import City            from '../models/city';
-import 'rxjs/add/operator/toPromise';
+import { Injectable }      from '@angular/core';
+import { Http }            from '@angular/http';
+import { DataService }     from './data';
+import { SettingsService } from './settings';
+import calcDistance        from '../util/calcDistance';
+import City                from '../models/city';
 
 
 @Injectable()
@@ -12,51 +13,67 @@ export class CityService {
 
   private props = `
      c.id
-    ,c.name
+    ,c.rate
     ,c.latitude
     ,c.longitude
+    ,c.name AS city
+    ,c.name AS name
     ,c.state
     ,c.county
     ,c.country
-    ,c.abbr
     ,c.saved
+    ,c.abbr
   `;
 
   private nodeTypes = /city|administrative|village|hamlet|town|island|suburb|desert|nature_reserve/;
 
-  private mapCity(city) {
-    return new City(city);
+
+  private newCity(data) : City {
+    console.log('newCity', data);
+
+    const time = this.settings.time;
+
+    const rate = JSON.parse(data.rate || '[{}]');
+
+    data.rate = rate.filter(n => {
+      return !n.seasonBegin || (n.seasonBegin <= time && n.seasonEnd >= time);
+    });
+
+    return new City(data);
   }
 
   constructor(
+    private http: Http,
     private data: DataService,
-    private http: Http
+    private settings: SettingsService
   ) {}
 
-  getById(id: number) {
-    return this.data.executeSql(`
-      SELECT ${this.props}
-        FROM cities c
-       WHERE c.id = ?
-    `, [id])
-      .then(rows => rows.map(this.mapCity)[0])
-      .catch(toss);
-  }
+  search(str: string, page:number=0): Promise<City[]> {
 
-  search(str: string, page:number=0):Promise<City[]> {
     const fuzzy = str+'%';
-    const caps = str.toUpperCase();
+    const [ city='', state='' ] = str.split(',').map(n => n.trim());
+
+    console.log(city, state);
+
+    const params = [str, fuzzy, fuzzy, city, state.toUpperCase(), state+'%', this.pageSize, this.pageSize * page];
+    console.log(params);
+
     return this.data.executeSql(`
           SELECT ${this.props}
             FROM cities c
-           WHERE c.name    LIKE ?
-              OR c.state   LIKE ?
-              OR c.abbr    = ?
-              OR c.country LIKE ?
+            
+           WHERE (c.abbr = ?
+              OR c.state LIKE ?
+              OR c.name LIKE ?
+              OR (
+                    c.name = ? AND (c.abbr = ? OR c.state LIKE ?)
+                 ))
+             AND c.country = 'USA' 
+        ORDER BY c.saved DESC, c.name ASC
            LIMIT ?
-          OFFSET ?
-    `, [fuzzy,fuzzy,caps,fuzzy, this.pageSize, this.pageSize * page])
-      .then(rows => rows.map(this.mapCity))
+           OFFSET ?
+    `, params)
+      .then(rows => rows.map(r => this.newCity(r)))
       .catch(toss);
   }
 
@@ -88,11 +105,11 @@ export class CityService {
 
       }, {}))
       .map(this.lookupToCity)
-      .filter(n => Boolean(n && n.name && n.latitude && n.longitude));
+      .filter((n:any) => Boolean(n && n.name && n.latitude && n.longitude));
 
-      // .filter(n => n.type.match(this.nodeTypes))
-      // .map(this.lookupToCity)
-      // .filter(n => n && n.name && n.latitude && n.longitude);
+    // .filter(n => n.type.match(this.nodeTypes))
+    // .map(this.lookupToCity)
+    // .filter(n => n && n.name && n.latitude && n.longitude);
 
     console.log(cities);
 
@@ -116,7 +133,7 @@ export class CityService {
     return res;
   }
 
-  private async insertAndGet({ name, latitude, longitude, state, county, country }):Promise<City> {
+  private async insertAndGet({ name, latitude, longitude, state, county, country }:any):Promise<City> {
 
     if (country.match(/United States/i)) {
       country = 'USA';
@@ -139,6 +156,26 @@ export class CityService {
     if (!rows.length) {
       try {
 
+        const [countyData] = await this.data.executeSql(`
+          SELECT * FROM counties
+          WHERE name = ?
+        `, [county]);
+
+        const countyRate = JSON.parse(countyData && countyData.rate || '[{}]');
+
+        let { mie, lodging, seasonBegin, seasonEnd } = countyRate;
+
+        if (!mie || !lodging) {
+          mie = 51;
+          lodging = 91;
+        }
+
+        console.log(name, {mie, lodging, seasonBegin, seasonEnd});
+
+        const rate = JSON.stringify([{mie, lodging, seasonBegin, seasonEnd}]);
+
+        console.log(name, rate);
+
         await this.data.executeSql(`
               INSERT INTO cities (
                  name
@@ -149,8 +186,9 @@ export class CityService {
                 ,country
                 ,saved
                 ,abbr
-              ) VALUES (?,?,?,?,?,?,?,(SELECT abbr FROM cities WHERE state = ? LIMIT 1))
-            `, [name, latitude, longitude, state, county, country, false, state]);
+                ,rate
+              ) VALUES (?,?,?,?,?,?,?,(SELECT abbr FROM cities WHERE state = ? LIMIT 1),?)
+            `, [name, latitude, longitude, state, county, country, false, state, rate]);
 
       } catch (e) {
         console.error(e);
@@ -162,16 +200,99 @@ export class CityService {
              WHERE c.name = ?
                AND c.latitude = ?
                AND c.longitude = ?
+               AND c.country = 'USA'
           `, [name, latitude, longitude]);
     }
 
-    return this.mapCity(rows[0]);
+    return this.newCity(rows[0]);
+  }
+
+  getSaved() {
+    const time = this.settings.time;
+    return this.data.executeSql(
+      `    SELECT ${this.props}
+             FROM cities c
+            WHERE c.saved = 1
+      `, [])
+      .then(rows => rows.map(r => this.newCity(r)))
+      .catch(toss);
+  }
+
+  save(id) {
+    return this.data.executeSql(
+      `UPDATE cities SET saved = 1 WHERE id = ?`, [id])
+      .catch(toss);
+  }
+
+  unsave(id) {
+    return this.data.executeSql(
+      `UPDATE cities SET saved = 0 WHERE id = ?`, [id])
+      .catch(toss);
+  }
+
+  getById(id: number): Promise<City> {
+
+    console.log('getById', id);
+
+    return this.data.executeSql(`
+          SELECT ${this.props}
+            FROM cities c
+           WHERE c.id = ?
+    `, [id])
+      .then(rows => this.newCity(rows[0]))
+      .catch(toss);
+  }
+
+  async getNearby(lat:number, long:number): Promise<City[]> {
+
+    const miles = this.settings.range;
+    const time = this.settings.time;
+
+    const miPerDeg = 27.0271614;
+    // const miPerDeg = 69.1710411;
+    const degrees = miles / miPerDeg;
+
+    const latLower  = lat  - degrees;
+    const latUpper  = lat  + degrees;
+    const longLower = long - degrees;
+    const longUpper = long + degrees;
+
+
+    const sql = `
+          SELECT ${this.props}
+            FROM cities c
+      WHERE
+            c.latitude  > ?
+        AND c.latitude  < ?
+        AND c.longitude > ?
+        AND c.longitude < ?
+        AND c.country = 'USA'
+      
+      LIMIT 50
+    `;
+
+    const params = [latLower, latUpper, longLower, longUpper];
+
+    const rows     = await this.data.executeSql(sql, params);
+    const cities = rows.map(r => this.newCity(r));
+
+    cities.forEach(n => n.distance = calcDistance(lat, long, n.latitude, n.longitude));
+
+    return cities.filter(n => n.distance < miles).sort((a,b) => a.distance - b.distance)
+
   }
 
 }
 
+function log(str) {
+  return function(a) {
+    console.log(str, a);
+    return a;
+  }
+}
+
 function toss(err) {
-  console.log('tossed error', err.message, err.stack, err);
+  console.log('tossed error', err.message, err.stack, JSON.stringify(err, null, 2));
   throw err;
 }
 

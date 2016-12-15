@@ -1,7 +1,7 @@
 module.exports = function createTables(db) {
   return dropTables(db).then(() => Promise.all([
     cities(db),
-    rates(db),
+    counties(db),
     flights(db),
     airlines(db)
   ]));
@@ -10,7 +10,7 @@ module.exports = function createTables(db) {
 function dropTables(db) {
   return Promise.all([
     db.run(`DROP TABLE IF EXISTS cities`),
-    db.run(`DROP TABLE IF EXISTS perDiemRates`),
+    db.run(`DROP TABLE IF EXISTS counties`),
     db.run(`DROP TABLE IF EXISTS flights`),
     db.run(`DROP TABLE IF EXISTS airlines`),
 
@@ -23,30 +23,29 @@ function dropTables(db) {
 function cities(db) {
   return db.run(`
     CREATE TABLE cities (
-        id        INTEGER PRIMARY KEY
-       ,name      TEXT
-       ,latitude  REAL
-       ,longitude REAL
-       ,state     TEXT
-       ,county    TEXT
-       ,country   TEXT
-       ,abbr      TEXT
-       ,saved     INTEGER NON NULL DEFAULT 0
+        id          INTEGER PRIMARY KEY
+       ,name        TEXT
+       ,latitude    REAL
+       ,longitude   REAL
+       ,state       TEXT
+       ,county      TEXT
+       ,country     TEXT
+       ,abbr        TEXT
+       ,saved       INTEGER NON NULL DEFAULT 0
+       ,rate        TEXT
     );
   `, []);
 }
 
-function rates(db) {
+function counties(db) {
   return db.run(`
-    CREATE TABLE perDiemRates (
-        id          INTEGER
-       ,cityId      INTEGER
-       ,seasonBegin INTEGER
-       ,seasonEnd   INTEGER
-       ,lodging     INTEGER
-       ,mie         INTEGER
+    CREATE TABLE counties (
+        id          INTEGER PRIMARY KEY
+       ,name        TEXT
+       ,state       TEXT
+       ,rate        TEXT
     );
-  `, []).then(() => indexRates(db));
+  `, []);
 }
 
 function airlines(db) {
@@ -73,9 +72,15 @@ function flights(db) {
        ,originCity                  TEXT
        ,originState                 TEXT
        ,originCountry               TEXT
+       ,originStateAbbrev           TEXT
+       ,originLatitude              REAL
+       ,originLongitude             REAL
        ,destinationCity             TEXT
        ,destinationState            TEXT
        ,destinationCountry          TEXT
+       ,destinationStateAbbrev      TEXT
+       ,destinationLatitude         REAL
+       ,destinationLongitude        REAL
        ,airlineAbbrev               TEXT
        ,awardedServ                 TEXT
        ,paxCount                    INTEGER

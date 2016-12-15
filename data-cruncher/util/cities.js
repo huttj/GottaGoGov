@@ -44,6 +44,10 @@ function getCityId(state, city, country) {
   return loc.id;
 }
 
+function getById(id) {
+  return cities[id];
+}
+
 function titleCase(str) {
   return str.split(' ').map((n='') => n && n[0].toUpperCase() + n.slice(1).toLowerCase()).join(' ');
 }
@@ -51,5 +55,6 @@ function titleCase(str) {
 module.exports = {
   all,
   getCityId,
-  getStateName
+  getStateName,
+  getById
 };

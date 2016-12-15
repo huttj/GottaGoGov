@@ -5,9 +5,9 @@ const np           = require('../node-promise');
 const geocode      = require('../geocode');
 
 module.exports = co.wrap(function* insertData({
-  perDiem,
   flights,
   cities,
+  counties,
   airlines
 }) {
 
@@ -19,27 +19,26 @@ module.exports = co.wrap(function* insertData({
 
   yield cities.map(insertCities);
 
-  yield [
-    ...perDiem.map(insertRates),
-    ...flights.map(insertFlights)
-  ];
+  yield counties.map(insertCounties);
+
+  yield flights.map(insertFlights);
 
   function insertCities(city) {
     return co(function* (){
 
-      if (!city.latitude || !city.longitude || !city.county) {
-        const term = [];
-        if (city.city) term.push(city.city);
-        if (city.state) term.push(city.state);
-        if (city.country) term.push(city.country);
-
-        const { lat, long, county } = yield geocode(term.join(', '));
-
-        city.latitude  = lat;
-        city.longitude = long;
-        city.county    = county;
-
-      }
+      // if (!city.latitude || !city.longitude || !city.county) {
+      //   const term = [];
+      //   if (city.city) term.push(city.city);
+      //   if (city.state) term.push(city.state);
+      //   if (city.country) term.push(city.country);
+      //
+      //   const { lat, long, county } = yield geocode(term.join(', '));
+      //
+      //   city.latitude  = lat;
+      //   city.longitude = long;
+      //   city.county    = county;
+      //
+      // }
 
       try {
         return yield db.run(`INSERT INTO cities (
@@ -51,7 +50,10 @@ module.exports = co.wrap(function* insertData({
         ,county
         ,country
         ,abbr
-      ) VALUES (?,?,?,?,?,?,?,?)`, [
+        
+        ,rate
+        
+      ) VALUES (?,?,?,?,?,?,?,?,?)`, [
           city.id,
           city.city,
           city.latitude,
@@ -59,7 +61,10 @@ module.exports = co.wrap(function* insertData({
           city.state,
           city.county,
           city.state ? 'USA' : city.country,
-          city.abbr
+          city.abbr,
+
+          JSON.stringify(city.rate)
+
         ]);
 
       } catch (e) {
@@ -69,25 +74,21 @@ module.exports = co.wrap(function* insertData({
     });
   }
 
-  function insertRates(rate) {
+  function insertCounties(county) {
     // console.log(rate);
     return db.run(`
-      INSERT INTO perDiemRates (
+      INSERT INTO counties (
          id
-        ,cityId      
-        ,seasonBegin    
-        ,seasonEnd      
-        ,lodging
-        ,mie        
-      ) VALUES (?,?,?,?,?,?)
+        ,name
+        ,state
+        ,rate     
+      ) VALUES (?,?,?,?)
     `, [
-      rate.id,
-      rate.cityId,
-      rate.seasonBegin || null,
-      rate.seasonEnd   || null,
-      rate.lodgingRate,
-      rate.mie
-    ]).catch(err => console.error('Failed to insert into perDiemRates', err));
+      county.id,
+      county.name,
+      county.state,
+      JSON.stringify(county.rate)
+    ]).catch(err => console.error('Failed to insert into counties', err));
   }
 
   function insertAirlines(airline) {
@@ -120,9 +121,15 @@ module.exports = co.wrap(function* insertData({
         ,originCity
         ,originState
         ,originCountry
+        ,originStateAbbrev
+        ,originLatitude
+        ,originLongitude
         ,destinationCity
         ,destinationState
         ,destinationCountry
+        ,destinationStateAbbrev
+        ,destinationLatitude
+        ,destinationLongitude
         ,airlineAbbrev
         ,awardedServ
         ,paxCount
@@ -133,7 +140,7 @@ module.exports = co.wrap(function* insertData({
         ,destinationAirportLocation
         ,effectiveDate
         ,expirationDate
-      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     `, [
       flight.id,
       flight.originCityId,
@@ -145,9 +152,15 @@ module.exports = co.wrap(function* insertData({
       flight.originCityName,
       flight.originState,
       flight.originCountry,
+      flight.originStateAbbr,
+      flight.originLat,
+      flight.originLong,
       flight.destinationCityName,
       flight.destinationState,
       flight.destinationCountry,
+      flight.destinationStateAbbr,
+      flight.destinationLat,
+      flight.destinationLong,
       flight.airlineAbbrev,
       flight.awardedServ,
       flight.paxCount,
@@ -158,7 +171,7 @@ module.exports = co.wrap(function* insertData({
       flight.destinationAirportLocation,
       flight.effectiveDate,
       flight.expirationDate
-    ]).catch(err => console.error('Failed to insert into perDiemRates', err));
+    ]).catch(err => console.error('Failed to insert into flights', err));
   }
 
 });

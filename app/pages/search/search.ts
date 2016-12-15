@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CityService }     from '../../services/city';
-import { PerDiemService }  from '../../services/per-diem';
 import { FlightsService }  from '../../services/flights';
 import { SettingsService } from '../../services/settings';
 import City from '../../models/city';
@@ -12,7 +11,7 @@ import { SettingsPopoverComponent } from '../../components/settings-popover/sett
 
 @Component({
   templateUrl: 'build/pages/search/search.html',
-  providers: [CityService, PerDiemService, FlightsService, SettingsService],
+  providers: [CityService, FlightsService, SettingsService],
   directives: [SettingsPopoverComponent]
 })
 export class SearchPage {
@@ -29,7 +28,6 @@ export class SearchPage {
     public navParams: NavParams,
     public navCtrl: NavController,
     public cityService: CityService,
-    public perDiemService: PerDiemService,
     public flightsService: FlightsService,
     public settingsService: SettingsService
   ) {
@@ -59,11 +57,6 @@ export class SearchPage {
           }
 
           this.results = this.results.concat(rows);
-
-          rows.forEach(async(city) => {
-            city['perDiem'] = null;
-            city['perDiem'] = await this.perDiemService.getByCounty(city.county);
-          });
 
           rows.forEach(async(city) => {
             city['flight'] = null;
@@ -99,10 +92,6 @@ export class SearchPage {
     this.setHasMore(this.results.length);
   }
 
-  selectCoordinates({ lat, long }) {
-    this.perDiemService.getNearby(lat, long)
-  }
-
   flightMessage(city) {
     if (!city.flight) {
       return `No flights within ${this.settingsService.range} mile${ending(this.settingsService.range)}`;
@@ -128,7 +117,7 @@ export class SearchPage {
   selectCity(city, e) {
     if (e) e.preventDefault();
     console.log('Selecting city for', city, city.id);
-    this.navCtrl.push(PerDiemDetailPage, { id: -1, cityId: city.id });
+    this.navCtrl.push(PerDiemDetailPage, { id: city.id });
   }
 
   selectFlights(city, e) {

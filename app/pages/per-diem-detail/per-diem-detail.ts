@@ -1,7 +1,7 @@
 import { Component }                from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 
-import { PerDiemService }  from '../../services/per-diem';
+import { CityService }  from '../../services/city';
 import { FlightsService }  from '../../services/flights';
 import { SettingsService } from '../../services/settings';
 import { MapComponent }    from '../../components/map/map';
@@ -10,17 +10,17 @@ import { SettingsPopoverComponent } from '../../components/settings-popover/sett
 
 import { FlightsPage } from '../flights/flights';
 
-import PerDiem from '../../models/per-diem';
+import City from '../../models/city';
 
 @Component({
   templateUrl: 'build/pages/per-diem-detail/per-diem-detail.html',
-  providers: [PerDiemService, FlightsService],
+  providers: [CityService, FlightsService],
   directives: [MapComponent, SettingsPopoverComponent]
 })
 export class PerDiemDetailPage {
 
-  private perDiem               : PerDiem   = new PerDiem();
-  private nearby                : PerDiem[] = [];
+  private city                  : City   = new City();
+  private nearby                : City[] = [];
   private sort                  : string    = 'total';
   private betterDeals           : number    = 0;
   private flightDestinationCity : Promise<any>;
@@ -28,64 +28,52 @@ export class PerDiemDetailPage {
 
   constructor(
     public navParams       : NavParams,
-    public perDiemService  : PerDiemService,
+    public cityService     : CityService,
     public flightsService  : FlightsService,
     public settingsService : SettingsService,
     public navCtrl         : NavController
 
   ) {
-    window['PerDiemDetailPage'] = this;
-    this.settingsService.range$.subscribe(()=>this.loadCity(this.perDiem.cityId));
-    this.settingsService.time$.subscribe(()=>this.loadCity(this.perDiem.cityId));
+    window['CityDetailPage'] = this;
+    this.settingsService.range$.subscribe(()=>this.loadCity(this.city.id));
+    this.settingsService.time$.subscribe(()=>this.loadCity(this.city.id));
   }
 
   ionViewWillEnter() {
-    return this.loadCity();
+    return this.loadCity().catch(e => console.error(e));
   }
 
-  async loadCity(cityId?) {
-    const id = this.navParams.get('id');
-    if ((!id || id === -1) && !cityId) {
-      cityId = this.navParams.get('cityId');
-    }
-    console.log('loadCity', { id, cityId });
+  async loadCity(_id?) {
+    const id = _id || this.navParams.get('id');
 
-    if (cityId !== undefined) {
-
-      this.perDiem = await this.perDiemService.getByCityId(cityId);
-
-      console.log('got perDiem by cityID', JSON.stringify(this.perDiem, null, 2));
-      console.log('seasonBegin', new Date(this.perDiem.seasonBegin));
-      console.log('seasonEnd', new Date(this.perDiem.seasonEnd));
-
-      if (!this.perDiem) {
-        this.perDiem = await this.perDiemService.getById(id);
-      }
-
-    } else {
-      this.perDiem = await this.perDiemService.getById(id);
+    try {
+      this.city = await this.cityService.getById(id);
+    } catch (e) {
+      console.error(e);
     }
 
     // this.flightDestinationCity = this.flightsService.getNearestCityWithFlights(
-    //   this.perDiem.latitude,
-    //   this.perDiem.longitude
+    //   this.city.latitude,
+    //   this.city.longitude
     // );
+    console.log('Got city', this.city);
+
     this.flights = await this.flightsService.getNearestCitiesWithFlights(
-      this.perDiem.latitude,
-      this.perDiem.longitude
+      this.city.latitude,
+      this.city.longitude
     );
 
     console.log('nearestFights', this.flights);
 
     try {
-      const res = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
+      const res = await this.cityService.getNearby(this.city.latitude, this.city.longitude);
 
-      const thisTotal = this.perDiem.mie + this.perDiem.lodging;
+      const thisTotal = this.city.mie + this.city.lodging;
 
       this.betterDeals = 0;
 
-      res.forEach((n:PerDiem) => {
-        n.difference = this.difference(this.perDiem, n);
+      res.forEach((n:City) => {
+        n.difference = this.difference(this.city, n);
         const total = n.mie + n.lodging;
         if (total > thisTotal) {
           this.betterDeals++;
@@ -110,9 +98,9 @@ export class PerDiemDetailPage {
 
   toggleSaved(city) {
     if (city.saved) {
-      this.perDiemService.unsave(city.cityId);
+      this.cityService.unsave(city.id);
     } else {
-      this.perDiemService.save(city.cityId);
+      this.cityService.save(city.id);
     }
     city.saved = !city.saved;
   }

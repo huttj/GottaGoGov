@@ -3,35 +3,33 @@ import { NavParams, NavController  } from 'ionic-angular';
 
 import { MapComponent }    from '../../components/map/map';
 import { FlightsService }  from '../../services/flights';
-import { PerDiemService }  from '../../services/per-diem';
 import { SettingsService } from '../../services/settings';
 import { CityService }     from '../../services/city';
 
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
-import Flight  from '../../models/flight';
-import PerDiem from '../../models/per-diem';
+import Flight from '../../models/flight';
+import City   from '../../models/city';
 
 
 @Component({
   templateUrl: 'build/pages/flight-detail/flight-detail.html',
-  providers: [FlightsService, PerDiemService, CityService, SettingsService],
+  providers: [FlightsService, CityService, SettingsService],
   directives: [MapComponent, SettingsPopoverComponent]
 })
 export class FlightDetailPage {
 
-  private flight         : Flight    = new Flight();
-  private perDiem        : PerDiem   = new PerDiem();
-  private nearbyPerDiems : PerDiem[] = [];
-  private sort           : string    = 'total';
-  private betterDeals    : number    = 0;
+  private flight         : Flight = new Flight();
+  private perDiem        : City   = new City();
+  private nearbyPerDiems : City[] = [];
+  private sort           : string = 'total';
+  private betterDeals    : number = 0;
 
   constructor(
     public navCtrl         : NavController,
     public navParams       : NavParams,
     public flightsService  : FlightsService,
-    public perDiemService  : PerDiemService,
     public settingsService : SettingsService,
     public cityService     : CityService
   ) {
@@ -50,14 +48,14 @@ export class FlightDetailPage {
 
     console.log('flight', JSON.stringify(this.flight, null, 2));
 
-    this.perDiem = await this.perDiemService.getByCityId(this.flight.destinationCityId);
+    this.perDiem = await this.cityService.getById(this.flight.destinationCityId);
 
 
     let nearbyPerDiems;
 
     if (this.perDiem && this.perDiem.city) {
       console.log('perDiem', JSON.stringify(this.perDiem, null, 2));
-      nearbyPerDiems = await this.perDiemService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
+      nearbyPerDiems = await this.cityService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
 
     } else {
       this.perDiem = null;
@@ -66,7 +64,7 @@ export class FlightDetailPage {
 
       console.log('city', JSON.stringify(city, null, 2));
 
-      nearbyPerDiems = await this.perDiemService.getNearby(city.latitude, city.longitude);
+      nearbyPerDiems = await this.cityService.getNearby(city.latitude, city.longitude);
 
     }
 
@@ -74,7 +72,7 @@ export class FlightDetailPage {
 
     this.betterDeals = 0;
 
-    nearbyPerDiems.forEach((n:PerDiem) => {
+    nearbyPerDiems.forEach((n:City) => {
 
       const thisPerDiem = this.perDiem || n;
       n.difference = this.difference(thisPerDiem, n);
@@ -112,9 +110,9 @@ export class FlightDetailPage {
   toggleSavedPerDiem(event, perDiem) {
     event.stopPropagation();
     if (perDiem.saved) {
-      this.perDiemService.unsave(perDiem.cityId);
+      this.cityService.unsave(perDiem.cityId);
     } else {
-      this.perDiemService.save(perDiem.cityId);
+      this.cityService.save(perDiem.cityId);
     }
     perDiem.saved = !perDiem.saved;
   }

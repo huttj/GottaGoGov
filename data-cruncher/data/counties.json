@@ -1,0 +1,3228 @@
+[
+  {
+    "mie": 51,
+    "lodgingRate": 91
+  },
+  {
+    "county": "Los Angeles County",
+    "mie": 64,
+    "lodgingRate": 158,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Cook County",
+    "mie": 54,
+    "lodgingRate": 95,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Harris County",
+    "mie": 59,
+    "lodgingRate": 135,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Philadelphia County",
+    "mie": 64,
+    "lodgingRate": 183,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Maricopa County",
+    "mie": 59,
+    "lodgingRate": 118,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bexar County",
+    "mie": 64,
+    "lodgingRate": 121,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "San Diego County",
+    "mie": 64,
+    "lodgingRate": 149,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Dallas County",
+    "mie": 54,
+    "lodgingRate": 120,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Santa Clara County",
+    "mie": 64,
+    "lodgingRate": 206,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Travis County",
+    "mie": 59,
+    "lodgingRate": 141,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Marion County",
+    "mie": 54,
+    "lodgingRate": 107,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Duval County"
+  },
+  {
+    "county": "SF",
+    "mie": 74,
+    "lodgingRate": 267,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Franklin County",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Mecklenburg County",
+    "mie": 59,
+    "lodgingRate": 122,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Tarrant County",
+    "mie": 59,
+    "lodgingRate": 152,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Wayne County",
+    "mie": 54,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "El Paso County",
+    "mie": 59,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Shelby County",
+    "mie": 59,
+    "lodgingRate": 113,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "King County",
+    "mie": 74,
+    "lodgingRate": 205,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Denver County",
+    "mie": 69,
+    "lodgingRate": 178,
+    "seasonBegin": 1485936000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Suffolk County",
+    "mie": 64,
+    "lodgingRate": 130,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Davidson County",
+    "mie": 59,
+    "lodgingRate": 161,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Baltimore"
+  },
+  {
+    "county": "Oklahoma County",
+    "mie": 59,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Jefferson County"
+  },
+  {
+    "county": "Multnomah County",
+    "mie": 64,
+    "lodgingRate": 169,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Clark County",
+    "mie": 64,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Milwaukee County",
+    "mie": 64,
+    "lodgingRate": 119,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Bernalillo County"
+  },
+  {
+    "county": "Pima County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1488355200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Fresno County",
+    "mie": 64,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sacramento County",
+    "mie": 64,
+    "lodgingRate": 119,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Jackson County",
+    "mie": 64,
+    "lodgingRate": 117,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Virginia Beach",
+    "mie": 59,
+    "lodgingRate": 99,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Fulton County",
+    "mie": 69,
+    "lodgingRate": 140,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Douglas County",
+    "mie": 64,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Wake County",
+    "mie": 59,
+    "lodgingRate": 111,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Miami-Dade County",
+    "mie": 64,
+    "lodgingRate": 119,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Alameda County",
+    "mie": 69,
+    "lodgingRate": 161,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hennepin County",
+    "mie": 64,
+    "lodgingRate": 145,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Tulsa County"
+  },
+  {
+    "county": "Cuyahoga County",
+    "mie": 69,
+    "lodgingRate": 134,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sedgwick County",
+    "mie": 59,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Orleans Parish",
+    "mie": 64,
+    "lodgingRate": 128,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Kern County",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hillsborough County",
+    "mie": 64,
+    "lodgingRate": 108,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Honolulu County"
+  },
+  {
+    "county": "Arapahoe County",
+    "mie": 69,
+    "lodgingRate": 178,
+    "seasonBegin": 1485936000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Orange County"
+  },
+  {
+    "county": "City of St. Louis",
+    "mie": 54,
+    "lodgingRate": 125,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Riverside County"
+  },
+  {
+    "county": "Nueces County",
+    "mie": 59,
+    "lodgingRate": 106,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Fayette County"
+  },
+  {
+    "county": "Allegheny County",
+    "mie": 54,
+    "lodgingRate": 129,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Anchorage"
+  },
+  {
+    "county": "San Joaquin County",
+    "mie": 64,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hamilton County",
+    "mie": 64,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ramsey County",
+    "mie": 64,
+    "lodgingRate": 145,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lucas County"
+  },
+  {
+    "county": "Guilford County",
+    "mie": 54,
+    "lodgingRate": 101,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Essex County",
+    "mie": 59,
+    "lodgingRate": 114,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Collin County",
+    "mie": 59,
+    "lodgingRate": 120,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lancaster County"
+  },
+  {
+    "county": "Erie County",
+    "mie": 54,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hudson County"
+  },
+  {
+    "county": "Allen County"
+  },
+  {
+    "county": "Pinellas County",
+    "mie": 54,
+    "lodgingRate": 114,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Webb County",
+    "mie": 59,
+    "lodgingRate": 92,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Norfolk"
+  },
+  {
+    "county": "Durham County",
+    "mie": 59,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Dane County",
+    "mie": 59,
+    "lodgingRate": 115,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lubbock County"
+  },
+  {
+    "county": "Forsyth County"
+  },
+  {
+    "county": "Washoe County",
+    "mie": 64,
+    "lodgingRate": 102,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "East Baton Rouge Parish",
+    "mie": 59,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ada County"
+  },
+  {
+    "county": "Richmond City",
+    "mie": 64,
+    "lodgingRate": 143,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "San Bernardino County"
+  },
+  {
+    "county": "Spokane County",
+    "mie": 64,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Monroe County",
+    "mie": 59,
+    "lodgingRate": 104,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Polk County",
+    "mie": 59,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Stanislaus County"
+  },
+  {
+    "county": "Cumberland County",
+    "mie": 54,
+    "lodgingRate": 93,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Pierce County",
+    "mie": 64,
+    "lodgingRate": 120,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ventura County"
+  },
+  {
+    "county": "Muscogee County"
+  },
+  {
+    "county": "Montgomery County"
+  },
+  {
+    "county": "Caddo Parish"
+  },
+  {
+    "county": "Kane County"
+  },
+  {
+    "county": "New York"
+  },
+  {
+    "county": "Summit County",
+    "mie": 54,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Pulaski County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Richmond County"
+  },
+  {
+    "county": "Potter County"
+  },
+  {
+    "county": "Mobile County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1488355200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Kent County",
+    "mie": 59,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Utah",
+    "mie": 59,
+    "lodgingRate": 115,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Leon County",
+    "mie": 54,
+    "lodgingRate": 98,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Madison County"
+  },
+  {
+    "county": "Knox County",
+    "mie": 69,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Worcester County",
+    "mie": 64,
+    "lodgingRate": 92,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Cameron County"
+  },
+  {
+    "county": "Johnson County",
+    "mie": 64,
+    "lodgingRate": 117,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Providence County",
+    "mie": 59,
+    "lodgingRate": 147,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Broward County",
+    "mie": 64,
+    "lodgingRate": 118,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Sonoma County",
+    "mie": 64,
+    "lodgingRate": 148,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "St. Lucie County"
+  },
+  {
+    "county": "Lee County"
+  },
+  {
+    "county": "Minnehaha County"
+  },
+  {
+    "county": "Greene County"
+  },
+  {
+    "county": "Lane County",
+    "mie": 59,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Monterey County"
+  },
+  {
+    "county": "Hampden County",
+    "mie": 59,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Larimer County",
+    "mie": 59,
+    "lodgingRate": 109,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Winnebago County"
+  },
+  {
+    "county": "Alexandria City",
+    "mie": 69,
+    "lodgingRate": 231,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Wyandotte County",
+    "mie": 64,
+    "lodgingRate": 117,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Will County"
+  },
+  {
+    "county": "Fairfield County",
+    "mie": 64,
+    "lodgingRate": 130,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Passaic County"
+  },
+  {
+    "county": "DuPage County"
+  },
+  {
+    "county": "Onondaga County",
+    "mie": 59,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Chatham County",
+    "mie": 59,
+    "lodgingRate": 115,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bell County"
+  },
+  {
+    "county": "Hidalgo County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Macomb County"
+  },
+  {
+    "county": "Richland County",
+    "mie": 59,
+    "lodgingRate": 101,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "New Haven County",
+    "mie": 64,
+    "lodgingRate": 104,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "McLennan County",
+    "mie": 59,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Linn County",
+    "mie": 54,
+    "lodgingRate": 93,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Charleston County",
+    "mie": 69,
+    "lodgingRate": 178,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Tulare County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Shawnee County"
+  },
+  {
+    "county": "Union County"
+  },
+  {
+    "county": "Alachua County",
+    "mie": 59,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Adams County"
+  },
+  {
+    "county": "Placer County"
+  },
+  {
+    "county": "Contra Costa County",
+    "mie": 64,
+    "lodgingRate": 145,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hartford County",
+    "mie": 59,
+    "lodgingRate": 124,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lafayette Parish"
+  },
+  {
+    "county": "Midland County",
+    "mie": 54,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Denton County"
+  },
+  {
+    "county": "Vanderburgh County"
+  },
+  {
+    "county": "Taylor County"
+  },
+  {
+    "county": "Clarke County"
+  },
+  {
+    "county": "Solano County"
+  },
+  {
+    "county": "Lehigh County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Cleveland County"
+  },
+  {
+    "county": "Rutherford County"
+  },
+  {
+    "county": "Washtenaw County",
+    "mie": 59,
+    "lodgingRate": 115,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sangamon County"
+  },
+  {
+    "county": "Peoria County"
+  },
+  {
+    "county": "Utah County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Boone County"
+  },
+  {
+    "county": "Ingham County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Cass County"
+  },
+  {
+    "county": "New Hanover County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Olmsted County",
+    "mie": 64,
+    "lodgingRate": 120,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ector County"
+  },
+  {
+    "county": "Williamson County",
+    "mie": 59,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Yellowstone County"
+  },
+  {
+    "county": "Middlesex County"
+  },
+  {
+    "county": "Pueblo County"
+  },
+  {
+    "county": "Snohomish County",
+    "mie": 64,
+    "lodgingRate": 117,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Brevard County"
+  },
+  {
+    "county": "Wichita County"
+  },
+  {
+    "county": "Brown County"
+  },
+  {
+    "county": "San Mateo County"
+  },
+  {
+    "county": "Boulder County",
+    "mie": 59,
+    "lodgingRate": 132,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Palm Beach County"
+  },
+  {
+    "county": "Santa Barbara County"
+  },
+  {
+    "county": "San Diego"
+  },
+  {
+    "county": "Scott County"
+  },
+  {
+    "county": "Doña Ana County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Saint Joseph County",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Smith County"
+  },
+  {
+    "county": "Brazoria County"
+  },
+  {
+    "county": "Brazos County",
+    "mie": 59,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Kenosha County"
+  },
+  {
+    "county": "Genesee County"
+  },
+  {
+    "county": "Roanoke City",
+    "mie": 59,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Albany County",
+    "mie": 59,
+    "lodgingRate": 116,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Tom Green County",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Washington County"
+  },
+  {
+    "county": "Comanche County"
+  },
+  {
+    "county": "Weld County"
+  },
+  {
+    "county": "Portsmouth"
+  },
+  {
+    "county": "Tuscaloosa County"
+  },
+  {
+    "county": "Bristol County",
+    "mie": 59,
+    "lodgingRate": 113,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Plymouth County"
+  },
+  {
+    "county": "Norfolk County",
+    "mie": 59,
+    "lodgingRate": 160,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Yakima County"
+  },
+  {
+    "county": "Sandoval County"
+  },
+  {
+    "county": "Yuma County"
+  },
+  {
+    "county": "Shasta County",
+    "mie": 64,
+    "lodgingRate": 93,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Galveston County"
+  },
+  {
+    "county": "Bibb County"
+  },
+  {
+    "county": "Pitt County"
+  },
+  {
+    "county": "Lake County"
+  },
+  {
+    "county": "Butte County"
+  },
+  {
+    "county": "Berks County",
+    "mie": 54,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sebastian County"
+  },
+  {
+    "county": "Buncombe County",
+    "mie": 59,
+    "lodgingRate": 117,
+    "seasonBegin": 1488355200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Canyon County"
+  },
+  {
+    "county": "Volusia County"
+  },
+  {
+    "county": "Saint Louis County",
+    "mie": 64,
+    "lodgingRate": 147,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Suffolk (city)"
+  },
+  {
+    "county": "Mercer County",
+    "mie": 69,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Fort Bend County"
+  },
+  {
+    "county": "Cabarrus County"
+  },
+  {
+    "county": "Champaign County"
+  },
+  {
+    "county": "Oakland County"
+  },
+  {
+    "county": "St. Charles County"
+  },
+  {
+    "county": "Whatcom County"
+  },
+  {
+    "county": "Woodbury County"
+  },
+  {
+    "county": "Gregg County"
+  },
+  {
+    "county": "Deschutes County",
+    "mie": 59,
+    "lodgingRate": 105,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Merced County"
+  },
+  {
+    "county": "Napa County",
+    "mie": 69,
+    "lodgingRate": 207,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "McLean County"
+  },
+  {
+    "county": "Flagler County"
+  },
+  {
+    "county": "Racine County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lynchburg",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Buchanan County"
+  },
+  {
+    "county": "Camden County"
+  },
+  {
+    "county": "Benton County"
+  },
+  {
+    "county": "Dougherty County"
+  },
+  {
+    "county": "Lackawanna County",
+    "mie": 59,
+    "lodgingRate": 92,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Kalamazoo County",
+    "mie": 54,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Northampton County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Macon County"
+  },
+  {
+    "county": "Calcasieu Parish"
+  },
+  {
+    "county": "Outagamie County",
+    "mie": 64,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Gaston County"
+  },
+  {
+    "county": "Stark County",
+    "mie": 59,
+    "lodgingRate": 101,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Houston County"
+  },
+  {
+    "county": "Craighead County"
+  },
+  {
+    "county": "New Castle County",
+    "mie": 54,
+    "lodgingRate": 124,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Waukesha County"
+  },
+  {
+    "county": "Harrison County"
+  },
+  {
+    "county": "Pennington County",
+    "mie": 59,
+    "lodgingRate": 131,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Tippecanoe County",
+    "mie": 54,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Delaware County"
+  },
+  {
+    "county": "Santa Fe County",
+    "mie": 64,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Missoula County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "York County"
+  },
+  {
+    "county": "Onslow County"
+  },
+  {
+    "county": "Coconino County",
+    "mie": 64,
+    "lodgingRate": 143,
+    "seasonBegin": 1498892400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Black Hawk County"
+  },
+  {
+    "county": "Eau Claire County"
+  },
+  {
+    "county": "Burleigh County"
+  },
+  {
+    "county": "Jefferson Parish"
+  },
+  {
+    "county": "Frederick County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Bossier Parish"
+  },
+  {
+    "county": "Stearns County"
+  },
+  {
+    "county": "Yolo County",
+    "mie": 64,
+    "lodgingRate": 115,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Schenectady County",
+    "mie": 64,
+    "lodgingRate": 124,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Dakota County",
+    "mie": 59,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sutter County"
+  },
+  {
+    "county": "Mahoning County",
+    "mie": 54,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Osceola County"
+  },
+  {
+    "county": "Victoria County"
+  },
+  {
+    "county": "Rock County"
+  },
+  {
+    "county": "Faulkner County"
+  },
+  {
+    "county": "Lorain County"
+  },
+  {
+    "county": "Comal County"
+  },
+  {
+    "county": "Madera County"
+  },
+  {
+    "county": "Santa Cruz County",
+    "mie": 59,
+    "lodgingRate": 138,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Laramie County"
+  },
+  {
+    "county": "Anoka County"
+  },
+  {
+    "county": "Pottawattamie County"
+  },
+  {
+    "county": "Oneida County"
+  },
+  {
+    "county": "Story County"
+  },
+  {
+    "county": "Warren County"
+  },
+  {
+    "county": "Greenville County"
+  },
+  {
+    "county": "Vigo County"
+  },
+  {
+    "county": "Mesa County"
+  },
+  {
+    "county": "Natrona County"
+  },
+  {
+    "county": "City and County of Broomfield",
+    "mie": 59,
+    "lodgingRate": 132,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Cascade County"
+  },
+  {
+    "county": "Sarasota County"
+  },
+  {
+    "county": "Cobb County"
+  },
+  {
+    "county": "Marin County",
+    "mie": 74,
+    "lodgingRate": 175,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Daviess County"
+  },
+  {
+    "county": "Bonneville County"
+  },
+  {
+    "county": "Dubuque County"
+  },
+  {
+    "county": "Edgecombe County"
+  },
+  {
+    "county": "Howard County"
+  },
+  {
+    "county": "Prince George's County"
+  },
+  {
+    "county": "Lowndes County"
+  },
+  {
+    "county": "Riley County"
+  },
+  {
+    "county": "Seminole County"
+  },
+  {
+    "county": "Morgan County"
+  },
+  {
+    "county": "Grand Forks County"
+  },
+  {
+    "county": "Kings County"
+  },
+  {
+    "county": "Bannock County"
+  },
+  {
+    "county": "Carson City"
+  },
+  {
+    "county": "Hays County"
+  },
+  {
+    "county": "Sumner County"
+  },
+  {
+    "county": "Sarpy County"
+  },
+  {
+    "county": "Sullivan County"
+  },
+  {
+    "county": "Mohave County"
+  },
+  {
+    "county": "Escambia County",
+    "mie": 59,
+    "lodgingRate": 105,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "St. Louis County"
+  },
+  {
+    "county": "Calhoun County",
+    "mie": 54,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Manatee County",
+    "mie": 54,
+    "lodgingRate": 102,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "La Crosse County"
+  },
+  {
+    "county": "Alamance County"
+  },
+  {
+    "county": "Harrisonburg"
+  },
+  {
+    "county": "Elkhart County"
+  },
+  {
+    "county": "DeSoto County",
+    "mie": 59,
+    "lodgingRate": 105,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Kanawha County",
+    "mie": 54,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Jasper County"
+  },
+  {
+    "county": "Garfield County",
+    "mie": 59,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "DeKalb County"
+  },
+  {
+    "county": "Hall County"
+  },
+  {
+    "county": "Saginaw County"
+  },
+  {
+    "county": "Pinal County"
+  },
+  {
+    "county": "Rensselaer County",
+    "mie": 64,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ouachita Parish"
+  },
+  {
+    "county": "Wilson County"
+  },
+  {
+    "county": "Niagara County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Dauphin County",
+    "mie": 69,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Cabell County"
+  },
+  {
+    "county": "Cache County"
+  },
+  {
+    "county": "Sheboygan County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Butler County"
+  },
+  {
+    "county": "Chaves County"
+  },
+  {
+    "county": "Rapides Parish",
+    "mie": 64,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Thurston County",
+    "mie": 69,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Saline County"
+  },
+  {
+    "county": "Licking County"
+  },
+  {
+    "county": "Loudoun County"
+  },
+  {
+    "county": "Forrest County"
+  },
+  {
+    "county": "Payne County"
+  },
+  {
+    "county": "Broome County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Kootenai County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "San Luis Obispo County",
+    "mie": 64,
+    "lodgingRate": 117,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Ward County"
+  },
+  {
+    "county": "Galveston"
+  },
+  {
+    "county": "Dorchester County"
+  },
+  {
+    "county": "Twin Falls County"
+  },
+  {
+    "county": "Blair County"
+  },
+  {
+    "county": "Bartholomew County"
+  },
+  {
+    "county": "San Juan County"
+  },
+  {
+    "county": "Cochise County"
+  },
+  {
+    "county": "Barnstable County"
+  },
+  {
+    "county": "Charlottesville",
+    "mie": 69,
+    "lodgingRate": 126,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Bergen County"
+  },
+  {
+    "county": "Berkshire County",
+    "mie": 64,
+    "lodgingRate": 126,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Imperial County"
+  },
+  {
+    "county": "Cole County"
+  },
+  {
+    "county": "Rock Island County"
+  },
+  {
+    "county": "Fond du Lac County"
+  },
+  {
+    "county": "Saint Clair County"
+  },
+  {
+    "county": "Bradley County"
+  },
+  {
+    "county": "Merrimack County",
+    "mie": 59,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Chittenden County",
+    "mie": 64,
+    "lodgingRate": 125,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Reno County"
+  },
+  {
+    "county": "Centre County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Manassas"
+  },
+  {
+    "county": "Hancock County"
+  },
+  {
+    "county": "Sumter County"
+  },
+  {
+    "county": "Luzerne County"
+  },
+  {
+    "county": "Kenton County"
+  },
+  {
+    "county": "Rockwall County"
+  },
+  {
+    "county": "Lauderdale County"
+  },
+  {
+    "county": "Trumbull County"
+  },
+  {
+    "county": "Blue Earth County"
+  },
+  {
+    "county": "Yavapai County"
+  },
+  {
+    "county": "McHenry County"
+  },
+  {
+    "county": "Catawba County"
+  },
+  {
+    "county": "New London County"
+  },
+  {
+    "county": "Gwinnett County"
+  },
+  {
+    "county": "Gallatin County"
+  },
+  {
+    "county": "Berkeley County"
+  },
+  {
+    "county": "Walker County"
+  },
+  {
+    "county": "Atlantic County",
+    "mie": 64,
+    "lodgingRate": 99,
+    "seasonBegin": 1488355200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Curry County"
+  },
+  {
+    "county": "Beaufort County"
+  },
+  {
+    "county": "Clay County"
+  },
+  {
+    "county": "Marathon County"
+  },
+  {
+    "county": "Grayson County"
+  },
+  {
+    "county": "Kitsap County"
+  },
+  {
+    "county": "Muskogee County"
+  },
+  {
+    "county": "Cape Girardeau County"
+  },
+  {
+    "county": "Anne Arundel County",
+    "mie": 69,
+    "lodgingRate": 126,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Florence County"
+  },
+  {
+    "county": "Spartanburg County"
+  },
+  {
+    "county": "Clackamas County"
+  },
+  {
+    "county": "Russell County"
+  },
+  {
+    "county": "Bowie County"
+  },
+  {
+    "county": "Muskegon County",
+    "mie": 54,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bay County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Baldwin County",
+    "mie": 64,
+    "lodgingRate": 105,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Garland County",
+    "mie": 59,
+    "lodgingRate": 101,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Navajo County",
+    "mie": 59,
+    "lodgingRate": 131,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Inyo County",
+    "mie": 64,
+    "lodgingRate": 106,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Humboldt County",
+    "mie": 74,
+    "lodgingRate": 100,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Mono County",
+    "mie": 74,
+    "lodgingRate": 133,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Mendocino County",
+    "mie": 69,
+    "lodgingRate": 112,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "El Dorado County",
+    "mie": 64,
+    "lodgingRate": 112,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Nevada County",
+    "mie": 74,
+    "lodgingRate": 126,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Mariposa County",
+    "mie": 69,
+    "lodgingRate": 124,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Pitkin County",
+    "mie": 74,
+    "lodgingRate": 141,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Montezuma County",
+    "mie": 59,
+    "lodgingRate": 114,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Gunnison County",
+    "mie": 64,
+    "lodgingRate": 108,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "La Plata County",
+    "mie": 64,
+    "lodgingRate": 152,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Grand County",
+    "mie": 64,
+    "lodgingRate": 112,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Montrose County",
+    "mie": 64,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Routt County",
+    "mie": 74,
+    "lodgingRate": 106,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "San Miguel County",
+    "mie": 74,
+    "lodgingRate": 140,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Eagle County",
+    "mie": 74,
+    "lodgingRate": 134,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Falls Church City",
+    "mie": 69,
+    "lodgingRate": 231,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Fairfax City",
+    "mie": 69,
+    "lodgingRate": 231,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Sussex County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Okaloosa County",
+    "mie": 64,
+    "lodgingRate": 135,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Santa Rosa County",
+    "mie": 64,
+    "lodgingRate": 91,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Collier County",
+    "mie": 64,
+    "lodgingRate": 130,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Charlotte County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Highlands County",
+    "mie": 54,
+    "lodgingRate": 99,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "St. Johns County",
+    "mie": 59,
+    "lodgingRate": 119,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Martin County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": 1491030000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Indian River County",
+    "mie": 59,
+    "lodgingRate": 134,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Clarke",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Glynn County",
+    "mie": 64,
+    "lodgingRate": 125,
+    "seasonBegin": 1501570800000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Boundary County",
+    "mie": 64,
+    "lodgingRate": 116,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bonner County",
+    "mie": 64,
+    "lodgingRate": 116,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Blaine County",
+    "mie": 54,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Vernon Parish",
+    "mie": 64,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Natchitoches Parish",
+    "mie": 64,
+    "lodgingRate": 97,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Dukes County",
+    "mie": 74,
+    "lodgingRate": 290,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Nantucket County",
+    "mie": 74,
+    "lodgingRate": 162,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Hampshire County",
+    "mie": 64,
+    "lodgingRate": 110,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Harford County",
+    "mie": 59,
+    "lodgingRate": 104,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Baltimore County",
+    "mie": 59,
+    "lodgingRate": 101,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Talbot County",
+    "mie": 64,
+    "lodgingRate": 120,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Queen Anne's County",
+    "mie": 69,
+    "lodgingRate": 117,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hancock",
+    "mie": 74,
+    "lodgingRate": 144,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Berrien County",
+    "mie": 54,
+    "lodgingRate": 96,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ottawa County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hillsdale County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Emmet County",
+    "mie": 59,
+    "lodgingRate": 106,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Van Buren County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Grand Traverse County",
+    "mie": 74,
+    "lodgingRate": 109,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Leelanau County",
+    "mie": 74,
+    "lodgingRate": 109,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Lafayette County",
+    "mie": 64,
+    "lodgingRate": 107,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Oktibbeha County",
+    "mie": 54,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Silver Bow County",
+    "mie": 64,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Dawson County",
+    "mie": 69,
+    "lodgingRate": 122,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Lewis and Clark County",
+    "mie": 64,
+    "lodgingRate": 95,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Flathead County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Carteret County",
+    "mie": 64,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Dare County",
+    "mie": 64,
+    "lodgingRate": 96,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Williams County",
+    "mie": 69,
+    "lodgingRate": 123,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Carroll County",
+    "mie": 54,
+    "lodgingRate": 126,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Strafford County",
+    "mie": 54,
+    "lodgingRate": 104,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Belknap County",
+    "mie": 69,
+    "lodgingRate": 134,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Grafton County",
+    "mie": 64,
+    "lodgingRate": 126,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Rockingham County",
+    "mie": 59,
+    "lodgingRate": 114,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Cape May County",
+    "mie": 64,
+    "lodgingRate": 99,
+    "seasonBegin": 1488355200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Burlington County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Monmouth County",
+    "mie": 59,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Hunterdon County",
+    "mie": 64,
+    "lodgingRate": 119,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Morris County",
+    "mie": 59,
+    "lodgingRate": 145,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Somerset County",
+    "mie": 59,
+    "lodgingRate": 148,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ocean County",
+    "mie": 64,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Eddy County",
+    "mie": 54,
+    "lodgingRate": 153,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Taos County",
+    "mie": 69,
+    "lodgingRate": 92,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Tioga County",
+    "mie": 59,
+    "lodgingRate": 98,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Tompkins County",
+    "mie": 59,
+    "lodgingRate": 124,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Seneca County",
+    "mie": 59,
+    "lodgingRate": 124,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Rockland County",
+    "mie": 64,
+    "lodgingRate": 119,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Saratoga County",
+    "mie": 64,
+    "lodgingRate": 124,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Oswego County",
+    "mie": 59,
+    "lodgingRate": 102,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Medina County",
+    "mie": 54,
+    "lodgingRate": 103,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sandusky County",
+    "mie": 54,
+    "lodgingRate": 101,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Lincoln County",
+    "mie": 59,
+    "lodgingRate": 97,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Clatsop County",
+    "mie": 69,
+    "lodgingRate": 110,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bucks County",
+    "mie": 59,
+    "lodgingRate": 101,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Chester County",
+    "mie": 59,
+    "lodgingRate": 125,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Newport County",
+    "mie": 59,
+    "lodgingRate": 171,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Aiken County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Horry County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Fall River County",
+    "mie": 59,
+    "lodgingRate": 93,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Meade County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Lawrence County",
+    "mie": 59,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Frio County",
+    "mie": 54,
+    "lodgingRate": 91,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Reeves County",
+    "mie": 54,
+    "lodgingRate": 133,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Accomack County",
+    "mie": 64,
+    "lodgingRate": 103,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Fauquier County",
+    "mie": 59,
+    "lodgingRate": 94,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Williamsburg (city)",
+    "mie": 64,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Addison County",
+    "mie": 64,
+    "lodgingRate": 125,
+    "seasonBegin": 1493622000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Bennington County",
+    "mie": 69,
+    "lodgingRate": 121,
+    "seasonBegin": 1498892400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Lamoille County",
+    "mie": 74,
+    "lodgingRate": 143,
+    "seasonBegin": 1498892400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Windsor County",
+    "mie": 69,
+    "lodgingRate": 103,
+    "seasonBegin": 1485936000000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Grays Harbor County",
+    "mie": 69,
+    "lodgingRate": 94,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Clallam County",
+    "mie": 74,
+    "lodgingRate": 102,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Door County",
+    "mie": 54,
+    "lodgingRate": 91,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Columbia County",
+    "mie": 59,
+    "lodgingRate": 127,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Monongalia County",
+    "mie": 54,
+    "lodgingRate": 105,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Ohio County",
+    "mie": 54,
+    "lodgingRate": 115,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Park County",
+    "mie": 64,
+    "lodgingRate": 148,
+    "seasonBegin": 1496300400000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Uinta County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Sweetwater County",
+    "mie": 59,
+    "lodgingRate": 100,
+    "seasonBegin": "",
+    "seasonEnd": ""
+  },
+  {
+    "county": "Campbell County",
+    "mie": 59,
+    "lodgingRate": 95,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Teton County",
+    "mie": 74,
+    "lodgingRate": 141,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Sublette County",
+    "mie": 74,
+    "lodgingRate": 141,
+    "seasonBegin": 1504249200000,
+    "seasonEnd": 1506841199999
+  },
+  {
+    "county": "Kodiak Island"
+  },
+  {
+    "county": "Bristol Bay"
+  },
+  {
+    "county": "Walla Walla County"
+  },
+  {
+    "county": "Bethel"
+  },
+  {
+    "county": "North Slope"
+  },
+  {
+    "county": "Valdez-Cordova"
+  },
+  {
+    "county": "Dillingham"
+  },
+  {
+    "county": "Aleutians West"
+  },
+  {
+    "county": "Fairbanks North Star"
+  },
+  {
+    "county": "Juneau"
+  },
+  {
+    "county": "Ketchikan Gateway"
+  },
+  {
+    "county": "Nome"
+  },
+  {
+    "county": "Northwest Arctic"
+  },
+  {
+    "county": "Petersburg Borough"
+  },
+  {
+    "county": "Sitka"
+  },
+  {
+    "county": "Alpena County"
+  },
+  {
+    "county": "Craven County"
+  },
+  {
+    "county": "Lowndes"
+  },
+  {
+    "county": "San Juan"
+  },
+  {
+    "county": "St. Thomas Island"
+  },
+  {
+    "county": "Penobscot County"
+  },
+  {
+    "county": "Beltrami County"
+  },
+  {
+    "county": "Nez Perce County"
+  },
+  {
+    "county": "Aguadilla"
+  },
+  {
+    "county": "Crow Wing County"
+  },
+  {
+    "county": "Iron County"
+  },
+  {
+    "county": "Houghton County"
+  },
+  {
+    "county": "Marquette County"
+  },
+  {
+    "county": "McCracken County"
+  },
+  {
+    "county": "Whitman County"
+  },
+  {
+    "county": "St. Croix Island"
+  },
+  {
+    "county": "Chelan County"
+  },
+  {
+    "county": "Elko County"
+  },
+  {
+    "county": "Hoonah-Angoon"
+  },
+  {
+    "county": "Hawaii"
+  },
+  {
+    "county": "Kauai County"
+  },
+  {
+    "county": "Maui County"
+  },
+  {
+    "county": "Yakutat"
+  },
+  {
+    "county": "Wrangell"
+  },
+  {
+    "county": "Coos County"
+  },
+  {
+    "county": "Clearfield County"
+  },
+  {
+    "county": "Cambria County"
+  },
+  {
+    "county": "Greenbrier County"
+  },
+  {
+    "county": "Wood County"
+  },
+  {
+    "county": "Staunton City"
+  },
+  {
+    "county": "MRA"
+  },
+  {
+    "county": "Belize District"
+  },
+  {
+    "county": "Cartagena de Indias"
+  },
+  {
+    "county": "Frankfurt"
+  },
+  {
+    "county": "Ciudad de Guatemala"
+  },
+  {
+    "county": "City of Johannesburg Metropolitan Municipality"
+  },
+  {
+    "county": "Kingston and St. Andrew Corporation"
+  },
+  {
+    "county": "Lima"
+  },
+  {
+    "county": "London"
+  },
+  {
+    "county": "Lagos Island"
+  },
+  {
+    "county": "Área metropolitana de Madrid y Corredor del Henares"
+  },
+  {
+    "county": "Greater Manchester"
+  },
+  {
+    "county": "Saint James"
+  },
+  {
+    "county": "Zona Urbana Medellín"
+  },
+  {
+    "county": "Cuauhtémoc"
+  },
+  {
+    "county": "München"
+  },
+  {
+    "county": "New Providence"
+  },
+  {
+    "county": "Paris"
+  },
+  {
+    "county": "RM"
+  },
+  {
+    "county": "Microrregião de São Paulo"
+  },
+  {
+    "county": "Provincia de Santiago"
+  },
+  {
+    "county": "Cantón San José"
+  },
+  {
+    "county": "Stuttgart"
+  },
+  {
+    "county": "Tegucigalpa"
+  },
+  {
+    "county": "千代田区"
+  },
+  {
+    "county": "Quito"
+  },
+  {
+    "county": "VE"
+  },
+  {
+    "county": "中西區 Central and Western District"
+  },
+  {
+    "county": "Reykjavík"
+  },
+  {
+    "county": "Bezirk Zürich"
+  },
+  {
+    "county": "Bruxelles-Capitale - Brussel-Hoofdstad"
+  },
+  {
+    "county": "Düsseldorf"
+  },
+  {
+    "county": "City of Edinburgh"
+  },
+  {
+    "county": "东城区"
+  },
+  {
+    "county": "BCN"
+  },
+  {
+    "county": "Benito Juárez"
+  },
+  {
+    "county": "Calgary"
+  },
+  {
+    "county": "Monterrey"
+  },
+  {
+    "county": "黄浦区 (Huangpu)"
+  },
+  {
+    "county": "Sydney"
+  },
+  {
+    "county": "Guam"
+  },
+  {
+    "county": "糟屋郡"
+  },
+  {
+    "county": "Fifth District"
+  },
+  {
+    "county": "泉北郡"
+  },
+  {
+    "county": "Rota Municipality"
+  },
+  {
+    "county": "Saipan Municipality"
+  },
+  {
+    "county": "Municipio Libertador"
+  },
+  {
+    "county": "Guadalajara"
+  },
+  {
+    "county": "Mérida"
+  },
+  {
+    "county": "Puerto Vallarta"
+  },
+  {
+    "county": "Los Cabos"
+  },
+  {
+    "county": "越秀区 (Yuexiu)"
+  },
+  {
+    "county": "Cantón Liberia"
+  },
+  {
+    "county": "City of Melbourne"
+  },
+  {
+    "county": "Glasgow City"
+  },
+  {
+    "county": "Microrregião Belo Horizonte"
+  },
+  {
+    "county": "Cali"
+  },
+  {
+    "county": "Guayaquil"
+  },
+  {
+    "county": "Provincia Murillo"
+  },
+  {
+    "county": "Managua (Municipio)"
+  },
+  {
+    "county": "MI"
+  },
+  {
+    "county": "Accra Metropolitan"
+  },
+  {
+    "county": "Δήμος Αθηναίων"
+  },
+  {
+    "county": "Greater Bombay"
+  },
+  {
+    "county": "Københavns Kommune"
+  },
+  {
+    "county": "County Dublin"
+  },
+  {
+    "county": "Helsingin seutukunta"
+  },
+  {
+    "county": "Fatih"
+  },
+  {
+    "county": "Oslo"
+  },
+  {
+    "county": "okres Hlavní město Praha"
+  },
+  {
+    "county": "Central Singapore Community Development Council"
+  },
+  {
+    "county": "Stockholm"
+  },
+  {
+    "county": "Halifax County"
+  },
+  {
+    "county": "青羊区 (Qingyang)"
+  },
+  {
+    "county": "Aalborg Kommune"
+  },
+  {
+    "county": "Aguascalientes"
+  },
+  {
+    "county": "Barranquilla"
+  },
+  {
+    "county": "Bergen"
+  },
+  {
+    "county": "Birmingham"
+  },
+  {
+    "county": "BO"
+  },
+  {
+    "county": "Bremen"
+  },
+  {
+    "county": "Budapest"
+  },
+  {
+    "county": "Köln"
+  },
+  {
+    "county": "North Denpasar"
+  },
+  {
+    "county": "FI"
+  },
+  {
+    "county": "Lyon"
+  },
+  {
+    "county": "NA"
+  },
+  {
+    "county": "Alpes-Maritimes"
+  },
+  {
+    "county": "Nürnberg"
+  },
+  {
+    "county": "PI"
+  },
+  {
+    "county": "Querétaro"
+  },
+  {
+    "county": "pachalik de Rabat الرباط"
+  },
+  {
+    "county": "Област София-Град"
+  },
+  {
+    "county": "TO"
+  },
+  {
+    "county": "Veracruz"
+  },
+  {
+    "county": "Warszawa"
+  },
+  {
+    "county": "Census Division No. 11"
+  },
+  {
+    "county": "Lea County"
+  },
+  {
+    "county": "沖縄市"
+  },
+  {
+    "county": "Municipal Area Council"
+  },
+  {
+    "county": "Wakiso"
+  },
+  {
+    "county": "Kinshasa"
+  },
+  {
+    "county": "Gambir"
+  },
+  {
+    "county": "Nyarugenge"
+  },
+  {
+    "county": "Libreville"
+  },
+  {
+    "county": "Grad Zagreb"
+  },
+  {
+    "county": "CT"
+  },
+  {
+    "county": "Шевченківський район"
+  },
+  {
+    "county": "Cádiz"
+  },
+  {
+    "county": "Tiranë"
+  },
+  {
+    "county": "西春日井郡"
+  },
+  {
+    "county": "Ma'oputasi"
+  },
+  {
+    "county": "石狩郡"
+  },
+  {
+    "county": "Rīga"
+  },
+  {
+    "county": "安芸郡"
+  },
+  {
+    "county": "黒川郡"
+  },
+  {
+    "county": "Gdańsk"
+  },
+  {
+    "county": "Општина Центар"
+  },
+  {
+    "county": "GE"
+  },
+  {
+    "county": "Marseille"
+  },
+  {
+    "county": "Stavanger"
+  },
+  {
+    "county": "Općina Novo Sarajevo"
+  },
+  {
+    "county": "上北郡"
+  },
+  {
+    "county": "Çankaya"
+  },
+  {
+    "county": "City of Adelaide"
+  },
+  {
+    "county": "Bangalore Urban"
+  },
+  {
+    "county": "préfecture d'arrondissements de Casablanca-Anfa عمالة مقاطعات الدار البيضاء أنفا"
+  },
+  {
+    "county": "City of Cape Town"
+  },
+  {
+    "county": "Cardiff"
+  },
+  {
+    "county": "Dresden"
+  },
+  {
+    "county": "Göteborg"
+  },
+  {
+    "county": "Hermosillo"
+  },
+  {
+    "county": "Medak"
+  },
+  {
+    "county": "Kraków"
+  },
+  {
+    "county": "Kent"
+  },
+  {
+    "county": "Lahore District"
+  },
+  {
+    "county": "Canton Luxembourg"
+  },
+  {
+    "county": "Mazatlán"
+  },
+  {
+    "county": "PA"
+  },
+  {
+    "county": "Microrregião de Porto Alegre"
+  },
+  {
+    "county": "Harju maakond"
+  },
+  {
+    "county": "Toulouse"
+  },
+  {
+    "county": "Trondheim"
+  },
+  {
+    "county": "Comarca de València"
+  },
+  {
+    "county": "VR"
+  },
+  {
+    "county": "Jones County"
+  },
+  {
+    "county": "Wicomico County"
+  },
+  {
+    "county": "Communauté urbaine de Douala"
+  }
+]

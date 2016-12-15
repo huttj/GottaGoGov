@@ -14,30 +14,30 @@
 <ion-content>
 
   <!--<ion-item>-->
-    <!--<h1>{{perDiem.city}}, {{perDiem.abbr}}</h1>-->
-    <!--<h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>-->
-    <!--<h2>Meals: <strong>${{perDiem.mie}}</strong></h2>-->
-    <!--<ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(perDiem)"></ion-icon>-->
+    <!--<h1>{{city.city}}, {{city.abbr}}</h1>-->
+    <!--<h2>Lodging: <strong>${{city.lodging}}</strong></h2>-->
+    <!--<h2>Meals: <strong>${{city.mie}}</strong></h2>-->
+    <!--<ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(city)"></ion-icon>-->
   <!--</ion-item>-->
 
   <ion-item>
     <h1>Per Diem</h1>
 
     <h3 class="subtitle">City</h3>
-    <h2>{{perDiem.city}}, {{perDiem.abbr}}</h2>
+    <h2>{{city.city}}, {{city.abbr || city.country}}</h2>
 
     <h3 class="subtitle">Rates</h3>
-    <h2>Lodging: <strong>${{perDiem.lodging}}</strong></h2>
-    <h2>Meals: <strong>${{perDiem.mie}}</strong></h2>
-    <h2>Total: <strong>${{perDiem.mie + perDiem.lodging}}</strong></h2>
+    <h2>Lodging: <strong>${{city.lodging}}</strong></h2>
+    <h2>Meals: <strong>${{city.mie}}</strong></h2>
+    <h2>Total: <strong>${{city.mie + city.lodging}}</strong></h2>
 
     <h3 class="subtitle">Season</h3>
-    <h2 *ngIf="perDiem.seasonBegin">Season Begin: <strong>{{perDiem.seasonBegin | date: 'dd/MM/yyyy' }}</strong></h2>
-    <h2 *ngIf="perDiem.seasonBegin">Season End: <strong>{{perDiem.seasonEnd | date: 'dd/MM/yyyy' }}</strong></h2>
-    <h2 *ngIf="!perDiem.seasonBegin"><em>This is a year-long rate.</em></h2>
+    <h2 *ngIf="city.seasonBegin">Season Begin: <strong>{{city.seasonBegin | date: 'dd/MM/yyyy' }}</strong></h2>
+    <h2 *ngIf="city.seasonBegin">Season End: <strong>{{city.seasonEnd | date: 'dd/MM/yyyy' }}</strong></h2>
+    <h2 *ngIf="!city.seasonBegin"><em>This is a year-long rate.</em></h2>
 
 
-    <ion-icon [name]="perDiem.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(perDiem)"></ion-icon>
+    <ion-icon [name]="city.saved ? 'star' : 'star-outline'" bright item-right (click)="toggleSaved(city)"></ion-icon>
   </ion-item>
 
   <ion-item>
@@ -47,10 +47,10 @@
     </h3>
   </ion-item>
 
-  <!--<map [hidden]="!perDiem.latitude || !perDiem.longitude" [lat]="perDiem.latitude" [long]="perDiem.longitude"></map>-->
+  <!--<map [hidden]="!city.latitude || !city.longitude" [lat]="city.latitude" [long]="city.longitude"></map>-->
 
   <!--<div style="text-align: center; margin-top: 1em;">-->
-    <!--<button (click)="searchFlights({ destination: perDiem.city })">Flights to {{perDiem.city}}</button>-->
+    <!--<button (click)="searchFlights({ destination: city.city })">Flights to {{city.city}}</button>-->
   <!--</div>-->
 
   <ion-list inset>

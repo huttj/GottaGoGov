@@ -32,19 +32,16 @@
         <ion-col width-90>
 
           <h2>{{city.name}}, {{city.abbr || city.country}}</h2>
-          <div *ngIf="city.perDiem">
-            <p>MIE: ${{city.perDiem.mie}}</p>
-            <p>Lodging: ${{city.perDiem.lodging}}</p>
+          <div>
+            <p>MIE: ${{city.mie}}</p>
+            <p>Lodging: ${{city.lodging}}</p>
           </div>
-          <p *ngIf="city.perDiem === null">
-            <em>Loading per diem information...</em>
-          </p>
           <p *ngIf="city.flight !== null">{{flightMessage(city)}}</p>
           <p *ngIf="city.flight === null"><em>Loading flight information...</em></p>
         </ion-col>
         <ion-col width-10 style="position: relative;">
 
-          <ion-icon *ngIf="city.perDiem" style="font-size: 26px; position: absolute; top: 0; right: 0;" name="wine" (click)="selectCity(city, $event)"></ion-icon>
+          <ion-icon style="font-size: 26px; position: absolute; top: 0; right: 0;" name="wine" (click)="selectCity(city, $event)"></ion-icon>
 
           <ion-icon *ngIf="city.flight" style="font-size: 26px; position: absolute; bottom: 0; right: 0;" name="plane" (click)="selectFlights(city.flight, $event)"></ion-icon>
 

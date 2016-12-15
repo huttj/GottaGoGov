@@ -9,7 +9,7 @@
   <ion-card>
     <ion-card-header>Per Diem Rates</ion-card-header>
     <ion-list>
-      <ion-item *ngIf="cities.length === 0" style="word-wrap: normal;">
+      <ion-item *ngIf="cities.length === 0" style="word-wrap: normal;" text-wrap>
         You don't have any saved per-diem cities.
       </ion-item>
       <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
@@ -24,7 +24,7 @@
   <ion-card>
     <ion-card-header>Flights</ion-card-header>
     <ion-list>
-      <ion-item *ngIf="flights.length === 0" style="word-wrap: normal;">
+      <ion-item *ngIf="flights.length === 0" style="word-wrap: normal;" text-wrap>
         You don't have any saved flights.
       </ion-item>
       <ion-item *ngFor="let flight of flights" (click)="selectFlight(flight)">
