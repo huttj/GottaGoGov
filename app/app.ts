@@ -6,6 +6,8 @@ import { enableProdMode } from '@angular/core';
 
 import { DataService } from './services/data';
 import { SettingsService } from './services/settings';
+import { AnalyticsService } from './services/analytics';
+
 
 if (window.hasOwnProperty('cordova')) {
   enableProdMode();
@@ -13,7 +15,7 @@ if (window.hasOwnProperty('cordova')) {
 
 @Component({
   template: '<ion-nav [root]="rootPage" [class]="theme.name"></ion-nav>',
-  providers: [DataService, SettingsService]
+  providers: [DataService, SettingsService, AnalyticsService]
 })
 export class MyApp {
 
@@ -24,8 +26,11 @@ export class MyApp {
 
   constructor(
     private settingsService: SettingsService,
+    private analyticsService: AnalyticsService,
     private platform: Platform
   ) {
+
+    this.analyticsService.initialize();
 
     this.rootPage = TabsPage;
 

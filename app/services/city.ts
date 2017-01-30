@@ -29,7 +29,6 @@ export class CityService {
 
 
   private newCity(data) : City {
-    console.log('newCity', data);
 
     const time = this.settings.time;
 
@@ -53,11 +52,8 @@ export class CityService {
     const fuzzy = str+'%';
     const [ city='', state='' ] = str.split(',').map(n => n.trim());
 
-    console.log(city, state);
-
     const params = [str, fuzzy, fuzzy, city, state.toUpperCase(), state+'%', this.pageSize, this.pageSize * page];
-    console.log(params);
-
+    
     return this.data.executeSql(`
           SELECT ${this.props}
             FROM cities c
@@ -208,7 +204,6 @@ export class CityService {
   }
 
   getSaved() {
-    const time = this.settings.time;
     return this.data.executeSql(
       `    SELECT ${this.props}
              FROM cities c
@@ -232,8 +227,6 @@ export class CityService {
 
   getById(id: number): Promise<City> {
 
-    console.log('getById', id);
-
     return this.data.executeSql(`
           SELECT ${this.props}
             FROM cities c
@@ -246,7 +239,6 @@ export class CityService {
   async getNearby(lat:number, long:number): Promise<City[]> {
 
     const miles = this.settings.range;
-    const time = this.settings.time;
 
     const miPerDeg = 27.0271614;
     // const miPerDeg = 69.1710411;
@@ -259,16 +251,16 @@ export class CityService {
 
 
     const sql = `
-          SELECT ${this.props}
-            FROM cities c
-      WHERE
-            c.latitude  > ?
-        AND c.latitude  < ?
-        AND c.longitude > ?
-        AND c.longitude < ?
-        AND c.country = 'USA'
+      SELECT ${this.props}
+        FROM cities c
+       WHERE
+             c.latitude  > ?
+         AND c.latitude  < ?
+         AND c.longitude > ?
+         AND c.longitude < ?
+         AND c.country = 'USA'
       
-      LIMIT 50
+       LIMIT 50
     `;
 
     const params = [latLower, latUpper, longLower, longUpper];

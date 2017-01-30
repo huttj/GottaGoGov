@@ -32,8 +32,8 @@
     <h2>Total: <strong>${{city.mie + city.lodging}}</strong></h2>
 
     <h3 class="subtitle">Season</h3>
-    <h2 *ngIf="city.seasonBegin">Season Begin: <strong>{{city.seasonBegin | date: 'dd/MM/yyyy' }}</strong></h2>
-    <h2 *ngIf="city.seasonBegin">Season End: <strong>{{city.seasonEnd | date: 'dd/MM/yyyy' }}</strong></h2>
+    <h2 *ngIf="city.seasonBegin">Season Begin: <strong>{{city.seasonBegin | date: 'MM/dd/yyyy' }}</strong></h2>
+    <h2 *ngIf="city.seasonBegin">Season End: <strong>{{city.seasonEnd | date: 'MM/dd/yyyy' }}</strong></h2>
     <h2 *ngIf="!city.seasonBegin"><em>This is a year-long rate.</em></h2>
 
 

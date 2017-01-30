@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 
 import { CityService } from '../../services/city';
 import { SettingsService } from '../../services/settings';
+import { AnalyticsService } from '../../services/analytics';
+
 import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
 import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
@@ -10,7 +12,7 @@ import City from '../../models/city';
 
 @Component({
   templateUrl: 'build/pages/per-diem/per-diem.html',
-  providers: [CityService, SettingsService],
+  providers: [CityService, SettingsService, AnalyticsService],
   directives: [SettingsPopoverComponent]
 })
 export class PerDiemPage {
@@ -23,20 +25,21 @@ export class PerDiemPage {
   private hasMore;
 
   constructor(
-    public cityService     : CityService,
-    public navCtrl         : NavController,
-    public settingsService : SettingsService
+    public cityService      : CityService,
+    public navCtrl          : NavController,
+    public settingsService  : SettingsService,
+    public analyticsService : AnalyticsService
   ) {
     this.settingsService.range$.subscribe(()=>this.search());
     this.settingsService.time$.subscribe(()=>this.search());
   }
 
   ionViewWillEnter() {
+    this.analyticsService.trackView('PerDiem');
     return this.search();
   }
 
   update(event) {
-    window['perDiem'] = this;
 
     clearTimeout(this.timeoutId);
 
@@ -78,8 +81,10 @@ export class PerDiemPage {
     event.stopPropagation();
     if (city.saved) {
       this.cityService.unsave(city.id);
+      this.analyticsService.trackEvent('PerDiem', 'save', city.id);
     } else {
       this.cityService.save(city.id);
+      this.analyticsService.trackEvent('PerDiem', 'unsave', city.id);
     }
     city.saved = !city.saved;
   }

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController  } from 'ionic-angular';
 
-import { MapComponent }    from '../../components/map/map';
-import { FlightsService }  from '../../services/flights';
-import { SettingsService } from '../../services/settings';
-import { CityService }     from '../../services/city';
+import { MapComponent }     from '../../components/map/map';
+import { FlightsService }   from '../../services/flights';
+import { SettingsService }  from '../../services/settings';
+import { CityService }      from '../../services/city';
+import { AnalyticsService } from '../../services/analytics';
 
-import { PerDiemDetailPage } from '../per-diem-detail/per-diem-detail';
+import { PerDiemDetailPage }        from '../per-diem-detail/per-diem-detail';
 import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
 import Flight from '../../models/flight';
@@ -15,7 +16,7 @@ import City   from '../../models/city';
 
 @Component({
   templateUrl: 'build/pages/flight-detail/flight-detail.html',
-  providers: [FlightsService, CityService, SettingsService],
+  providers: [FlightsService, CityService, SettingsService, AnalyticsService],
   directives: [MapComponent, SettingsPopoverComponent]
 })
 export class FlightDetailPage {
@@ -27,11 +28,12 @@ export class FlightDetailPage {
   private betterDeals    : number = 0;
 
   constructor(
-    public navCtrl         : NavController,
-    public navParams       : NavParams,
-    public flightsService  : FlightsService,
-    public settingsService : SettingsService,
-    public cityService     : CityService
+    public navCtrl          : NavController,
+    public navParams        : NavParams,
+    public flightsService   : FlightsService,
+    public settingsService  : SettingsService,
+    public cityService      : CityService,
+    public analyticsService : AnalyticsService
   ) {
     window['FlightDetailPage'] = this;
     this.settingsService.range$.subscribe(()=>this.loadFlight());
@@ -39,6 +41,7 @@ export class FlightDetailPage {
   }
 
   ionViewWillEnter() {
+    this.analyticsService.trackView('Flight Detail');
     return this.loadFlight();
   }
 
@@ -46,15 +49,13 @@ export class FlightDetailPage {
     const id = this.navParams.get('id');
     this.flight = await this.flightsService.getById(id);
 
-    console.log('flight', JSON.stringify(this.flight, null, 2));
-
     this.perDiem = await this.cityService.getById(this.flight.destinationCityId);
 
+    this.analyticsService.trackEvent('Flight', 'load', this.flight.id);
 
     let nearbyPerDiems;
 
     if (this.perDiem && this.perDiem.city) {
-      console.log('perDiem', JSON.stringify(this.perDiem, null, 2));
       nearbyPerDiems = await this.cityService.getNearby(this.perDiem.latitude, this.perDiem.longitude);
 
     } else {
@@ -86,8 +87,6 @@ export class FlightDetailPage {
 
     });
 
-    console.log('nearbyPerDiems', JSON.stringify(nearbyPerDiems, null, 2));
-
     if (this.perDiem) {
       this.nearbyPerDiems = nearbyPerDiems.slice(1);
     } else {
@@ -102,18 +101,24 @@ export class FlightDetailPage {
     event.stopPropagation();
     if (flight.saved) {
       this.flightsService.unsave(flight.id);
+      this.analyticsService.trackEvent('Flight', 'save', flight.id);
     } else {
       this.flightsService.save(flight.id);
+      this.analyticsService.trackEvent('Flight', 'unsave', flight.id);
     }
   }
 
   toggleSavedPerDiem(event, perDiem) {
     event.stopPropagation();
+
     if (perDiem.saved) {
       this.cityService.unsave(perDiem.cityId);
+      this.analyticsService.trackEvent('PerDiem', 'save', perDiem.city);
     } else {
       this.cityService.save(perDiem.cityId);
+      this.analyticsService.trackEvent('PerDiem', 'save', perDiem.city);
     }
+
     perDiem.saved = !perDiem.saved;
   }
 

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CityService }     from '../../services/city';
-import { FlightsService }  from '../../services/flights';
-import { SettingsService } from '../../services/settings';
+
+import { CityService }      from '../../services/city';
+import { FlightsService }   from '../../services/flights';
+import { SettingsService }  from '../../services/settings';
+import { AnalyticsService } from '../../services/analytics';
+
 import City from '../../models/city';
 
 import { FlightsPage }              from '../../pages/flights/flights';
@@ -11,7 +14,7 @@ import { SettingsPopoverComponent } from '../../components/settings-popover/sett
 
 @Component({
   templateUrl: 'build/pages/search/search.html',
-  providers: [CityService, FlightsService, SettingsService],
+  providers: [CityService, FlightsService, SettingsService, AnalyticsService],
   directives: [SettingsPopoverComponent]
 })
 export class SearchPage {
@@ -25,17 +28,19 @@ export class SearchPage {
   private hasMore = true;
 
   constructor(
-    public navParams: NavParams,
-    public navCtrl: NavController,
-    public cityService: CityService,
-    public flightsService: FlightsService,
-    public settingsService: SettingsService
+    public navParams        : NavParams,
+    public navCtrl          : NavController,
+    public cityService      : CityService,
+    public flightsService   : FlightsService,
+    public settingsService  : SettingsService,
+    public analyticsService : AnalyticsService
   ) {
     this.settingsService.range$.subscribe(()=>this.updateSearch());
     this.settingsService.time$.subscribe(()=>this.updateSearch());
   }
 
   ionViewWillEnter() {
+    this.analyticsService.trackView('Search');
     if (!this.citySearch) {
       this.search();
     }

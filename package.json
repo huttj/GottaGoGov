@@ -52,5 +52,16 @@
     }
   ],
   "name": "gottaflyfed",
-  "description": "GottaFlyFed: An Ionic project"
+  "description": "GottaFlyFed: An Ionic project",
+  "scripts": {
+    "release": "npm run ios-release; npm run android-release",
+    "ios-release": "npm run ios-build && npm run ios-open",
+    "ios-build": "ionic build ios --release",
+    "ios-open": "open -a Xcode platforms/ios/GottaGoGov.xcodeproj",
+    "android-release": "npm run android-clean && npm run android-build && npm run android-sign && npm run android-zipalign",
+    "android-clean": "rm -f GottaGoGov.apk",
+    "android-build": "ionic build android --release",
+    "android-sign": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/build/outputs/apk/android-release-unsigned.apk main",
+    "android-zipalign": "/Users/joshua/Library/Application\\ Support/Fusetools/Fuse/Android/AndroidSDK/build-tools/23.0.2/zipalign -v 4 platforms/android/build/outputs/apk/android-release-unsigned.apk GottaGoGov.apk"
+  }
 }

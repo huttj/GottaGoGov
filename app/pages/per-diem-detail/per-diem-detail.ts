@@ -4,7 +4,9 @@ import { NavParams, NavController } from 'ionic-angular';
 import { CityService }  from '../../services/city';
 import { FlightsService }  from '../../services/flights';
 import { SettingsService } from '../../services/settings';
-import { MapComponent }    from '../../components/map/map';
+import { AnalyticsService } from '../../services/analytics';
+
+// import { MapComponent }    from '../../components/map/map';
 import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
 
@@ -14,8 +16,9 @@ import City from '../../models/city';
 
 @Component({
   templateUrl: 'build/pages/per-diem-detail/per-diem-detail.html',
-  providers: [CityService, FlightsService],
-  directives: [MapComponent, SettingsPopoverComponent]
+  providers: [CityService, FlightsService, AnalyticsService],
+  // directives: [MapComponent, SettingsPopoverComponent]
+  directives: [SettingsPopoverComponent]
 })
 export class PerDiemDetailPage {
 
@@ -27,19 +30,20 @@ export class PerDiemDetailPage {
   private flights               : any[] = [];
 
   constructor(
-    public navParams       : NavParams,
-    public cityService     : CityService,
-    public flightsService  : FlightsService,
-    public settingsService : SettingsService,
-    public navCtrl         : NavController
+    public navParams        : NavParams,
+    public cityService      : CityService,
+    public flightsService   : FlightsService,
+    public settingsService  : SettingsService,
+    public analyticsService : AnalyticsService,
+    public navCtrl          : NavController
 
   ) {
-    window['CityDetailPage'] = this;
     this.settingsService.range$.subscribe(()=>this.loadCity(this.city.id));
     this.settingsService.time$.subscribe(()=>this.loadCity(this.city.id));
   }
 
   ionViewWillEnter() {
+    this.analyticsService.trackView('PerDiem Detail');
     return this.loadCity().catch(e => console.error(e));
   }
 
@@ -99,8 +103,10 @@ export class PerDiemDetailPage {
   toggleSaved(city) {
     if (city.saved) {
       this.cityService.unsave(city.id);
+      this.analyticsService.trackEvent('PerDiem', 'save', city.name || city.city);
     } else {
       this.cityService.save(city.id);
+      this.analyticsService.trackEvent('PerDiem', 'unsave', city.name || city.city);
     }
     city.saved = !city.saved;
   }

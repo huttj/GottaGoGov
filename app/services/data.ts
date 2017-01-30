@@ -12,8 +12,12 @@ export class DataService {
   private lock = Promise.resolve({});
 
   constructor(private http: Http) {
-    this.onUnlock(() => this.onFirstRun())
-      .then(()=>this.connect());
+    this.init();
+  }
+
+  async init() {
+    await this.onFirstRun();
+    await this.connect();
     window['db'] = this.db;
   }
 

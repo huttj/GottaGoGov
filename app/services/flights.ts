@@ -125,11 +125,7 @@ export class FlightsService {
 
     const [a,b] = res;
 
-    const results = a.concat(b);
-
-    console.log(JSON.stringify(results, null, 2));
-
-    return results;
+    return a.concat(b);
 
   }
 
@@ -241,8 +237,6 @@ export class FlightsService {
     try {
       const rows = await this.data.executeSql(sql, params);
 
-      console.log('got nearestCitiesWithFlights', rows);
-
       rows.forEach(n => n.distance = calcDistance(lat, long, n.latitude, n.longitude));
 
       return rows.sort((a, b) => a.distance - b.distance).filter(n => n.distance <= miles);
@@ -250,7 +244,6 @@ export class FlightsService {
     } catch (e) {
 
       console.log('error in getNearestCityWithFlights', e.message || e);
-      console.log(JSON.stringify(e, null, 2));
       throw e;
     }
 

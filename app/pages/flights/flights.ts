@@ -3,13 +3,17 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { FlightDetailPage } from '../flight-detail/flight-detail';
 import { FlightsService }   from '../../services/flights';
+import { AnalyticsService } from '../../services/analytics';
 
 import Flight from '../../models/flight';
+
+import { SettingsPopoverComponent } from '../../components/settings-popover/settings-popover';
 
 
 @Component({
   templateUrl: 'build/pages/flights/flights.html',
-  providers: [FlightsService]
+  providers: [FlightsService, AnalyticsService],
+  directives: [SettingsPopoverComponent]
 })
 export class FlightsPage {
 
@@ -20,19 +24,21 @@ export class FlightsPage {
   private results : Flight[] = [];
 
   private loading = true;
-  private page = 0;
+  private page    = 0;
   private hasMore = false;
 
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
-    public flightsService: FlightsService
+    public flightsService: FlightsService,
+    public analyticsService: AnalyticsService
   ) {
     this.originSearch      = navParams.get('origin') || '';
     this.destinationSearch = navParams.get('destination') || '';
   }
 
   ionViewWillEnter() {
+    this.analyticsService.trackView('Flights');
     this.search();
   }
 
@@ -40,6 +46,9 @@ export class FlightsPage {
     clearTimeout(this.searchTimeout);
 
     this.searchTimeout = setTimeout(async () => {
+
+      // Use to abort results from flightsService; compare
+      // const originalTimeout = this.searchTimeout;
 
       this.page = 0;
       this.loading = true;
@@ -50,7 +59,7 @@ export class FlightsPage {
 
       this.loading = false;
 
-    }, 200);
+    }, 300);
   }
 
   updateOrigin(event) {
@@ -77,8 +86,10 @@ export class FlightsPage {
     event.stopPropagation();
     if (flight.saved) {
       this.flightsService.unsave(flight.id);
+      this.analyticsService.trackEvent('Flight', 'save', flight.id);
     } else {
       this.flightsService.save(flight.id);
+      this.analyticsService.trackEvent('Flight', 'unsave', flight.id);
     }
     flight.saved = !flight.saved;
   }
@@ -88,7 +99,6 @@ export class FlightsPage {
   }
 
   async doInfinite(infiniteScroll) {
-    console.log('doInfinite called!');
     this.page++;
     const flights = await this.flightsService.search(this.originSearch, this.destinationSearch, this.page);
 
