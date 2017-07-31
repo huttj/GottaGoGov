@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.huttj.gottagogovapp" version="0.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.huttj.gottagogovapp" version="0.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>GottaGoGov</name>
   <description>A tool to help government travelers keep track of where they're going and how they get there.</description>
   <author email="joshua@huttj.com" href="http://huttj.com/">Joshua Hutt</author>

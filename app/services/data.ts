@@ -1,69 +1,134 @@
-import { Injectable } from '@angular/core';
-import { SQLite }     from 'ionic-native';
-import { Http }       from '@angular/http';
+import { Injectable }      from '@angular/core';
+import { SQLite }          from 'ionic-native';
+import { Http }            from '@angular/http';
+import { AlertController } from 'ionic-angular';
 
-import stringify      from '../util/stringify';
+import stringify           from '../util/stringify';
 
 @Injectable()
 export class DataService {
 
   private static dbName = "GottaFlyFed.sqlite";
   private db   = new SQLite();
-  private lock = Promise.resolve({});
+  private lock = null;
 
-  constructor(private http: Http) {
-    this.init();
+  constructor(private http: Http, public alertCtrl: AlertController) {
+    this.lock = this.init();
   }
 
   async init() {
-    await this.onFirstRun();
-    await this.connect();
-    window['db'] = this.db;
+    try {
+      await this.isReady();
+
+      if (!this.isCopied()) {
+        console.log('database not copied; copying');
+        await this.onFirstRun();
+      }
+
+      await this.connect();
+
+    } catch (e) {
+
+      // If we still failed, something else went wrong
+      console.warn('db init failed', e.message, e.stack);
+
+      this.alert({
+        title: 'Error',
+        subTitle: 'Something went wrong, and we were unable to load the data. Please restart the app. If the problem persists, contact support.<br/><br/> Here is the error: <br><i>' + e.message + '</i>',
+        buttons: ['OK']
+      });
+    }
+  }
+
+  markCopied() {
+    return window['localStorage'].setItem('copied', 'true');
+  }
+
+  isCopied() {
+    try {
+      return JSON.parse(window['localStorage'].getItem('copied') || 'false');
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async isReady() {
+    let i = 0;
+    while (i++ < 10) {
+      if (typeof window['sqlitePlugin'] !== 'undefined') return true;
+      await new Promise(res => setTimeout(res, 1000));
+    }
   }
 
   connect() {
-
     return this.db.openDatabase({
       name: DataService.dbName,
       iosDatabaseLocation: 'Documents'
     });
-
   }
 
-  onUnlock(cb) {
-    return this.lock = this.lock.then(cb).catch(err => {
-      console.log('Error in DataService.lock: ' + stringify(err));
-      throw err;
-    });
+  alert(opts, tries=0) {
+    try {
+      this.alertCtrl.create(opts).present();
+    } catch (e) {
+      console.log('Failed to alert ' + (tries+1) + ' time(s). Trying again in 1 second.');
+      if (tries < 3) {
+        setTimeout(() => this.alert(opts, tries+1), 1000);
+      }
+    }
   }
 
-  onFirstRun() {
-    return new Promise((res, rej) => window['plugins'].sqlDB.copy(DataService.dbName, 0, res, rej)).catch(()=>{});
+  copyDb() {
+    return new Promise((res, rej) => window['plugins'].sqlDB.copy(DataService.dbName, 0, res, rej))
   }
 
-  executeSql(sql: string, params: any[] = []) {
+  async onFirstRun() {
+    if (this.isNative()) {
+      try {
 
-    if (window['sqlitePlugin']) {
+        await this.copyDb();
+        this.markCopied();
 
-      return this.lock.then(() => this.db.executeSql(sql, params))
+      } catch (e) {
 
-        .then((res:any) => {
-          const results = [];
-          for (let i = 0, len = res.rows.length; i < len; i++) {
-            results.push(res.rows.item(i));
-          }
-          return results;
-        });
+        if (e.message.indexOf('already exists') > -1) {
+          console.log('database was already copied; setting copied');
+          return this.markCopied();
+        }
 
-    } else {
+        throw e;
+      }
+    }
+  }
 
-      return this.http.post('http://localhost:3000', { sql, params }).toPromise()
-        .then(res => res.json())
-        .catch(e => {
-          console.log(e);
-          throw e;
-        });
+  isNative() {
+    return !!window['cordova'];
+  }
 
+  async executeSql(sql: string, params: any[] = []) {
+
+    try {
+      if (this.isNative()) {
+
+        await this.lock;
+
+        const res = await this.db.executeSql(sql, params);
+
+        const results = [];
+        for (let i = 0, len = res.rows.length; i < len; i++) {
+          results.push(res.rows.item(i));
+        }
+
+        return results;
+
+      } else {
+
+        const res = await this.http.post('http://localhost:3000', {sql, params}).toPromise();
+        return await res.json();
+      }
+    } catch (e) {
+      console.log('Error executing sql', e.message, e.stack);
+      throw e;
     }
 
   }

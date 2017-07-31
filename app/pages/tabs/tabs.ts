@@ -31,7 +31,7 @@ export class TabsPage {
     this.tab4Root = HomePage;
     // this.tab4Root = SettingsPage;
 
-    setTimeout(() => this.askForEmail(), 1000);
+    // setTimeout(() => this.askForEmail(), 1000);
 
   }
 
@@ -60,8 +60,11 @@ export class TabsPage {
 
             localStorage.setItem('gotEmail', 'true');
             console.log(data.email);
-            this.analyticsService.trackEvent('email', data.email);
-            this.analyticsService.setUserId(data.email);
+
+            const e = (data.email.replace(/@/g, '(at)'));
+
+            this.analyticsService.trackEvent('opt_in', e);
+            this.analyticsService.setUserId(e);
           }
         }
       ]

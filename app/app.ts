@@ -30,6 +30,35 @@ export class MyApp {
     private platform: Platform
   ) {
 
+    // const logDiv = document.getElementById('log');
+    // let shade = true;
+    //
+    // function log(color='#000') {
+    //
+    //   return function(...args) {
+    //
+    //     const line = document.createElement('pre');
+    //
+    //     line.textContent   = args.map(n => JSON.stringify(n, null, 2)).join(' ').replace(/\\n/g, '\n');
+    //     line.style.padding = '6px';
+    //
+    //     if (shade) {
+    //       line.style.backgroundColor = '#e0e0e0';
+    //     }
+    //
+    //     line.style.fontSize = '10px';
+    //     line.style.color    = color;
+    //     shade               = !shade;
+    //
+    //     logDiv.appendChild(line);
+    //   };
+    // }
+    //
+    // window.console.log   = log('#444444');
+    // window.console.warn  = log('#757400');
+    // window.console.error = log('#750006');
+
+
     this.analyticsService.initialize();
 
     this.rootPage = TabsPage;
@@ -37,8 +66,9 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      setTimeout(()=>Splashscreen.hide(),500);
+      // StatusBar.styleDefault();
+      StatusBar.styleLightContent(); // do not use default style
+      setTimeout(() => Splashscreen.hide(), 500);
     });
 
     this.settingsService.onThemeChange((theme:string) => {

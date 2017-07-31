@@ -6,7 +6,7 @@ export class AnalyticsService {
 
   private ga : any;
 
-  async constructor(private platform: Platform) {
+  constructor(private platform: Platform) {
     this.platform.ready().then(()=> this.ga = window['ga']);
   }
 
