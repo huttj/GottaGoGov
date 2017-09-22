@@ -76,7 +76,7 @@ gulp.task('clean', function(){
   return del('www/build');
 });
 gulp.task('sqlite', function(options) {
-  options.src = options.src || 'app/**/*.sqlite';
+  options.src = options.src || 'app/*.sqlite';
   options.dest = options.dest || 'www';
 
   return gulp.src(options.src)

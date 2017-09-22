@@ -14,7 +14,7 @@
 
   <ion-item>Show Results Within (mi)</ion-item>
 
-  <ion-item>
+  <ion-item class="range-slider">
     <ion-range min="0" max="100" step="1" [(ngModel)]="range" (ionChange)="updateRange(range)" pin="true">
       <ion-label range-left>0</ion-label>
       <ion-label range-right>100</ion-label>

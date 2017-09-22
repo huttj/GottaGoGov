@@ -31,7 +31,7 @@ module.exports = co.wrap(function* geocode(str) {
 
       let i = 0;
       do {
-        if (state === resp[i].address.state && resp[i].type.match(/city|administrative|village|hamlet|town|island|suburb|desert|nature_reserve/)) {
+        if (state === resp[i].address.state && resp[i].type.match(/aerodrome|city|administrative|village|hamlet|town|island|suburb|desert|nature_reserve/)) {
           lat = resp[i].lat;
           long = resp[i].lon;
           county = resp[i].address.county;
@@ -44,6 +44,16 @@ module.exports = co.wrap(function* geocode(str) {
         if (str.match(/city/i)) {
           const replaced = str.replace(/city/gi, '').trim();
           return yield co(geocode, replaced);
+        }
+
+        console.log(resp);
+
+        if (resp[0].county) {
+          return {
+            lat: resp[0].lat,
+            long: resp[0].long,
+            county: resp[0].county
+          };
         }
 
         throw new Error('No suitable data found');

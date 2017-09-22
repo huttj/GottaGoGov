@@ -1,16 +1,16 @@
-module.exports = function parseCsv(raw) {
+module.exports = function parseCsv(raw, year) {
 
   const data = csvToObject(raw, true);
 
   // For perDiem and flight data
   return data.map(n => {
 
-    if (n.seasonBegin || n.fy17MIe) {
+    if (n.seasonBegin || n.fy17MIe || n.fy18MIe) {
 
-      n.seasonBegin = mapDate(n.seasonBegin);
-      n.seasonEnd   = mapDate(n.seasonEnd, true);
-      n.lodgingRate = +(n.fy17LodgingRate).slice(1);
-      n.mie         = +(n.fy17MIe).slice(1);
+      n.seasonBegin = mapDate(year, n.seasonBegin);
+      n.seasonEnd   = mapDate(year, n.seasonEnd, true);
+      n.lodgingRate = +(n.fy17LodgingRate || n.fy18LodgingRate).slice(1);
+      n.mie         = +(n.fy17MIe || n.fy18MIe).slice(1);
 
     } else if (n.effectiveDate) {
 
@@ -44,7 +44,7 @@ function shortDate(short) {
   return +new Date(2000 + +year, +month-1, +day);
 }
 
-function mapDate(source, end) {
+function mapDate(year, source, end) {
   const months = {
     'January': 0,
     'February': 1,
@@ -60,12 +60,56 @@ function mapDate(source, end) {
     'December': 11
   };
 
-  if (!source) return source;
-  const [month, date] = source.split(' ');
-  const monthNum = months[month];
-  // This one starts in October
-  const year = monthNum < 9 ? 2017 : 2016;
-  return +new Date(year, monthNum, +date + (end ? 1 : 0)) - (end ? 1 : 0);
+  const shortMonths = {
+    'Jan': 0,
+    'Feb': 1,
+    'Mar': 2,
+    'Apr': 3,
+    'May': 4,
+    'Jun': 5,
+    'Jul': 6,
+    'Aug': 7,
+    'Sep': 8,
+    'Oct': 9,
+    'Nov': 10,
+    'Dec': 11
+  };
+
+  if (!source) {
+
+    const date = new Date();
+
+    date.setFullYear(end ? year : year - 1);
+
+    date.setMonth(9);
+    date.setDate(1);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+
+    return +date;
+  }
+
+  try {
+
+    const [,date, month] = source.match(/(\d+)-(\w+)/);
+    if (!date || !month) throw new Error('Not the new format');
+    const monthNum = shortMonths[month];
+    // This one starts in October
+    const actualYear = monthNum < 9 ? year : year - 1;
+    return +new Date(actualYear, monthNum, +date + (end ? 1 : 0)) - (end ? 1 : 0);
+
+  } catch (e) {
+
+    const [month, date] = source.split(' ');
+    const monthNum = months[month];
+    // This one starts in October
+    const actualYear = monthNum < 9 ? year : year - 1;
+    return +new Date(actualYear, monthNum, +date + (end ? 1 : 0)) - (end ? 1 : 0);
+
+  }
+
 }
 
 
@@ -74,6 +118,7 @@ function titleCase(str) {
 }
 
 function camelCase(n) {
+  if (!n) return n;
   const str = n.replace(/[A-Za-z0-9]+/g, match => match[0].toUpperCase() + match.slice(1).toLowerCase());
   return (str[0].toLowerCase() + str.slice(1)).replace(/[^A-Za-z0-9]/g, '');
 }
@@ -83,7 +128,7 @@ function csvToObject(csv, formatHead) {
 
   if (!lines[lines.length-1]) lines.pop();
 
-  const head = lines[0].match(/("[^"]+"|[^,]*),/g).map(n => n.slice(0,-1)).map(n => (formatHead ? camelCase(n) : n));
+  const head = lines[0].match(/("[^"]+"|[^,]*),/g).map(n => n.trim().slice(0,-1)).map(n => (formatHead ? camelCase(n) : n));
 
   const rows = lines.slice(1).map(n => n.match(/("[^"]+"|[^,]*),/g).map(n => n.slice(0,-1)));
   return rows.reduce((acc, values) => {

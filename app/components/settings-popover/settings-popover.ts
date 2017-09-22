@@ -11,7 +11,7 @@ import {SettingsService} from "../../services/settings";
 class PopoverPage {
 
   private min = new Date().getFullYear() - 1;
-  private max = new Date().getFullYear() + 1;
+  private max = new Date().getFullYear() + 2;
   private time: string;
   private range: number;
 

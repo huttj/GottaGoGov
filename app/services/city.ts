@@ -32,11 +32,45 @@ export class CityService {
 
     const time = this.settings.time;
 
-    const rate = JSON.parse(data.rate || '[{}]');
+    let rate;
+
+    try {
+      rate = JSON.parse(data.rate);
+    } catch (e) {
+      rate = [{
+        mie         : 51,
+        lodging     : 91,
+        seasonBegin : 0,
+        seasonEnd   : 1506841200838,
+        fallback    : true,
+      },{
+        mie         : 51,
+        lodging     : 93,
+        seasonBegin : 1506841200838,
+        seasonEnd   : 5000000000000,
+        fallback    : true,
+      }];
+    }
 
     data.rate = rate.filter(n => {
       return !n.seasonBegin || (n.seasonBegin <= time && n.seasonEnd >= time);
     });
+
+    if (data.rate.length === 0) {
+      data.rate = [{
+        mie         : 51,
+        lodging     : 91,
+        seasonBegin : 0,
+        seasonEnd   : 1506841200838,
+        fallback    : true,
+      },{
+        mie         : 51,
+        lodging     : 93,
+        seasonBegin : 1506841200838,
+        seasonEnd   : 5000000000000,
+        fallback    : true,
+      }];
+    }
 
     return new City(data);
   }
@@ -53,7 +87,7 @@ export class CityService {
     const [ city='', state='' ] = str.split(',').map(n => n.trim());
 
     const params = [str, fuzzy, fuzzy, city, state.toUpperCase(), state+'%', this.pageSize, this.pageSize * page];
-    
+
     return this.data.executeSql(`
           SELECT ${this.props}
             FROM cities c

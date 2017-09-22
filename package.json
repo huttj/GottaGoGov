@@ -7,24 +7,22 @@
     "@angular/http": "2.0.0-rc.4",
     "@angular/platform-browser": "2.0.0-rc.4",
     "@angular/platform-browser-dynamic": "2.0.0-rc.4",
-    "es6-shim": "0.35.1",
-    "ionic-angular": "2.0.0-beta.11",
-    "ionic-native": "1.3.10",
-    "ionicons": "3.0.0",
-    "leaflet": "^1.0.1",
-    "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-beta.6",
-    "zone.js": "0.6.12"
-  },
-  "devDependencies": {
     "babel-plugin-syntax-async-generators": "^6.13.0",
     "babel-plugin-transform-regenerator": "^6.16.1",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.16.0",
     "babelify": "^7.3.0",
-    "del": "2.2.0",
-    "gulp": "3.9.1",
-    "gulp-watch": "4.3.5",
+    "cordova-plugin-console": "~1.0.4",
+    "cordova-plugin-device": "~1.1.3",
+    "cordova-plugin-splashscreen": "~3.1.0",
+    "cordova-plugin-statusbar": "~2.1.3",
+    "cordova-plugin-whitelist": "~1.2.2",
+    "del": "^2.2.0",
+    "es6-shim": "0.35.1",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.5",
+    "ionic": "^3.12.0",
+    "ionic-angular": "2.0.0-beta.11",
     "ionic-gulp-browserify-typescript": "2.0.0",
     "ionic-gulp-browserify-typescript-babel": "^2.0.2",
     "ionic-gulp-fonts-copy": "^1.0.0",
@@ -32,8 +30,16 @@
     "ionic-gulp-sass-build": "^1.0.0",
     "ionic-gulp-scripts-copy": "^2.0.0",
     "ionic-gulp-tslint": "^1.0.0",
-    "run-sequence": "1.1.5",
-    "tslint-ionic-rules": "0.0.4"
+    "ionic-native": "1.3.10",
+    "ionic-plugin-keyboard": "~2.2.1",
+    "ionicons": "3.0.0",
+    "leaflet": "^1.0.1",
+    "lodash": "^4.17.4",
+    "reflect-metadata": "0.1.8",
+    "run-sequence": "^1.1.5",
+    "rxjs": "5.0.0-beta.6",
+    "tslint-ionic-rules": "0.0.4",
+    "zone.js": "0.6.12"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
@@ -56,12 +62,27 @@
   "scripts": {
     "release": "npm run ios-release; npm run android-release",
     "ios-release": "npm run ios-build && npm run ios-open",
-    "ios-build": "ionic build ios --release",
+    "ios-build": "cordova build ios --release",
     "ios-open": "open -a Xcode platforms/ios/GottaGoGov.xcodeproj",
     "android-release": "npm run android-clean && npm run android-build && npm run android-sign && npm run android-zipalign",
     "android-clean": "rm -f GottaGoGov.apk",
-    "android-build": "ionic build android --release",
+    "android-build": "cordova build android --release",
     "android-sign": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/build/outputs/apk/android-release-unsigned.apk main",
-    "android-zipalign": "/Users/joshua/Library/Application\\ Support/Fusetools/Fuse/Android/AndroidSDK/build-tools/23.0.2/zipalign -v 4 platforms/android/build/outputs/apk/android-release-unsigned.apk GottaGoGov.apk"
+    "android-zipalign": "/Users/joshua/Library/Application\\ Support/Fusetools/Fuse/Android/AndroidSDK/build-tools/23.0.2/zipalign -v 4 platforms/android/build/outputs/apk/android-release-unsigned.apk GottaGoGov.apk",
+    "start": "node server; ionic serve"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-console": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-whitelist": {},
+      "ionic-plugin-keyboard": {}
+    }
+  },
+  "devDependencies": {
+    "@ionic/cli-plugin-gulp": "1.1.1",
+    "@ionic/cli-plugin-ionic-angular": "1.4.1"
   }
 }

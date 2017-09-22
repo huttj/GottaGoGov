@@ -65,6 +65,13 @@
     </h3>
   </ion-item>
 
+  <ion-item *ngIf="city.fallback">
+    <h3>
+      <ion-icon danger name="alert"></ion-icon>
+      <em>A specific per diem rate for the selected time period is unavailable. Showing the default per diem rate.</em>
+    </h3>
+  </ion-item>
+
   <ion-item *ngIf="!perDiem || !perDiem.city">
     <h2><em>There is no per-diem rate for this city.</em></h2>
   </ion-item>

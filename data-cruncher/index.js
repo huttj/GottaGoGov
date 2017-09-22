@@ -1,12 +1,12 @@
-const fs               = require('fs');
-const co               = require('co');
+const fs          = require('fs');
+const co          = require('co');
 
-const parseCsv         = require('./util/parse-csv');
-const groupByCity      = require('./util/groupByCity');
-const insertData       = require('./util/db/insertData');
-const cities           = require('./util/cities');
-const log              = require('./util/log');
-const geocode          = require('./util/geocode');
+const parseCsv    = require('./util/parse-csv');
+const groupByCity = require('./util/groupByCity');
+const insertData  = require('./util/db/insertData');
+const cities      = require('./util/cities');
+const log         = require('./util/log');
+const geocode     = require('./util/geocode');
 
 // Airlines
 log.info('Loading Airlines');
@@ -15,33 +15,48 @@ const airlines    = parseCsv(rawAirlines);
 
 airlines.forEach((n, i) => n.id = i+1);
 
+const perDiems = [
+  ...loadPerDiemsByYear(2017),
+  ...loadPerDiemsByYear(2018)
+];
 
-// PerDiems
-log.info('Loading PerDiems');
-const rawPerDiem    = fs.readFileSync('./data/per-diem.csv', 'utf8');
-const parsedPerDiem = parseCsv(rawPerDiem);
-const perDiems      = groupByCity(parsedPerDiem);
+const flights = [
+  ...loadCityPairsByYear(2017),
+  ...loadCityPairsByYear(2018)
+];
+
+function loadPerDiemsByYear(year) {
+  // PerDiems
+  log.info('Loading PerDiems');
+  const rawPerDiem    = fs.readFileSync(`./data/per-diem-${year}.csv`, 'utf8');
+  const parsedPerDiem = parseCsv(rawPerDiem, year);
+  const perDiems      = groupByCity(parsedPerDiem);
 
 
-for (let perDiem of perDiems) {
-  try {
+  for (let perDiem of perDiems) {
+    try {
 
-    const city = cities.getById(cities.getCityId(perDiem.state, perDiem.destination));
+      const city = cities.getById(cities.getCityId(perDiem.state, perDiem.destination));
 
-    if (!city.rate) city.rate = [];
+      if (!city.rate) city.rate = [];
 
-    city.rate.push({
-      lodging     : perDiem.lodgingRate,
-      mie         : perDiem.mie,
-      seasonBegin : perDiem.seasonBegin,
-      seasonEnd   : perDiem.seasonEnd
-    });
+      city.rate.push({
+        lodging     : perDiem.lodgingRate,
+        mie         : perDiem.mie,
+        seasonBegin : perDiem.seasonBegin,
+        seasonEnd   : perDiem.seasonEnd
+      });
 
-  } catch (e) {
-    console.error('Failed to getCityId for', perDiem);
-    throw e;
+    } catch (e) {
+      console.error('Failed to getCityId for', perDiem);
+      throw e;
+    }
   }
+
+  return perDiems;
 }
+
+
 // cities.all().push({
 //   id: -1,
 //   cityId: -1,
@@ -50,26 +65,30 @@ for (let perDiem of perDiems) {
 // });
 
 
-// City Pairs
-log.info('Loading City Pairs');
-const rawFlights = fs.readFileSync('./data/award2017.csv', 'utf8');
-const flights    = parseCsv(rawFlights);
+function loadCityPairsByYear(year) {
+  // City Pairs
+  log.info('Loading City Pairs');
+  const rawFlights = fs.readFileSync(`./data/city-pairs-${year}.csv`, 'utf8');
+  const flights    = parseCsv(rawFlights);
 
-i = 0;
-for (let flight of flights) {
-  flight.id = i++;
+  i = 0;
+  for (let flight of flights) {
+    flight.id = i++;
 
-  flight.originState       = cities.getStateName(flight.originState);
-  flight.destinationState  = cities.getStateName(flight.destinationState);
+    flight.originState       = cities.getStateName(flight.originState);
+    flight.destinationState  = cities.getStateName(flight.destinationState);
 
-  flight.originCityId      = cities.getCityId(flight.originState, flight.originCityName, flight.originCountry);
-  flight.destinationCityId = cities.getCityId(flight.destinationState, flight.destinationCityName, flight.destinationCountry);
+    flight.originCityId      = cities.getCityId(flight.originState, flight.originCityName, flight.originCountry);
+    flight.destinationCityId = cities.getCityId(flight.destinationState, flight.destinationCityName, flight.destinationCountry);
+  }
+
+  return flights;
 }
 
 
 
 
-co(function*(){
+(async function() {
 
   const counties = {};
   const allCities = cities.all();
@@ -81,7 +100,7 @@ co(function*(){
   for (const city of allCities) {
 
     log.info(`${i++}/${total}`, 'Loading county data for:', `${city.city}, ${city.state || city.country}`);
-    const { lat, long, county } = yield geocode(`${city.city}, ${city.state || city.country}`);
+    const { lat, long, county } = await geocode(`${city.city}, ${city.state || city.country}`);
 
     city.latitude  = lat;
     city.longitude = long;
@@ -115,17 +134,39 @@ co(function*(){
         const key = `${city.county}:${city.state}`;
         const county = counties[key];
 
-        county.rate = city.rate = county.rate || [{
-          mie     : 51,
-          lodging : 91
-        }];
+        county.rate = city.rate = county.rate || [
+            {
+              mie         : 51,
+              lodging     : 91,
+              seasonBegin : 0,
+              seasonEnd   : 1506841200838,
+              fallback    : true,
+            },{
+              mie         : 51,
+              lodging     : 93,
+              seasonBegin : 1506841200838,
+              seasonEnd   : 5000000000000,
+              fallback    : true,
+            }
+        ];
 
 
       } else {
-        city.rate = [{
-          mie: 51,
-          lodging: 91
-        }];
+        city.rate = [
+          {
+            mie         : 51,
+            lodging     : 91,
+            seasonBegin : 0,
+            seasonEnd   : 1506841200838,
+            fallback    : true,
+          },{
+            mie         : 51,
+            lodging     : 93,
+            seasonBegin : 1506841200838,
+            seasonEnd   : 5000000000000,
+            fallback    : true,
+          }
+        ];
       }
     }
 
@@ -165,7 +206,7 @@ co(function*(){
 
   log.info('Inserting Data');
 
-  yield insertData({
+  await insertData({
     flights,
     cities: cities.all(),
     counties: allCounties,
@@ -174,7 +215,7 @@ co(function*(){
 
   console.log('Inserted data!');
 
-}).catch(console.log);
+})().catch(console.log);
 
 
 function saveJson(obj) {

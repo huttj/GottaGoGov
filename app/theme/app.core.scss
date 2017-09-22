@@ -99,3 +99,26 @@ ion-list, scroll-content {
     }
   }
 }
+
+.range-slider {
+  &.item, .item-inner {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: visible;
+  }
+  &.item {
+    padding: 0 4px;
+  }
+  ion-range {
+    padding-top: 8px;
+    padding: 8px;
+  }
+}
+
+.platform-ios11 {
+  //ion-navbar, ion-title {
+  //  padding-top: 0 !important;
+  //  height: 44px !important;
+  //  min-height: 44px !important;
+  //}
+}

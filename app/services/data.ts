@@ -5,10 +5,11 @@ import { AlertController } from 'ionic-angular';
 
 import stringify           from '../util/stringify';
 
+
 @Injectable()
 export class DataService {
 
-  private static dbName = "GottaFlyFed.sqlite";
+  private static dbName = "GottaFlyFed2018.sqlite";
   private db   = new SQLite();
   private lock = null;
 
@@ -17,6 +18,8 @@ export class DataService {
   }
 
   async init() {
+    if (!this.isNative()) return;
+
     try {
       await this.isReady();
 
@@ -41,12 +44,12 @@ export class DataService {
   }
 
   markCopied() {
-    return window['localStorage'].setItem('copied', 'true');
+    return window['localStorage'].setItem('copied', DataService.dbName);
   }
 
   isCopied() {
     try {
-      return JSON.parse(window['localStorage'].getItem('copied') || 'false');
+      return window['localStorage'].getItem('copied') === DataService.dbName;
     } catch (e) {
       return false;
     }

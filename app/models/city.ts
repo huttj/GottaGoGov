@@ -15,6 +15,7 @@ export default class City {
   abbr        : string;
   saved       : boolean;
   difference  : any;
+  fallback    : boolean;
 
   constructor(obj?) {
     if (!obj) obj = {};
@@ -24,6 +25,7 @@ export default class City {
     this.id          = obj.id;
 
 
+    this.fallback    = !!rate.fallback;
     this.seasonBegin = rate.seasonBegin;
     this.seasonEnd   = rate.seasonEnd;
     this.lodging     = rate.lodging;
