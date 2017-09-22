@@ -40,7 +40,7 @@ export class CityService {
       rate = [{
         mie         : 51,
         lodging     : 91,
-        seasonBegin : 0,
+        seasonBegin : 1,
         seasonEnd   : 1506841200838,
         fallback    : true,
       },{
@@ -53,24 +53,28 @@ export class CityService {
     }
 
     data.rate = rate.filter(n => {
-      return !n.seasonBegin || (n.seasonBegin <= time && n.seasonEnd >= time);
+      return typeof n.seasonBegin !== 'number' || (n.seasonBegin <= time && n.seasonEnd >= time);
     });
 
     if (data.rate.length === 0) {
       data.rate = [{
-        mie         : 51,
-        lodging     : 91,
-        seasonBegin : 0,
-        seasonEnd   : 1506841200838,
-        fallback    : true,
-      },{
-        mie         : 51,
-        lodging     : 93,
-        seasonBegin : 1506841200838,
-        seasonEnd   : 5000000000000,
-        fallback    : true,
-      }];
+        mie: 51,
+        lodging: 91,
+        seasonBegin: 1,
+        seasonEnd: 1506841200838,
+        fallback: true,
+      }, {
+        mie: 51,
+        lodging: 93,
+        seasonBegin: 1506841200838,
+        seasonEnd: 5000000000000,
+        fallback: true,
+      }].filter(n => {
+        return typeof n.seasonBegin !== 'number' || (n.seasonBegin <= time && n.seasonEnd >= time);
+      });
     }
+
+
 
     return new City(data);
   }
@@ -191,18 +195,25 @@ export class CityService {
           WHERE name = ?
         `, [county]);
 
-        const countyRate = JSON.parse(countyData && countyData.rate || '[{}]');
+        let countyRate = JSON.parse(countyData && countyData.rate || '[]');
 
-        let { mie, lodging, seasonBegin, seasonEnd } = countyRate;
-
-        if (!mie || !lodging) {
-          mie = 51;
-          lodging = 91;
+        if (!countyRate || countyRate.length === 0) {
+          countyRate = [{
+            mie         : 51,
+            lodging     : 91,
+            seasonBegin : 1,
+            seasonEnd   : 1506841200838,
+            fallback    : true,
+          },{
+            mie         : 51,
+            lodging     : 93,
+            seasonBegin : 1506841200838,
+            seasonEnd   : 5000000000000,
+            fallback    : true,
+          }];
         }
 
-        console.log(name, {mie, lodging, seasonBegin, seasonEnd});
-
-        const rate = JSON.stringify([{mie, lodging, seasonBegin, seasonEnd}]);
+        const rate = JSON.stringify(countyRate);
 
         console.log(name, rate);
 
