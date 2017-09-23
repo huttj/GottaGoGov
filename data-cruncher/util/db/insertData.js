@@ -109,6 +109,7 @@ module.exports = co.wrap(function* insertData({
   }
 
   function insertFlights(flight) {
+    debugger;
     return db.run(`
       INSERT INTO flights (
          id

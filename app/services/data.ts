@@ -9,7 +9,7 @@ import stringify           from '../util/stringify';
 @Injectable()
 export class DataService {
 
-  private static dbName = "GottaFlyFed2018.sqlite";
+  private static dbName = "GottaFlyFed2018-2.sqlite";
   private db   = new SQLite();
   private lock = null;
 

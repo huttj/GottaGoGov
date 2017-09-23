@@ -79,6 +79,8 @@ export class FlightsService {
     page: number = 0
   ):Promise<Flight[]> {
 
+    const time = this.settings.time;
+
     const sql = `
       SELECT ${this.props}
       FROM flights f
@@ -91,6 +93,10 @@ export class FlightsService {
       AND (
         f.destinationAirportAbbrev = ?
         OR f.destinationCity LIKE ?
+      )
+      AND (
+        f.effectiveDate < ?
+        AND f.expirationDate > ?
       )
              
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
@@ -107,16 +113,20 @@ export class FlightsService {
         f.destinationAirportAbbrev = ?
         OR f.destinationCity LIKE ?
       )
-      AND (
+      AND ( 
         f.originAirportAbbrev = ?
         OR f.originCity LIKE ?
+      )
+      AND (
+        f.effectiveDate < ?
+        AND f.expirationDate > ?
       )
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
       LIMIT ?
       OFFSET ?
     `;
 
-    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%', this.pageSize, this.pageSize * page];
+    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%', time, time, this.pageSize, this.pageSize * page];
 
     const res:any = await Promise.all([
       this.data.executeSql(sql, params),
@@ -125,7 +135,11 @@ export class FlightsService {
 
     const [a,b] = res;
 
-    return a.concat(b);
+    const result = a.concat(b);
+
+    console.log(result);
+
+    return result;
 
   }
 
@@ -160,7 +174,7 @@ export class FlightsService {
        LEFT JOIN airlines a
               ON f.airlineAbbrev = a.code
            WHERE f.id = ?
-     `, [id])
+     `, [Math.abs(id)])
       .then(rows => rows[0])
       .catch(toss);
   }

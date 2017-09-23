@@ -8,6 +8,10 @@ const cities      = require('./util/cities');
 const log         = require('./util/log');
 const geocode     = require('./util/geocode');
 
+let cityId = 0;
+let flightId = 0;
+
+
 // Airlines
 log.info('Loading Airlines');
 const rawAirlines = fs.readFileSync('./data/airlines.csv', 'utf8');
@@ -71,9 +75,8 @@ function loadCityPairsByYear(year) {
   const rawFlights = fs.readFileSync(`./data/city-pairs-${year}.csv`, 'utf8');
   const flights    = parseCsv(rawFlights);
 
-  i = 0;
   for (let flight of flights) {
-    flight.id = i++;
+    flight.id = flightId++;
 
     flight.originState       = cities.getStateName(flight.originState);
     flight.destinationState  = cities.getStateName(flight.destinationState);

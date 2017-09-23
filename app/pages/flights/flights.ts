@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { FlightDetailPage } from '../flight-detail/flight-detail';
 import { FlightsService }   from '../../services/flights';
 import { AnalyticsService } from '../../services/analytics';
+import { SettingsService } from '../../services/settings';
 
 import Flight from '../../models/flight';
 
@@ -31,10 +32,12 @@ export class FlightsPage {
     public navParams: NavParams,
     public navCtrl: NavController,
     public flightsService: FlightsService,
-    public analyticsService: AnalyticsService
+    public analyticsService: AnalyticsService,
+    public settingsService: SettingsService
   ) {
     this.originSearch      = navParams.get('origin') || '';
     this.destinationSearch = navParams.get('destination') || '';
+    this.settingsService.time$.subscribe(()=>this.search());
   }
 
   ionViewWillEnter() {

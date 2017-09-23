@@ -14,6 +14,10 @@ module.exports = function parseCsv(raw, year) {
 
     } else if (n.effectiveDate) {
 
+      if (shortDate(n.effectiveDate) === 64620745200000) {
+        debugger;
+      }
+
       n.effectiveDate  = shortDate(n.effectiveDate);
       n.expirationDate = shortDate(n.expirationDate);
 
@@ -41,7 +45,7 @@ module.exports = function parseCsv(raw, year) {
 function shortDate(short) {
   if (!short) return short;
   const [month, day, year] = short.split('/');
-  return +new Date(2000 + +year, +month-1, +day);
+  return +new Date(year.length === 2 ? 2000 + +year : +year, +month-1, +day);
 }
 
 function mapDate(year, source, end) {
@@ -128,9 +132,17 @@ function csvToObject(csv, formatHead) {
 
   if (!lines[lines.length-1]) lines.pop();
 
-  const head = lines[0].match(/("[^"]+"|[^,]*),/g).map(n => n.trim().slice(0,-1)).map(n => (formatHead ? camelCase(n) : n));
+  const head = lines[0]
+    .match(/("[^"]+"|[^,]*),?/g)
+    .map(n => n.trim()) // Remove extra spa
+    .map(n => n[n.length-1] === ',' ? n.slice(0,-1) : n) // Pull off trailing comma
+    .map(n => (formatHead ? camelCase(n) : n)); // camelCase it
 
-  const rows = lines.slice(1).map(n => n.match(/("[^"]+"|[^,]*),/g).map(n => n.slice(0,-1)));
+  const rows = lines
+    .slice(1)
+    .map(n => n.match(/("[^"]+"|[^,]*),?/g)
+      .map(n => n[n.length-1] === ',' ? n.slice(0,-1) : n));
+
   return rows.reduce((acc, values) => {
     var row = {};
 
