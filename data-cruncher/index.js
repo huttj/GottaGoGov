@@ -24,10 +24,48 @@ const perDiems = [
   ...loadPerDiemsByYear(2018)
 ];
 
-const flights = [
+const flights = mergeFlights([
   ...loadCityPairsByYear(2017),
   ...loadCityPairsByYear(2018)
-];
+]);
+
+function mergeFlights(flights) {
+
+  const byId = {};
+
+  for (const flight of flights) {
+
+    const key = getKey(flight);
+
+    const rate = {
+      ycaFare: flight.ycaFare,
+      xcaFare: flight.xcaFare,
+      paxCount: flight.paxCount,
+      awardYear: flight.awardYear,
+      awardServ: flight.awardServ,
+      businessFare: flight.businessFare,
+      effectiveDate: flight.effectiveDate,
+      expirationDate: flight.expirationDate,
+    };
+
+    if (byId[key]) {
+      byId[key].rates.push(rate)
+    } else {
+      byId[key] = flight;
+      flight.rates = [rate];
+    }
+
+  }
+
+  return Object.values(byId).map(n => {
+    n.rates = JSON.stringify(n.rates);
+    return n;
+  });
+
+  function getKey(f) {
+    return `${f.originCityName}:${f.originAirportAbbrev}:${f.destinationCityName}:${f.destinationAirportAbbrev}:${f.airlineAbbrev}`;
+  }
+}
 
 function loadPerDiemsByYear(year) {
   // PerDiems

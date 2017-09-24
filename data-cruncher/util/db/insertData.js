@@ -116,7 +116,6 @@ module.exports = co.wrap(function* insertData({
         ,originCityId
         ,destinationCityId
         ,itemNum
-        ,awardYear
         ,originAirportAbbrev
         ,destinationAirportAbbrev
         ,originCity
@@ -132,46 +131,33 @@ module.exports = co.wrap(function* insertData({
         ,destinationLatitude
         ,destinationLongitude
         ,airlineAbbrev
-        ,awardedServ
-        ,paxCount
-        ,ycaFare
-        ,xcaFare
-        ,businessFare
         ,originAirportLocation
         ,destinationAirportLocation
-        ,effectiveDate
-        ,expirationDate
-      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ,rates
+      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     `, [
-      flight.id,
-      flight.originCityId,
-      flight.destinationCityId,
-      flight.itemNum,
-      flight.awardYear,
-      flight.originAirportAbbrev,
-      flight.destinationAirportAbbrev,
-      flight.originCityName,
-      flight.originState,
-      flight.originCountry,
-      flight.originStateAbbr,
-      flight.originLat,
-      flight.originLong,
-      flight.destinationCityName,
-      flight.destinationState,
-      flight.destinationCountry,
-      flight.destinationStateAbbr,
-      flight.destinationLat,
-      flight.destinationLong,
-      flight.airlineAbbrev,
-      flight.awardedServ,
-      flight.paxCount,
-      flight.ycaFare,
-      flight.xcaFare,
-      flight.businessFare,
-      flight.originAirportLocation,
-      flight.destinationAirportLocation,
-      flight.effectiveDate,
-      flight.expirationDate
+       flight.id
+      ,flight.originCityId
+      ,flight.destinationCityId
+      ,flight.itemNum
+      ,flight.originAirportAbbrev
+      ,flight.destinationAirportAbbrev
+      ,flight.originCityName
+      ,flight.originState
+      ,flight.originCountry
+      ,flight.originStateAbbrev
+      ,flight.originLatitude
+      ,flight.originLongitude
+      ,flight.destinationCityName
+      ,flight.destinationState
+      ,flight.destinationCountry
+      ,flight.destinationStateAbbrev
+      ,flight.destinationLatitude
+      ,flight.destinationLongitude
+      ,flight.airlineAbbrev
+      ,flight.originAirportLocation
+      ,flight.destinationAirportLocation
+      ,flight.rates
     ]).catch(err => console.error('Failed to insert into flights', err));
   }
 

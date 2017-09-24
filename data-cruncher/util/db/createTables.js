@@ -66,7 +66,6 @@ function flights(db) {
        ,originCityId                INTEGER
        ,destinationCityId           INTEGER
        ,itemNum                     INTEGER
-       ,awardYear                   INTEGER
        ,originAirportAbbrev         TEXT
        ,destinationAirportAbbrev    TEXT
        ,originCity                  TEXT
@@ -82,16 +81,12 @@ function flights(db) {
        ,destinationLatitude         REAL
        ,destinationLongitude        REAL
        ,airlineAbbrev               TEXT
-       ,awardedServ                 TEXT
-       ,paxCount                    INTEGER
-       ,ycaFare                     INTEGER
-       ,xcaFare                     INTEGER
-       ,businessFare                INTEGER
        ,originAirportLocation       TEXT
        ,destinationAirportLocation  TEXT
        ,effectiveDate               INTEGER
        ,expirationDate              INTEGER
        ,saved                       INTEGER NON NULL DEFAULT 0
+       ,rates                       TEXT
     );
   `, []).then(() => indexRates(db));
 }

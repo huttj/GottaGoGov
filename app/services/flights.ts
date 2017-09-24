@@ -31,11 +31,7 @@ export class FlightsService {
     
     ,f.airlineAbbrev
     ,a.name AS airlineName
-    ,f.ycaFare
-    ,f.xcaFare
-    ,f.businessFare
-    ,f.effectiveDate
-    ,f.expirationDate
+    ,f.rates
     ,f.saved
   `;
 
@@ -49,21 +45,17 @@ export class FlightsService {
     ,f.destinationStateAbbrev     AS originStateAbbrev
     ,f.destinationAirportLocation AS originAirportLocation
     
-    ,f.originCity            AS destinationCity
-    ,f.originCityId          AS destinationCityId
-    ,f.originCountry         AS destinationCountry
-    ,f.originAirportAbbrev   AS destinationAirportAbbrev
-    ,f.originState           AS destinationState
-    ,f.originStateAbbrev     AS destinationStateAbbrev
-    ,f.originAirportLocation AS destinationAirportLocation
+    ,f.originCity                 AS destinationCity
+    ,f.originCityId               AS destinationCityId
+    ,f.originCountry              AS destinationCountry
+    ,f.originAirportAbbrev        AS destinationAirportAbbrev
+    ,f.originState                AS destinationState
+    ,f.originStateAbbrev          AS destinationStateAbbrev
+    ,f.originAirportLocation      AS destinationAirportLocation
     
     ,f.airlineAbbrev
     ,a.name AS airlineName
-    ,f.ycaFare
-    ,f.xcaFare
-    ,f.businessFare
-    ,f.effectiveDate
-    ,f.expirationDate
+    ,f.rates
     ,f.saved
     
   `;
@@ -73,13 +65,24 @@ export class FlightsService {
     public settings: SettingsService
   ) {}
 
+  makeFlight(data) {
+    const time = this.settings.time;
+    const flight = new Flight(data);
+
+    const rate = flight.rates.find(n => n.effectiveDate <= time && n.expirationDate >= time);
+
+    if (rate) {
+      Object.assign(flight, rate);
+    }
+
+    return flight;
+  }
+
   async search(
     originCity: string,
     destinationCity: string,
     page: number = 0
   ):Promise<Flight[]> {
-
-    const time = this.settings.time;
 
     const sql = `
       SELECT ${this.props}
@@ -93,12 +96,7 @@ export class FlightsService {
       AND (
         f.destinationAirportAbbrev = ?
         OR f.destinationCity LIKE ?
-      )
-      AND (
-        f.effectiveDate < ?
-        AND f.expirationDate > ?
-      )
-             
+      )      
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
       LIMIT ?
       OFFSET ?
@@ -117,16 +115,12 @@ export class FlightsService {
         f.originAirportAbbrev = ?
         OR f.originCity LIKE ?
       )
-      AND (
-        f.effectiveDate < ?
-        AND f.expirationDate > ?
-      )
       ORDER BY f.saved DESC, originCity ASC, destinationCity ASC
       LIMIT ?
       OFFSET ?
     `;
 
-    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%', time, time, this.pageSize, this.pageSize * page];
+    const params = [originCity.toUpperCase(), originCity+'%', destinationCity.toUpperCase(), destinationCity+'%', this.pageSize, this.pageSize * page];
 
     const res:any = await Promise.all([
       this.data.executeSql(sql, params),
@@ -135,7 +129,7 @@ export class FlightsService {
 
     const [a,b] = res;
 
-    const result = a.concat(b);
+    const result = a.concat(b).map(n => this.makeFlight(n));
 
     console.log(result);
 
@@ -175,7 +169,7 @@ export class FlightsService {
               ON f.airlineAbbrev = a.code
            WHERE f.id = ?
      `, [Math.abs(id)])
-      .then(rows => rows[0])
+      .then(rows => this.makeFlight(rows[0]))
       .catch(toss);
   }
 

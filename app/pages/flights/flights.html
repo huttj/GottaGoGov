@@ -36,8 +36,13 @@
       <h2>From: {{flight.originCity}}, {{ flight.originStateAbbrev || flight.originCountry }} ({{flight.originAirportAbbrev}})</h2>
       <h2>To: {{flight.destinationCity}}, {{ flight.destinationStateAbbrev || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
       <p>{{flight.airlineName}} Airlines</p>
-      <p>YCA Fare: ${{flight.ycaFare}}</p>
-      <p>XCA Fare: ${{flight.xcaFare}}</p>
+
+      <p *ngIf="!flight.xcaFare && !flight.ycaFare">No fare details for the selected date.</p>
+      <div *ngIf="flight.xcaFare || flight.ycaFare">
+        <p>YCA Fare: ${{flight.ycaFare}}</p>
+        <p>XCA Fare: ${{flight.xcaFare}}</p>
+      </div>
+
     </ion-item>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="hasMore">

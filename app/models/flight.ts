@@ -27,6 +27,9 @@ export default class Flight {
   businessFare               : number;
   effectiveDate              : any;
   expirationDate             : any;
+
+  rates                      : any;
+
   saved                      : boolean;
 
   constructor(obj?) {
@@ -54,12 +57,8 @@ export default class Flight {
     this.airlineAbbrev              = obj.airlineAbbrev;
     this.airlineName                = obj.airlineName;
     this.awardedServ                = obj.awardedServ;
-    this.paxCount                   = obj.paxCount;
-    this.ycaFare                    = obj.ycaFare;
-    this.xcaFare                    = obj.xcaFare;
-    this.businessFare               = obj.businessFare;
-    this.effectiveDate              = new Date(obj.effectiveDate);
-    this.expirationDate             = new Date(obj.expirationDate);
+
+    this.rates                      = JSON.parse(obj.rates || '[]');
 
     this.saved                      = !!obj.saved;
   }

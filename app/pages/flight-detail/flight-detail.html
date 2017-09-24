@@ -26,8 +26,13 @@
     <h2>{{flight.destinationCity}}, {{ flight.destinationStateAbbrev || flight.destinationCountry }} ({{flight.destinationAirportAbbrev}})</h2>
 
     <h3 class="subtitle">Fares</h3>
-    <h2>YCA: <strong>${{flight.ycaFare}}</strong></h2>
-    <h2>XCA: <strong>${{flight.xcaFare}}</strong></h2>
+    <div *ngIf="flight.xcaFare || flight.ycaFare">
+      <h2>YCA: <strong>${{flight.ycaFare}}</strong></h2>
+      <h2>XCA: <strong>${{flight.xcaFare}}</strong></h2>
+    </div>
+    <div *ngIf="!flight.xcaFare && !flight.ycaFare">
+      <h2>No fare information for the selected date.</h2>
+    </div>
 
     <h3 class="subtitle">Airline</h3>
     <h2>{{flight.airlineName}} Airlines</h2>
